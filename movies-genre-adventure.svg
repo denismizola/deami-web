@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Matukio na safari</title>
+  <desc id="desc">Mchoro wa asili wa msafiri mbele ya milima yenye ukungu wa dhahabu.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#153f57"/><stop offset=".53" stop-color="#df9b5b"/><stop offset="1" stop-color="#f7d28a"/></linearGradient>
+    <linearGradient id="mountain" x2=".8" y2="1"><stop stop-color="#77949a"/><stop offset="1" stop-color="#263f4a"/></linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h640v420H0z"/>
+  <circle cx="479" cy="110" r="53" fill="#ffdf9a"/>
+  <path fill="#9db0a4" d="m0 278 133-154 76 84 91-126 155 196z"/>
+  <path fill="#e8dfc1" d="m133 124 36 79-36-19-32 28zm167-42 45 92-46-30-40 29z"/>
+  <path fill="url(#mountain)" d="m145 296 147-188 183 190 88-102 77 85v139H0v-86z"/>
+  <path fill="#193942" d="M0 334q90-74 178-6t157-1q102-91 190-7t115-4v104H0z"/>
+  <path fill="#102a32" d="M0 381q114-60 227 2t215-5q110-56 198 5v37H0z"/>
+  <path fill="#18242a" d="m277 345 31-70 26 70zm-9-69h60v10h-60z"/>
+  <circle cx="307" cy="261" r="14" fill="#18242a"/>
+  <path fill="#18242a" d="m294 277 27-1 17 58-15 4-18-39-13 42-15-5z"/>
+  <path fill="#d57a43" d="m296 281 24-1 5 42-35-2z"/>
+</svg>

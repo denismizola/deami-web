@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Jiji chini ya mwanga wa sinema</title>
+  <desc id="desc">Mchoro wa asili wa majengo marefu na mwanga unaopenya mawinguni.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#162347"/><stop offset=".55" stop-color="#643e69"/><stop offset="1" stop-color="#e38b69"/></linearGradient>
+    <linearGradient id="beam"><stop stop-color="#ffd5a1" stop-opacity="0"/><stop offset=".5" stop-color="#ffd5a1" stop-opacity=".55"/><stop offset="1" stop-color="#ffd5a1" stop-opacity="0"/></linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h640v420H0z"/>
+  <circle cx="457" cy="105" r="45" fill="#ffd9a0" opacity=".9"/>
+  <path fill="url(#beam)" d="m457 105 168 248H275z"/>
+  <path fill="#29314d" d="M0 215h72v205H0zm80-52h67v257H80zm76 89h62v168h-62zm72-93h76v261h-76zm84 52h65v209h-65zm73-111h85v320h-85zm93 80h75v240h-75zm84-33h73v273h-73z"/>
+  <path fill="#18223d" d="M0 331h92v89H0zm102-46h75v135h-75zm88 61h80v79h-80zm94-43h87v122h-87zm101 36h75v86h-75zm88-58h92v144h-92z"/>
+  <g fill="#ffd78e" opacity=".9"><path d="M99 193h8v17h-8zm22 0h8v17h-8zm-22 31h8v17h-8zm-22 62h8v17h-8zm132-63h8v18h-8zm-1 35h8v18h-8zm65-73h8v18h-8zm24 0h8v18h-8zm0 38h8v18h-8zm127-79h8v18h-8zm25 0h8v18h-8zm0 39h8v18h-8zm113 23h8v18h-8zm26 0h8v18h-8zm-2 40h8v18h-8z"/></g>
+  <path fill="#151b32" d="M0 391q130-22 235 3t214-5q105-20 191 5v26H0z"/>
+</svg>

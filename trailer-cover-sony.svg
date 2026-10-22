@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Jiji la neon usiku</title>
+  <desc id="desc">Mchoro wa asili wa jiji la usiku lenye taa za neon na mvua.</desc>
+  <defs>
+    <linearGradient id="sky" x2=".9" y2="1"><stop stop-color="#111b3d"/><stop offset=".5" stop-color="#352d67"/><stop offset="1" stop-color="#177e89"/></linearGradient>
+    <linearGradient id="neon" x2="1"><stop stop-color="#ff65a8"/><stop offset="1" stop-color="#64f3e8"/></linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h640v420H0z"/>
+  <circle cx="484" cy="111" r="70" fill="#6cf4df" opacity=".14"/>
+  <circle cx="484" cy="111" r="48" fill="none" stroke="#81fff0" stroke-width="2" opacity=".7"/>
+  <path fill="#181f48" d="M0 220h78v200H0zm87-76h75v276H87zm83 99h68v177h-68zm76-117h84v294h-84zm93 57h76v237h-76zm85-90h75v327h-75zm84 112h70v215h-70zm78-63h64v278h-64z"/>
+  <path fill="#111a39" d="M0 341h115v79H0zm123-62h85v141h-85zm95 37h90v103h-90zm101-61h82v164h-82zm93 52h89v112h-89zm99-53h74v165h-74zm83 40h46v125h-46z"/>
+  <g fill="none" stroke="url(#neon)" stroke-width="5" opacity=".9"><path d="M102 171v59h45v-59z"/><path d="M269 158v78h57v-78z"/><path d="M445 117v78h48v-78z"/><path d="M540 233v61h44v-61z"/></g>
+  <g fill="#fff2bc"><circle cx="120" cy="187" r="3"/><circle cx="292" cy="175" r="3"/><circle cx="467" cy="134" r="3"/><circle cx="562" cy="249" r="3"/><circle cx="197" cy="313" r="2"/><circle cx="397" cy="333" r="2"/></g>
+  <path stroke="#9ddbf0" stroke-width="2" opacity=".5" d="m52 38-24 95m212-83-17 64m198-88-26 106m186-84-20 83m-389 99-16 67m303-66-17 78"/>
+  <path fill="#0d1935" d="M0 400q123-25 238 5t222-2q99-17 180 1v16H0z"/>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Action</title>
+  <desc id="desc">Mchoro wa asili wa gari la kasi kwenye jiji lenye mwanga mkali.</desc>
+  <defs>
+    <linearGradient id="sky" x2=".9" y2="1"><stop stop-color="#111a3b"/><stop offset=".52" stop-color="#a43843"/><stop offset="1" stop-color="#ffb044"/></linearGradient>
+    <linearGradient id="road" x2="0" y2="1"><stop stop-color="#313048"/><stop offset="1" stop-color="#101624"/></linearGradient>
+    <linearGradient id="light"><stop stop-color="#ffea9d" stop-opacity="0"/><stop offset=".5" stop-color="#ffea9d"/><stop offset="1" stop-color="#ffea9d" stop-opacity="0"/></linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h640v420H0z"/>
+  <circle cx="482" cy="119" r="68" fill="#ffd17c" opacity=".8"/>
+  <path fill="#202341" d="M0 198h78v119H0zm83-53h69v172H83zm78 68h70v104h-70zm80-105h75v211h-75zm84 68h71v146h-71zm81-91h92v237h-92zm102 73h72v166h-72zm82-39h78v205h-78z"/>
+  <path fill="url(#road)" d="M0 300h640v120H0z"/>
+  <path fill="#161b2b" d="M273 420 345 300h44l68 120z"/>
+  <path stroke="url(#light)" stroke-width="8" d="M0 338h244m-202 31h175m210-38h213m-187 34h171"/>
+  <path fill="#171923" d="m140 291 57-32h112l54 29 53 14v34H112v-24z"/>
+  <path fill="#31364a" d="m207 267 27-23h75l35 27z"/>
+  <circle cx="193" cy="331" r="20" fill="#10131d" stroke="#8791a5" stroke-width="6"/><circle cx="362" cy="331" r="20" fill="#10131d" stroke="#8791a5" stroke-width="6"/>
+  <path fill="#fff2b2" d="m405 301 30 9v10h-32z"/><path fill="#ff7662" d="m116 300-24 8v11h25z"/>
+</svg>

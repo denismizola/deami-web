@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#090b12">
+	<title>D-gamegape | PSP</title>
+	<style>
+		:root { color-scheme: dark; --bg: #090b12; --panel: #151a28; --ink: #f5f7ff; --muted: #a6b0c4; --lime: #d5ff49; --line: rgba(214,225,255,.14); }
+		* { box-sizing: border-box; }
+		body { min-height: 100vh; margin: 0; background: radial-gradient(ellipse at 70% 0%,rgba(103,80,192,.2),transparent 38rem),var(--bg); color: var(--ink); font-family: "Segoe UI",Arial,sans-serif; }
+		.shell { width: min(900px,calc(100% - 32px)); margin: auto; }
+		header { display:flex; align-items:center; justify-content:space-between; gap:14px; min-height:72px; border-bottom:1px solid var(--line); }
+		a { color:var(--ink); text-decoration:none; font-weight:800; }
+		.brand { color:var(--lime); font-size:1.1rem; }
+		.back { padding:10px 13px; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.04); font-size:.85rem; }
+		main { padding:40px 0 60px; }
+		.panel { padding:clamp(20px,4vw,34px); border:1px solid var(--line); border-radius:22px; background:linear-gradient(145deg,rgba(27,33,49,.97),rgba(17,21,32,.98)); }
+		.eyebrow { color:var(--lime); font-size:.75rem; font-weight:900; letter-spacing:.13em; text-transform:uppercase; }
+		h1 { margin:12px 0; font-size:clamp(2rem,6vw,3.5rem); letter-spacing:-.06em; }
+		.intro,.notice { color:var(--muted); font-size:.93rem; line-height:1.65; }
+		.field { display:grid; gap:8px; margin-top:20px; font-size:.88rem; font-weight:800; }
+		input[type=file] { width:100%; padding:12px; border:1px solid var(--line); border-radius:11px; background:#101521; color:var(--muted); }
+		.consent { display:flex; align-items:flex-start; gap:10px; margin:16px 0; color:#c7cede; font-size:.83rem; line-height:1.55; }
+		.consent input { flex:0 0 auto; width:18px; height:18px; margin:1px 0 0; accent-color:var(--lime); }
+		button { min-height:46px; padding:0 18px; border:0; border-radius:11px; background:var(--lime); color:#11150a; font-weight:900; cursor:pointer; }
+		button:focus-visible,a:focus-visible,input:focus-visible { outline:3px solid var(--lime); outline-offset:3px; }
+		.status { min-height:24px; margin:15px 0 0; color:var(--muted); font-size:.85rem; line-height:1.5; }
+		.status[data-error=true] { color:#ff9aa7; }
+		.status[data-success=true] { color:var(--lime); }
+		#player-shell { display:none; margin-top:18px; overflow:hidden; border:1px solid var(--line); border-radius:14px; background:#050609; }
+		#game { display:block; width:100%; height:min(76vh,760px); min-height:430px; }
+		footer { padding:0 0 24px; color:var(--muted); font-size:.8rem; }
+		@media(max-width:560px) { header { min-height:64px; } main { padding:24px 0 38px; } }
+	</style>
+</head>
+<body>
+	<header class="shell">
+		<a class="brand" href="D-gamegape.html">D-gamegape · PSP</a>
+		<a class="back" href="D-gamegape.html">← Rudi kwenye michezo</a>
+	</header>
+	<main class="shell">
+		<section class="panel" aria-labelledby="title">
+			<span class="eyebrow">Emulator ya browser · PSP</span>
+			<h1 id="title">Cheza mchezo wako wa PSP</h1>
+			<p class="intro">EmulatorJS PSP core inahitaji browser iliyowashwa cross-origin isolation (COOP/COEP), WebAssembly threads na mtandao. Emulator hii inatoka kwenye CDN ya EmulatorJS baada ya ruhusa yako.</p>
+			<label class="field" for="psp-game">Faili la mchezo wako wa PSP (ISO, CSO, PBP au CHD)
+				<input id="psp-game" type="file" accept=".iso,.cso,.pbp,.chd,application/octet-stream">
+			</label>
+			<label class="consent">
+				<input id="cdn-consent" type="checkbox">
+				<span>Ninakubali kupakia EmulatorJS kutoka <strong>cdn.emulatorjs.org</strong>. CDN inaweza kupokea ombi la mtandao na anwani ya IP yangu; faili langu la mchezo hubaki kwenye browser na halitumwi CDN.</span>
+			</label>
+			<button id="start" type="button">▶ Anza PSP</button>
+			<p class="status" id="status" role="status" aria-live="polite">Tumia michezo uliyonayo haki ya kutumia. File:// preview haiwezi kuwasha PSP; tumia server yenye headers COOP/COEP.</p>
+			<div id="player-shell"><div id="game" aria-label="Emulator ya PSP"></div></div>
+		</section>
+	</main>
+	<footer class="shell">Core ya PSP inaweza kuwa na matatizo ya uoanifu au michoro. Hakuna ROM/BIOS inayotolewa pamoja na D-gamegape.</footer>
+	<script>
+		(() => {
+			const input = document.getElementById("psp-game");
+			const consent = document.getElementById("cdn-consent");
+			const button = document.getElementById("start");
+			const status = document.getElementById("status");
+			const game = document.getElementById("game");
+			const playerShell = document.getElementById("player-shell");
+			let gameUrl = "";
+			let loaderPromise;
+
+			function report(message, state) {
+				status.textContent = message;
+				delete status.dataset.error;
+				delete status.dataset.success;
+				if (state) status.dataset[state] = "true";
+			}
+
+			function loadEmulator() {
+				if (loaderPromise) return loaderPromise;
+				loaderPromise = new Promise((resolve, reject) => {
+					const base = "https://cdn.emulatorjs.org/stable/data/";
+					window.EJS_player = "#game";
+					window.EJS_core = "psp";
+					window.EJS_pathtodata = base;
+					window.EJS_threads = true;
+					window.EJS_startOnLoaded = true;
+					window.EJS_gameUrl = gameUrl;
+					window.EJS_gameName = input.files[0].name;
+					window.addEventListener("error", (event) => {
+						report(`EmulatorJS: ${event.message || "Hitilafu imejitokeza."}`, "error");
+					});
+					const loader = document.createElement("script");
+					loader.src = `${base}loader.js`;
+					loader.onload = resolve;
+					loader.onerror = () => reject(new Error("EmulatorJS haikupakiwa. Angalia intaneti na CDN."));
+					document.head.append(loader);
+				});
+				return loaderPromise;
+			}
+
+			button.addEventListener("click", async () => {
+				const file = input.files && input.files[0];
+				if (!file) { report("Chagua faili la mchezo wa PSP kwanza.", "error"); input.focus(); return; }
+				if (!/\.(iso|cso|pbp|chd)$/i.test(file.name)) { report("Chagua faili la PSP aina ya ISO, CSO, PBP au CHD.", "error"); return; }
+				if (!file.size || file.size > 1024 * 1024 * 1024) { report("Faili lazima liwe na maudhui na lisizidi GB 1.", "error"); return; }
+				if (!consent.checked) { report("Kubali kupakia EmulatorJS kutoka CDN kabla ya kuanza.", "error"); consent.focus(); return; }
+				if (!window.isSecureContext || !window.crossOriginIsolated || typeof SharedArrayBuffer === "undefined") {
+					report("PSP inahitaji HTTPS/localhost na COOP: same-origin pamoja na COEP: require-corp. Fungua kupitia serve-dlink.ps1 au sanidi headers hizi kwenye hosting.", "error");
+					return;
+				}
+				try {
+					report("Inasoma faili lako kwenye kifaa hiki...");
+					const data = await file.arrayBuffer();
+					if (gameUrl) URL.revokeObjectURL(gameUrl);
+					gameUrl = URL.createObjectURL(new Blob([data], { type: "application/octet-stream" }));
+					playerShell.style.display = "block";
+					report("Inapakia core ya PSP. Muda hutegemea kifaa na intaneti...", "success");
+					await loadEmulator();
+				} catch (error) {
+					console.error("Imeshindikana kuanzisha PSP EmulatorJS.", error);
+					report(`PSP haikuanza: ${error.message || "Hitilafu ya browser."}`, "error");
+				}
+			});
+
+			void restoreConsoleGame();
+
+			async function restoreConsoleGame() {
+				const gameId = new URLSearchParams(window.location.search).get("consoleGame");
+				if (!gameId) return;
+				try {
+					if (!window.indexedDB) throw new Error("Browser hii haiawashi IndexedDB.");
+					const database = await new Promise((resolve, reject) => {
+						const request = indexedDB.open("d-gamegape-console-library", 1);
+						request.onsuccess = () => resolve(request.result);
+						request.onerror = () => reject(request.error || new Error("Maktaba ya console haikuweza kufunguliwa."));
+					});
+					const record = await new Promise((resolve, reject) => {
+						const request = database.transaction("games", "readonly").objectStore("games").get(gameId);
+						request.onsuccess = () => resolve(request.result);
+						request.onerror = () => reject(request.error || new Error("Mchezo haukuweza kusomwa."));
+					});
+					if (!record || record.system !== "psp" || !record.file) {
+						throw new Error("Mchezo wa PSP haupo kwenye maktaba hii. Rudi catalog uongeze faili tena.");
+					}
+					const transfer = new DataTransfer();
+					transfer.items.add(new File([record.file], record.fileName, { type: record.file.type || "application/octet-stream" }));
+					input.files = transfer.files;
+					report(`Faili "${record.title}" limechaguliwa kutoka maktaba yako. Kubali CDN, kisha bonyeza Anza PSP.`, "success");
+				} catch (error) {
+					report(error.message || "Mchezo ulihifadhiwa haukuweza kupakiwa.", "error");
+				}
+			}
+
+			window.addEventListener("beforeunload", () => { if (gameUrl) URL.revokeObjectURL(gameUrl); });
+		})();
+	</script>
+</body>
+</html>

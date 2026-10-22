@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Uhuishaji</title>
+  <desc id="desc">Mchoro wa asili wa bonde la rangi na puto angani.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#56b9d6"/><stop offset=".64" stop-color="#f8c986"/><stop offset="1" stop-color="#ea8b72"/></linearGradient>
+    <linearGradient id="hill" x2="1"><stop stop-color="#56b88d"/><stop offset="1" stop-color="#298b84"/></linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h640v420H0z"/>
+  <circle cx="492" cy="91" r="43" fill="#fff0ad"/>
+  <path fill="#e5fbef" d="M0 210q82-99 155 0 84-134 177 5 95-109 183 2 69-67 125 9v77H0z"/>
+  <path fill="#76c5a0" d="M0 280q127-102 252 2t225-3q88-51 163 8v133H0z"/>
+  <path fill="url(#hill)" d="M0 333q99-70 193-14 106 65 204-5 116-84 243 7v99H0z"/>
+  <path fill="#f6b874" d="M0 375q125-44 228 6t210-10q110-50 202 1v48H0z"/>
+  <path fill="#f06f7b" d="M121 127q36-57 72 0l-36 66z"/><path fill="#fff0c1" d="m157 193 12 39h-24z"/>
+  <path fill="#8065c9" d="M246 85q33-51 66 0l-33 59z"/><path fill="#fff0c1" d="m279 144 11 36h-22z"/>
+  <path fill="#f3a64c" d="M355 139q29-45 58 0l-29 52z"/><path fill="#fff0c1" d="m384 191 10 31h-20z"/>
+  <g fill="#fff"><circle cx="84" cy="63" r="3"/><circle cx="211" cy="48" r="3"/><circle cx="565" cy="160" r="3"/></g>
+</svg>

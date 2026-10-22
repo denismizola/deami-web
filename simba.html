@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Historia, mafanikio na safari ya Simba Sports Club ya Tanzania kwenye soka la ndani na Afrika.">
+  <title>Simba SC | Historia na Mafanikio</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --red: #c9272c;
+      --red-deep: #851d24;
+      --gold: #f0bf54;
+      --ink: #201e1d;
+      --muted: #6c6763;
+      --paper: #f5f2ed;
+      --line: #e2dbd2;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Trebuchet MS", "Segoe UI", sans-serif; line-height: 1.65; }
+    a { color: inherit; }
+
+    .site-header { position: relative; z-index: 2; background: var(--red-deep); color: var(--white); }
+    .nav-wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1160px, 90%); min-height: 72px; margin: auto; }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 0.88rem; font-weight: 800; letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase; }
+    .brand-mark { display: grid; width: 38px; aspect-ratio: 1; place-items: center; border: 1px solid var(--gold); color: var(--gold); font-family: Georgia, "Times New Roman", serif; font-size: 1.15rem; }
+    nav { display: flex; flex-wrap: wrap; gap: 8px 25px; }
+    nav a { color: #f6e9e5; font-size: 0.88rem; text-decoration: none; transition: color 160ms ease; }
+    nav a:hover, nav a:focus-visible { color: var(--gold); }
+
+    .hero { position: relative; overflow: hidden; background: var(--red); color: var(--white); }
+    .hero::after { position: absolute; top: -155px; right: -110px; width: min(53vw, 650px); aspect-ratio: 1; border: 1px solid rgb(255 255 255 / 18%); border-radius: 50%; box-shadow: 0 0 0 45px rgb(255 255 255 / 4%), 0 0 0 95px rgb(255 255 255 / 3%); content: ""; pointer-events: none; }
+    .hero-inner { position: relative; z-index: 1; width: min(1160px, 90%); margin: auto; padding: clamp(74px, 10vw, 130px) 0 82px; }
+    .eyebrow { margin: 0 0 13px; color: var(--gold); font-size: 0.77rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 850px; margin-bottom: 18px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3.2rem, 8vw, 7rem); font-weight: 500; letter-spacing: 0; line-height: 0.95; }
+    .hero-copy { max-width: 620px; margin-bottom: 0; color: #fae8e4; font-size: 1.08rem; }
+    .hero-stamp { margin-top: 32px; color: var(--gold); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    main { width: min(1100px, 88vw); margin: auto; }
+    .section { padding: 74px 0; border-bottom: 1px solid var(--line); }
+    .section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 0.65fr); align-items: end; gap: 34px; margin-bottom: 30px; }
+    .section-kicker { margin-bottom: 8px; color: var(--red); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+    h2 { margin-bottom: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.1rem, 4.5vw, 3.5rem); font-weight: 500; letter-spacing: 0; line-height: 1.08; }
+    .section-intro { margin-bottom: 0; color: var(--muted); }
+
+    .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); background: var(--white); }
+    .fact { min-height: 132px; padding: 22px; border-right: 1px solid var(--line); }
+    .fact:last-child { border-right: 0; }
+    .fact strong { display: block; color: var(--red); font-family: Georgia, "Times New Roman", serif; font-size: 1.8rem; font-weight: 500; }
+    .fact span { display: block; margin-top: 3px; color: var(--muted); font-size: 0.88rem; }
+
+    .timeline { display: grid; grid-template-columns: 140px minmax(0, 1fr); }
+    .period { padding: 23px 18px 23px 0; border-top: 1px solid var(--line); color: var(--red); font-size: 1rem; font-weight: 800; }
+    .period-content { padding: 23px 0; border-top: 1px solid var(--line); }
+    .period-content h3 { margin-bottom: 7px; font-size: 1.08rem; }
+    .period-content p { margin-bottom: 9px; color: var(--muted); }
+    .period-content p:last-child { margin-bottom: 0; }
+    .highlight { padding: 18px 20px; border-left: 4px solid var(--gold); background: #fff8e9; color: #554526; font-size: 0.93rem; }
+
+    .africa-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .africa-item { padding: 24px; border-top: 4px solid var(--red); background: var(--white); }
+    .africa-item .year { color: var(--red); font-size: 0.8rem; font-weight: 800; letter-spacing: 0.09em; }
+    .africa-item h3 { margin: 8px 0; font-family: Georgia, "Times New Roman", serif; font-size: 1.45rem; font-weight: 500; }
+    .africa-item p { margin: 0; color: var(--muted); }
+
+    .update { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 28px; padding: 28px; background: var(--red-deep); color: var(--white); }
+    .update h3 { margin-bottom: 6px; font-family: Georgia, "Times New Roman", serif; font-size: 1.55rem; font-weight: 500; }
+    .update p { max-width: 680px; margin-bottom: 0; color: #f2deda; }
+    .update a { display: inline-block; padding: 12px 16px; background: var(--gold); color: var(--ink); font-size: 0.9rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
+
+    .sources { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+    .sources a { color: var(--red-deep); font-weight: 700; text-underline-offset: 4px; }
+    .source-note { margin: 18px 0 0; color: var(--muted); font-size: 0.86rem; }
+    footer { padding: 26px 5%; background: #e9e3dc; color: var(--muted); font-size: 0.86rem; text-align: center; }
+    footer p { margin: 0; }
+
+    @media (max-width: 720px) {
+      .nav-wrap { align-items: flex-start; flex-direction: column; justify-content: center; gap: 10px; padding: 14px 0; }
+      nav { gap: 8px 17px; }
+      .section { padding: 58px 0; }
+      .section-head { grid-template-columns: 1fr; gap: 14px; }
+      .facts { grid-template-columns: 1fr; }
+      .fact { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .fact:last-child { border-bottom: 0; }
+      .timeline { grid-template-columns: 92px minmax(0, 1fr); }
+      .africa-grid { grid-template-columns: 1fr; }
+      .update { grid-template-columns: 1fr; }
+      .update a { justify-self: start; }
+    }
+
+    @media (max-width: 440px) {
+      .nav-wrap, .hero-inner, main { width: min(100% - 36px, 1100px); }
+      .hero-inner { padding: 70px 0 60px; }
+      h1 { font-size: clamp(2.8rem, 14vw, 4rem); }
+      .timeline { grid-template-columns: 1fr; }
+      .period { padding-bottom: 0; }
+      .period-content { padding-top: 12px; border-top: 0; }
+      .update { padding: 23px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+  <link rel="stylesheet" href="deami-layout.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="#mwanzo"><span class="brand-mark" aria-hidden="true">S</span><span>Simba Sports Club</span></a>
+      <nav aria-label="Menyu kuu">
+        <a href="#historia">Historia</a>
+        <a href="#vipindi">Vipindi</a>
+        <a href="#afrika">Afrika</a>
+        <a href="#sasahivi">Hadi sasa</a>
+        <a href="yanga.html">Yanga SC</a>
+        <a href="azam.html">Azam FC</a>
+        <a href="q.html">DEAMi Web</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero" id="mwanzo">
+    <div class="hero-inner">
+      <p class="eyebrow">Dar es Salaam · Tanzania</p>
+      <h1>Simba<br>Sports Club</h1>
+      <p class="hero-copy">Historia ya moja ya klabu zinazofuatiliwa zaidi nchini Tanzania, safari yake ya mafanikio ya ndani na nyakati zake muhimu kwenye soka la Afrika.</p>
+      <p class="hero-stamp">Nguvu moja · Sauti moja · Simba</p>
+    </div>
+  </div>
+
+  <main>
+    <section class="section" id="historia">
+      <div class="section-head">
+        <div><p class="section-kicker">Klabu kwa ufupi</p><h2>Historia na utambulisho</h2></div>
+        <p class="section-intro">Simba SC ni klabu ya soka yenye makao yake Dar es Salaam na ina historia ndefu katika mashindano ya Tanzania na Afrika Mashariki.</p>
+      </div>
+      <div class="facts" aria-label="Taarifa za Simba Sports Club">
+        <div class="fact"><strong>Dar es Salaam</strong><span>Mji wa klabu</span></div>
+        <div class="fact"><strong>Simba</strong><span>Jina maarufu la klabu na mashabiki</span></div>
+        <div class="fact"><strong>Nyekundu</strong><span>Rangi inayotambulisha klabu</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="vipindi">
+      <div class="section-head">
+        <div><p class="section-kicker">2000–2026</p><h2>Vipindi muhimu</h2></div>
+        <p class="section-intro">Muhtasari wa mafanikio ya Simba kwa vipindi, ukiweka tofauti kati ya mashindano ya ndani na hatua za CAF.</p>
+      </div>
+      <div class="timeline">
+        <div class="period">2000–2009</div>
+        <div class="period-content">
+          <h3>Mafanikio ya ndani na ushujaa Cairo</h3>
+          <p>Simba iliendelea kuwa mshindani wa ubingwa wa ligi na vikombe vya ndani. Mwaka 2003, klabu iliondoa Zamalek ya Misri kwa mikwaju ya penalti mjini Cairo na kufuzu hatua ya makundi ya CAF Champions League, tukio linalokumbukwa sana na mashabiki wake.</p>
+        </div>
+        <div class="period">2010–2017</div>
+        <div class="period-content">
+          <h3>Kurejea kileleni mwa ligi</h3>
+          <p>Simba ilitwaa ubingwa wa ligi msimu wa 2011/12, kisha ikaendelea kujenga kikosi chenye ushindani. Kipindi hiki pia kilikuwa cha ushindani mkali wa ndani na wapinzani wake wa jadi.</p>
+        </div>
+        <div class="period">2017–2021</div>
+        <div class="period-content">
+          <h3>Mfululizo wa mataji na robo fainali za CAF</h3>
+          <p>Simba ilitwaa ligi kwa misimu minne mfululizo kuanzia 2017/18 hadi 2020/21. Katika CAF Champions League, ilifika robo fainali msimu wa 2018/19 na tena 2020/21; msimu wa 2020/21 ilimaliza kileleni mwa kundi lake kabla ya robo fainali.</p>
+        </div>
+        <div class="period">2022–2026</div>
+        <div class="period-content">
+          <h3>Ushindani wa ndani na safari ya CAF</h3>
+          <p>Simba imeendelea kushiriki mashindano ya CAF na kugombea mataji ya ndani. Msimu wa 2024/25, ilifika fainali ya CAF Confederation Cup dhidi ya RS Berkane ya Morocco.</p>
+        </div>
+      </div>
+      <div class="highlight"><strong>Marekebisho muhimu:</strong> Yanga SC ndiyo iliyotwaa ubingwa wa Ligi Kuu Tanzania msimu wa 2021/22. Hivyo, msimu huo haupaswi kuhesabiwa kama taji la ligi la Simba.</div>
+    </section>
+
+    <section class="section" id="afrika">
+      <div class="section-head">
+        <div><p class="section-kicker">Mashindano ya CAF</p><h2>Simba kwenye jukwaa la Afrika</h2></div>
+        <p class="section-intro">Hizi ni baadhi ya hatua zinazojulikana za klabu katika mashindano makubwa ya Afrika.</p>
+      </div>
+      <div class="africa-grid">
+        <article class="africa-item">
+          <div class="year">2003</div>
+          <h3>Kuitoa Zamalek</h3>
+          <p>Simba iliiondoa Zamalek kwa penalti nchini Misri na kufuzu hatua ya makundi ya Ligi ya Mabingwa Afrika.</p>
+        </article>
+        <article class="africa-item">
+          <div class="year">2018/19 NA 2020/21</div>
+          <h3>Robo fainali ya Ligi ya Mabingwa</h3>
+          <p>Klabu ilifika robo fainali ya CAF Champions League katika misimu yote miwili, ikiwa ni hatua muhimu katika ushindani wake wa kimataifa.</p>
+        </article>
+        <article class="africa-item">
+          <div class="year">2024/25</div>
+          <h3>Fainali ya Kombe la Shirikisho</h3>
+          <p>Simba ilifika fainali ya CAF Confederation Cup na kucheza dhidi ya RS Berkane ya Morocco.</p>
+        </article>
+        <article class="africa-item">
+          <div class="year">KILA MSIMU</div>
+          <h3>Wawakilishi wa Tanzania</h3>
+          <p>Ushiriki na hatua ya Simba katika mashindano ya CAF hubadilika kwa kila msimu; hakiki matokeo mapya kwenye tovuti rasmi za klabu na CAF.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="sasahivi">
+      <div class="update">
+        <div>
+          <p class="eyebrow">Taarifa za sasa · 2026</p>
+          <h3>Ongeza matokeo ya msimu unaoendelea</h3>
+          <p>Nafasi, pointi na matokeo hubadilika kila mechi. Sijajaza takwimu za msimu wa 2025/26 au 2026/27 ambazo siwezi kuthibitisha hapa. Tumia vyanzo rasmi kusasisha sehemu hii kabla ya kuchapisha.</p>
+        </div>
+        <a href="https://simbasc.co.tz/" target="_blank" rel="noopener noreferrer">Tovuti rasmi ya Simba</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div><p class="section-kicker">Marejeo</p><h2>Vyanzo vya taarifa</h2></div>
+        <p class="section-intro">Tumia vyanzo hivi kukagua taarifa na kuongeza matokeo mapya kwenye ukurasa.</p>
+      </div>
+      <div class="sources">
+        <a href="https://simbasc.co.tz/" target="_blank" rel="noopener noreferrer">Simba Sports Club</a>
+        <a href="https://www.cafonline.com/" target="_blank" rel="noopener noreferrer">CAF</a>
+        <a href="https://www.tff.or.tz/" target="_blank" rel="noopener noreferrer">TFF</a>
+        <a href="https://www.rsssf.org/tablest/tanzchamp.html" target="_blank" rel="noopener noreferrer">RSSSF: Mabingwa wa Tanzania</a>
+      </div>
+      <p class="source-note">Taarifa za historia hapo juu ni muhtasari, si orodha kamili ya mataji. Hakiki miaka ya ubingwa na matokeo kwenye rekodi rasmi kabla ya kutumia kama takwimu kamili.</p>
+    </section>
+  </main>
+
+  <footer><p>&copy; 2026 Simba SC · Historia na mafanikio ya klabu</p></footer>
+  <script src="deami-context.js" defer></script>
+</body>
+</html>

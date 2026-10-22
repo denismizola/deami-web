@@ -1,0 +1,26 @@
+{
+	"name": "D-link | Video fupi",
+	"short_name": "D-link",
+	"description": "Jukwaa la video fupi za kujifunza, kushiriki na kugundua mada mpya.",
+	"lang": "sw",
+	"start_url": "./D-link.html",
+	"scope": "./",
+	"display": "standalone",
+	"orientation": "portrait",
+	"background_color": "#eef5f1",
+	"theme_color": "#123a30",
+	"icons": [
+		{
+			"src": "./dlink-icon-192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "./dlink-icon-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any maskable"
+		}
+	]
+}

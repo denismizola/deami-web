@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Mwongozo wa D-gamegape wa PlayStation na Xbox consoles, emulator rasmi za kompyuta na matumizi salama ya michezo yako.">
+	<meta name="theme-color" content="#090b12">
+	<title>D-gamegape | PlayStation na Xbox</title>
+	<style>
+		:root { color-scheme: dark; --bg:#090b12; --panel:#151a28; --panel-2:#1c2232; --ink:#f5f7ff; --muted:#a6b0c4; --lime:#d5ff49; --cyan:#6ce8fa; --line:rgba(214,225,255,.13); --violet:#a88cff; }
+		* { box-sizing:border-box; }
+		html { scroll-behavior:smooth; }
+		body { min-height:100vh; margin:0; background:radial-gradient(ellipse at 78% 0%,rgba(103,80,192,.2),transparent 40rem),radial-gradient(ellipse at 0% 56%,rgba(33,151,165,.09),transparent 32rem),var(--bg); color:var(--ink); font-family:Inter,"Segoe UI",Arial,sans-serif; }
+		a { color:inherit; }
+		button,input { font:inherit; }
+		button:focus-visible,a:focus-visible,input:focus-visible { outline:3px solid var(--lime); outline-offset:3px; }
+		.shell { width:min(1120px,calc(100% - 36px)); margin:auto; }
+		.topbar { display:flex; min-height:72px; align-items:center; justify-content:space-between; gap:16px; border-bottom:1px solid var(--line); }
+		.brand { color:var(--lime); font-size:1.08rem; font-weight:900; text-decoration:none; }
+		.back-link { padding:10px 14px; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.04); font-size:.84rem; font-weight:800; text-decoration:none; }
+		main { padding:44px 0 70px; }
+		.hero { position:relative; display:grid; grid-template-columns:1fr auto; align-items:center; gap:24px; min-height:265px; padding:clamp(24px,5vw,48px); overflow:hidden; border:1px solid rgba(168,140,255,.2); border-radius:26px; background:radial-gradient(circle at 88% 50%,rgba(168,140,255,.22),transparent 18rem),linear-gradient(120deg,#171c2d,#1d2039); box-shadow:0 24px 70px rgba(0,0,0,.22); }
+		.hero-copy { position:relative; z-index:1; }
+		.hero-console-art { display:grid; width:190px; aspect-ratio:1; place-items:center; border:1px solid rgba(255,255,255,.14); border-radius:50%; background:radial-gradient(circle,rgba(213,255,73,.13),transparent 67%); box-shadow:inset 0 0 55px rgba(168,140,255,.1); font-size:5rem; }
+		.eyebrow { color:var(--lime); font-size:.75rem; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }
+		h1 { max-width:780px; margin:13px 0; font-size:clamp(2.2rem,6vw,4.6rem); line-height:1; letter-spacing:-.065em; }
+		.hero p { max-width:750px; margin:0; color:#c0c8da; font-size:1rem; line-height:1.7; }
+		.notice { display:flex; align-items:flex-start; gap:11px; margin:22px 0 30px; padding:15px 17px; border:1px solid rgba(255,192,74,.2); border-radius:14px; background:rgba(255,192,74,.045); color:#d7dceb; font-size:.88rem; line-height:1.65; }
+		.notice-icon { display:grid; flex:0 0 auto; width:27px; aspect-ratio:1; place-items:center; border-radius:9px; background:rgba(255,192,74,.12); color:#ffd586; font-weight:900; }
+		.heading-row { display:flex; align-items:end; justify-content:space-between; gap:16px; margin:32px 0 17px; }
+		.heading-row h2 { margin:0; font-size:1.65rem; letter-spacing:-.04em; }
+		.heading-row p { margin:7px 0 0; color:var(--muted); font-size:.88rem; }
+		.search { width:min(280px,100%); min-height:43px; padding:0 13px; border:1px solid var(--line); border-radius:11px; background:#111520; color:var(--ink); }
+		.filters { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
+		.filter { min-height:36px; padding:0 13px; border:1px solid var(--line); border-radius:999px; background:transparent; color:var(--muted); font-size:.82rem; font-weight:800; cursor:pointer; }
+		.filter[aria-pressed="true"] { border-color:rgba(213,255,73,.4); background:rgba(213,255,73,.1); color:var(--lime); }
+		.grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:15px; }
+		.card { position:relative; display:flex; min-height:270px; flex-direction:column; padding:19px; overflow:hidden; border:1px solid var(--line); border-radius:18px; background:linear-gradient(145deg,rgba(27,33,49,.98),rgba(17,21,32,.98)); transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease; }
+		.card[hidden] { display:none; }
+		.card:hover { transform:translateY(-4px); border-color:rgba(213,255,73,.26); box-shadow:0 16px 38px rgba(0,0,0,.2); }
+		.card::after { position:absolute; top:-40px; right:-40px; width:120px; aspect-ratio:1; border:1px solid rgba(168,140,255,.12); border-radius:50%; content:""; pointer-events:none; }
+		.card-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+		.platform-mark { display:grid; width:45px; aspect-ratio:1; place-items:center; border:1px solid rgba(108,232,250,.18); border-radius:13px; background:rgba(108,232,250,.08); color:var(--cyan); font-size:1.23rem; font-weight:900; }
+		.status { padding:6px 8px; border:1px solid rgba(213,255,73,.26); border-radius:999px; color:var(--lime); font-size:.67rem; font-weight:900; letter-spacing:.03em; }
+		.status.limited { border-color:rgba(255,192,74,.24); color:#ffd586; }
+		.card h3 { margin:17px 0 8px; font-size:1.17rem; }
+		.card p { margin:0; color:var(--muted); font-size:.85rem; line-height:1.58; }
+		.card ul { display:grid; gap:5px; margin:11px 0 15px; padding-left:18px; color:#c3ccde; font-size:.79rem; line-height:1.45; }
+		.card-footer { display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; padding-top:13px; }
+		.action { display:inline-flex; min-height:37px; align-items:center; justify-content:center; padding:0 12px; border:1px solid var(--line); border-radius:9px; background:var(--panel-2); color:var(--ink); font-size:.79rem; font-weight:900; text-decoration:none; }
+		.action.primary { border-color:rgba(213,255,73,.38); background:rgba(213,255,73,.1); color:var(--lime); }
+		.action.disabled { color:#8290a7; cursor:not-allowed; }
+		.library-section { margin-top:38px; padding:clamp(20px,4vw,30px); border:1px solid rgba(108,232,250,.18); border-radius:22px; background:linear-gradient(145deg,rgba(21,28,43,.96),rgba(15,19,30,.98)); box-shadow:0 18px 48px rgba(0,0,0,.16); }
+		.library-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; margin-bottom:20px; }
+		.library-heading h2 { margin:0; font-size:1.55rem; letter-spacing:-.04em; }
+		.library-heading p { max-width:660px; margin:7px 0 0; color:var(--muted); font-size:.87rem; line-height:1.55; }
+		.library-form { display:grid; grid-template-columns:1fr 1fr 1.3fr auto; align-items:end; gap:11px; padding:16px; border:1px solid var(--line); border-radius:15px; background:rgba(255,255,255,.025); }
+		.form-field { display:grid; min-width:0; gap:7px; color:#dfe5f2; font-size:.78rem; font-weight:800; }
+		.form-field input,.form-field select { width:100%; min-height:42px; padding:0 11px; border:1px solid var(--line); border-radius:9px; background:#101521; color:var(--ink); }
+		.form-field input[type=file] { padding:8px; font-size:.73rem; }
+		.add-button { min-height:42px; padding:0 16px; border:0; border-radius:10px; background:var(--lime); color:#11150a; font-size:.83rem; font-weight:900; cursor:pointer; white-space:nowrap; }
+		.local-note,.library-status { margin:12px 0 0; color:var(--muted); font-size:.81rem; line-height:1.5; }
+		.library-status[data-error="true"] { color:#ff9aa7; }
+		.library-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:12px; margin-top:17px; }
+		.library-empty { grid-column:1/-1; padding:24px 16px; border:1px dashed var(--line); border-radius:13px; color:var(--muted); font-size:.86rem; text-align:center; }
+		.library-game { display:grid; grid-template-columns:auto 1fr; gap:12px; padding:14px; border:1px solid var(--line); border-radius:14px; background:rgba(255,255,255,.025); }
+		.game-icon { display:grid; width:42px; aspect-ratio:1; place-items:center; border:1px solid rgba(108,232,250,.2); border-radius:12px; background:rgba(108,232,250,.08); color:var(--cyan); font-size:.77rem; font-weight:900; }
+		.game-info { min-width:0; }
+		.game-info h3 { margin:0; overflow-wrap:anywhere; font-size:.92rem; }
+		.game-info p { margin:5px 0 10px; color:var(--muted); font-size:.75rem; }
+		.game-actions { display:flex; flex-wrap:wrap; gap:7px; }
+		.game-actions .action { min-height:32px; padding:0 10px; font-size:.73rem; cursor:pointer; }
+		.no-results { grid-column:1/-1; padding:28px; border:1px dashed var(--line); border-radius:14px; color:var(--muted); text-align:center; }
+		.howto { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:38px; }
+		.howto article { padding:17px; border:1px solid var(--line); border-radius:14px; background:rgba(255,255,255,.025); }
+		.howto strong { display:block; margin-bottom:6px; }
+		.howto p { margin:0; color:var(--muted); font-size:.82rem; line-height:1.55; }
+		footer { padding:19px 0 26px; border-top:1px solid var(--line); color:var(--muted); font-size:.8rem; line-height:1.6; }
+		@media(max-width:940px) { .library-form { grid-template-columns:repeat(2,minmax(0,1fr)); } .add-button { grid-column:1/-1; } }
+		@media(max-width:850px) { .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+		@media(max-width:580px) { .shell { width:calc(100% - 26px); } main { padding:25px 0 45px; } .topbar { min-height:64px; } .back-link { padding:9px 10px; font-size:.77rem; } .hero { grid-template-columns:1fr; min-height:0; } .hero-console-art { width:110px; aspect-ratio:1; font-size:3rem; } .heading-row,.library-heading { align-items:stretch; flex-direction:column; } .search { width:100%; } .grid,.howto { grid-template-columns:1fr; } .card { min-height:230px; } .library-form { grid-template-columns:1fr; padding:12px; } .add-button { grid-column:auto; } }
+	</style>
+</head>
+<body>
+	<header class="topbar shell">
+		<a class="brand" href="D-gamegape.html">D-gamegape · Consoles</a>
+		<a class="back-link" href="D-gamegape.html">← Rudi D-gamegape</a>
+	</header>
+	<main class="shell">
+		<section class="hero" aria-labelledby="page-title">
+			<div class="hero-copy">
+				<span class="eyebrow">Mwongozo wa console gaming</span>
+				<h1 id="page-title">PlayStation na Xbox</h1>
+				<p>Chagua console, tafuta emulator yake au ongeza mchezo wako kwenye maktaba binafsi ya kifaa. PS2, PS3, Vita na Xbox zinahitaji emulator iliyosakinishwa kwenye PC—ukurasa huu si emulator ya browser.</p>
+			</div>
+			<div class="hero-console-art" aria-hidden="true">🎮</div>
+		</section>
+		<aside class="notice">
+			<span class="notice-icon" aria-hidden="true">i</span>
+			<span><strong>Michezo na firmware:</strong> D-gamegape haitoi, haipakii wala kutunza game ROM/ISO, BIOS, system files au firmware za console. Faili utakazoongeza huhifadhiwa kwenye browser ya kifaa hiki pekee. Tumia tu michezo na system files ambazo una haki ya kutumia.</span>
+		</aside>
+		<section class="library-section" aria-labelledby="library-title">
+			<div class="library-heading">
+				<div>
+					<span class="eyebrow">Maktaba binafsi</span>
+					<h2 id="library-title">Michezo yangu ya consoles</h2>
+					<p>Chagua faili la mchezo, console na jina. Mchezo huhifadhiwa locally kwenye browser ya kifaa hiki; haupakiwi kwa D-gamegape.</p>
+				</div>
+			</div>
+			<form class="library-form" id="console-game-form">
+				<label class="form-field" for="console-game-title">Jina la mchezo
+					<input id="console-game-title" type="text" maxlength="100" placeholder="Mf. Mchezo wangu" required>
+				</label>
+				<label class="form-field" for="console-game-system">Console
+					<select id="console-game-system" required>
+						<option value="ps1">PlayStation 1</option>
+						<option value="psp">PSP</option>
+						<option value="ps2">PlayStation 2</option>
+						<option value="ps3">PlayStation 3</option>
+						<option value="vita">PlayStation Vita</option>
+						<option value="xbox">Xbox ya awali</option>
+						<option value="xbox360">Xbox 360</option>
+						<option value="xboxone">Xbox One / Series</option>
+					</select>
+				</label>
+				<label class="form-field" for="console-game-file">Faili la mchezo
+					<input id="console-game-file" type="file" required>
+				</label>
+				<button class="add-button" type="submit">＋ Ongeza mchezo</button>
+			</form>
+			<p class="local-note">Faili huhifadhiwa kwenye IndexedDB ya browser hii; hakikisha una nafasi ya kutosha. PS1/PSP zinaweza kufunguliwa kwenye browser. Kwa consoles nyingine, kitufe cha Cheza kitakupeleka kwenye maelekezo/emulator ya PC.</p>
+			<p class="library-status" id="library-status" role="status" aria-live="polite">Inapakia maktaba...</p>
+			<div class="library-list" id="library-list" aria-label="Michezo iliyoongezwa"></div>
+		</section>
+		<div class="heading-row">
+			<div><h2>Chagua console</h2><p>Tafuta au chuja consoles; downloads hufunguka kwenye tovuti rasmi za miradi husika.</p></div>
+			<input class="search" id="platform-search" type="search" placeholder="Tafuta console..." aria-label="Tafuta console au emulator">
+		</div>
+		<div class="filters" role="group" aria-label="Chuja console">
+			<button class="filter" type="button" data-filter="all" aria-pressed="true">Zote</button>
+			<button class="filter" type="button" data-filter="playstation" aria-pressed="false">PlayStation</button>
+			<button class="filter" type="button" data-filter="xbox" aria-pressed="false">Xbox</button>
+			<button class="filter" type="button" data-filter="browser" aria-pressed="false">Browser</button>
+		</div>
+		<section class="grid" id="platform-grid" aria-label="Consoles na emulator">
+			<article class="card" data-platform data-family="playstation browser" data-search="ps1 playstation 1 pcsx rearmed browser">
+				<div class="card-head"><span class="platform-mark" aria-hidden="true">PS1</span><span class="status">Browser · D-gamegape</span></div>
+				<h3>PlayStation 1</h3><p>EmulatorJS `pcsx_rearmed` core inaweza kucheza michezo inayooana kwenye browser.</p>
+				<ul><li>Faili BIN, ISO, CHD au PBP</li><li>Baadhi ya michezo huhitaji BIOS ya mtumiaji</li><li>Internet inahitajika kwa emulator CDN</li></ul>
+				<div class="card-footer"><a class="action primary" href="D-gamegape.html#ps1-emulator">Fungua PS1 player</a><a class="action" href="https://emulatorjs.org/docs/systems/playstation" target="_blank" rel="noopener noreferrer">Mahitaji ↗</a></div>
+			</article>
+			<article class="card" data-platform data-family="playstation browser" data-search="psp playstation portable emulatorjs ppsspp browser">
+				<div class="card-head"><span class="platform-mark" aria-hidden="true">PSP</span><span class="status">Browser · D-gamegape</span></div>
+				<h3>PlayStation Portable</h3><p>EmulatorJS hutumia PPSSPP core. Inahitaji browser yenye SharedArrayBuffer na headers za COOP/COEP.</p>
+				<ul><li>Inafunguka kwenye PSP player tofauti</li><li>Uoanifu hutegemea mchezo na kifaa</li><li>Game files zinachaguliwa kutoka kifaa chako</li></ul>
+				<div class="card-footer"><a class="action primary" href="D-gamegape-psp.html">Fungua PSP player</a><a class="action" href="https://emulatorjs.org/docs/systems/psp" target="_blank" rel="noopener noreferrer">Mahitaji ↗</a></div>
+			</article>
+			<article class="card" data-platform data-family="playstation" data-search="ps2 playstation 2 pcsx2 windows linux macos">
+				<div class="card-head"><span class="platform-mark" aria-hidden="true">PS2</span><span class="status">Emulator ya PC</span></div>
+				<h3>PlayStation 2</h3><p>PCSX2 ni emulator ya PS2 ya kompyuta; D-gamegape haiiendeshi ndani ya browser.</p>
+				<ul><li>Sakinisha PCSX2 kutoka kwa tovuti rasmi</li><li>Angalia OS, hardware na mwongozo wa BIOS</li><li>Ingiza game files zako ndani ya PCSX2</li></ul>
+				<div class="card-footer"><a class="action primary" href="https://pcsx2.net/" target="_blank" rel="noopener noreferrer">PCSX2 rasmi ↗</a><a class="action" href="https://pcsx2.net/docs/" target="_blank" rel="noopener noreferrer">Documentation ↗</a></div>
+			</article>
+			<article class="card" data-platform data-family="playstation" data-search="ps3 playstation 3 rpcs3">
+				<div class="card-head"><span class="platform-mark" aria-hidden="true">PS3</span><span class="status">Emulator ya PC</span></div>
+				<h3>PlayStation 3</h3><p>RPCS3 ni emulator ya PS3 ya PC. Uoanifu na kasi hutofautiana kulingana na game na hardware.</p>
+				<ul><li>Tumia builds na game compatibility list rasmi</li><li>System software na game files hufuata mwongozo wa RPCS3</li><li>Si emulator ya browser ya D-gamegape</li></ul>
+				<div class="card-footer"><a class="action primary" href="https://rpcs3.net/" target="_blank" rel="noopener noreferrer">RPCS3 rasmi ↗</a><a class="action" href="https://wiki.rpcs3.net/" target="_blank" rel="noopener noreferrer">Wiki na compatibility ↗</a></div>
+			</article>
+			<article class="card" data-platform data-family="playstation" data-search="ps vita playstation vita vita3k">
+				<div class="card-head"><span class="platform-mark" aria-hidden="true">VITA</span><span class="status">Emulator ya kifaa</span></div>
+				<h3>PlayStation Vita</h3><p>Vita3K ni emulator ya majaribio inayopatikana kwa Windows, macOS, Linux na Android. Si browser emulator.</p>
+				<ul><li>Kagua orodha ya compatibility ya Vita3K</li><li>Fuata mwongozo rasmi wa firmware/content</li><li>Uoanifu wa game haujahakikishwa</li></ul>
+				<div class="card-footer"><a class="action primary" href="https://vita3k.org/" target="_blank" rel="noopener noreferrer">Vita3K rasmi ↗</a><a class="action" href="https://github.com/Vita3K/Vita3K" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+			</article>
+			<article class="card" data-platform data-family="xbox" data-search="original xbox xbox classic xemu">
+				<div class="card-head"><span class="platform-mark" aria-hidden="true">XB</span><span class="status">Emulator ya PC</span></div>
+				<h3>Xbox ya awali</h3><p>xemu ni mradi huru wa emulator ya Xbox ya awali kwa kompyuta; si emulator ya browser.</p>
+				<ul><li>Angalia compatibility ya mchezo kwenye xemu</li><li>Fuata mwongozo wa system files kutoka chanzo chake</li><li>Usipakue ROM/BIOS zisizo na ruhusa</li></ul>
+				<div class="card-footer"><a class="action primary" href="https://xemu.app/" target="_blank" rel="noopener noreferrer">xemu rasmi ↗</a><a class="action" href="https://xemu.app/docs/" target="_blank" rel="noopener noreferrer">Documentation ↗</a></div>
+			</article>
+			<article class="card" data-platform data-family="xbox" data-search="xbox 360 xenia">
+				<div class="card-head"><span class="platform-mark" aria-hidden="true">360</span><span class="status limited">Experimental · PC</span></div>
+				<h3>Xbox 360</h3><p>Xenia ni emulator ya majaribio ya Xbox 360. Si emulator ya browser; baadhi ya games zinaweza kutofanya kazi.</p>
+				<ul><li>Kagua requirements na hali ya project</li><li>Tumia build kutoka chanzo rasmi tu</li><li>Game compatibility hubadilika kati ya titles</li></ul>
+				<div class="card-footer"><a class="action primary" href="https://github.com/xenia-canary/xenia-canary" target="_blank" rel="noopener noreferrer">Xenia Canary ↗</a><a class="action" href="https://github.com/xenia-canary/game-compatibility" target="_blank" rel="noopener noreferrer">Game compatibility ↗</a></div>
+			</article>
+			<article class="card" data-platform data-family="xbox" data-search="xbox one xbox series x s">
+				<div class="card-head"><span class="platform-mark" aria-hidden="true">X|S</span><span class="status limited">Haijaungwa</span></div>
+				<h3>Xbox One / Series</h3><p>Hakuna emulator ya browser iliyounganishwa hapa kwa Xbox One au Series X|S. Siwezi kuthibitisha emulator ya PC ya jumla kwa hizi.</p>
+				<ul><li>Cheza kupitia console na huduma rasmi</li><li>Usipakue “emulator” zisizojulikana</li><li>Hakuna ROM launcher ya D-gamegape</li></ul>
+				<div class="card-footer"><span class="action disabled" aria-disabled="true">Hakuna emulator iliyothibitishwa</span></div>
+			</article>
+		</section>
+		<section class="howto" aria-label="Jinsi ya kutumia mwongozo">
+			<article><strong>1 · Chagua console</strong><p>Tumia filters au tafuta jina la console/emulator unayotaka.</p></article>
+			<article><strong>2 · Tumia chanzo rasmi</strong><p>Fungua ukurasa wa mradi, soma requirements na pakua programu kutoka kwa watengenezaji wake.</p></article>
+			<article><strong>3 · Cheza au hifadhi faili</strong><p>PS1/PSP zinaweza kufunguliwa hapa baada ya kukubali CDN; consoles nyingine zitumie kwenye emulator ya PC. Hifadhi ya maktaba inaweza kufutwa ukiondoa game au site data.</p></article>
+		</section>
+	</main>
+	<footer><div class="shell">D-gamegape ni mwongozo wa kujitegemea na haihusiani na Sony, Microsoft au watengenezaji wa emulator. Majina ya biashara yanatumika kutambua console/project husika. Hakiki nyaraka za project kwa taarifa na compatibility za sasa.</div></footer>
+	<script>
+		(() => {
+			const search = document.getElementById("platform-search");
+			const cards = [...document.querySelectorAll("[data-platform]")];
+			let activeFilter = "all";
+			function filterPlatforms() {
+				const query = search.value.trim().toLocaleLowerCase();
+				let shown = 0;
+				for (const card of cards) {
+					const matches = (activeFilter === "all" || card.dataset.family.split(" ").includes(activeFilter))
+						&& card.dataset.search.includes(query);
+					card.hidden = !matches;
+					if (matches) shown++;
+				}
+				let empty = document.getElementById("empty-results");
+				if (!shown && !empty) {
+					empty = document.createElement("p");
+					empty.id = "empty-results";
+					empty.className = "no-results";
+					empty.textContent = "Hakuna console iliyolingana na utafutaji huo.";
+					document.getElementById("platform-grid").append(empty);
+				} else if (shown && empty) empty.remove();
+			}
+			search.addEventListener("input", filterPlatforms);
+			document.querySelector(".filters").addEventListener("click", (event) => {
+				const button = event.target.closest("[data-filter]");
+				if (!button) return;
+				activeFilter = button.dataset.filter;
+				document.querySelectorAll("[data-filter]").forEach((filter) => filter.setAttribute("aria-pressed", String(filter === button)));
+				filterPlatforms();
+			});
+
+			const dbName = "d-gamegape-console-library";
+			const storeName = "games";
+			const systemNames = {
+				ps1: "PlayStation 1", psp: "PSP", ps2: "PlayStation 2", ps3: "PlayStation 3",
+				vita: "PlayStation Vita", xbox: "Xbox ya awali", xbox360: "Xbox 360", xboxone: "Xbox One / Series"
+			};
+			const extensions = {
+				ps1: ["bin", "iso", "chd", "pbp"], psp: ["iso", "cso", "pbp", "chd"],
+				ps2: ["iso", "chd", "cso"], ps3: ["iso", "pkg"], vita: ["vpk", "zip"],
+				xbox: ["iso", "xiso"], xbox360: ["iso", "xex"], xboxone: ["appx", "xvc"]
+			};
+			const gameForm = document.getElementById("console-game-form");
+			const gameTitle = document.getElementById("console-game-title");
+			const gameSystem = document.getElementById("console-game-system");
+			const gameFile = document.getElementById("console-game-file");
+			const gameList = document.getElementById("library-list");
+			const libraryStatus = document.getElementById("library-status");
+			let databasePromise;
+			const downloadUrls = new Set();
+
+			function setLibraryStatus(message, isError = false) {
+				libraryStatus.textContent = message;
+				libraryStatus.dataset.error = String(isError);
+			}
+
+			function openDatabase() {
+				if (databasePromise) return databasePromise;
+				databasePromise = new Promise((resolve, reject) => {
+					if (!window.indexedDB) {
+						reject(new Error("Browser hii haiawashi IndexedDB. Jaribu browser nyingine au ruhusu site storage."));
+						return;
+					}
+					const request = indexedDB.open(dbName, 1);
+					request.onupgradeneeded = () => {
+						if (!request.result.objectStoreNames.contains(storeName)) {
+							request.result.createObjectStore(storeName, { keyPath: "id" });
+						}
+					};
+					request.onsuccess = () => resolve(request.result);
+					request.onerror = () => reject(request.error || new Error("Maktaba haikuweza kufunguliwa."));
+				});
+				return databasePromise;
+			}
+
+			async function readGames() {
+				const db = await openDatabase();
+				return new Promise((resolve, reject) => {
+					const request = db.transaction(storeName, "readonly").objectStore(storeName).getAll();
+					request.onsuccess = () => resolve(request.result.sort((a, b) => b.addedAt - a.addedAt));
+					request.onerror = () => reject(request.error || new Error("Michezo haikuweza kusomwa."));
+				});
+			}
+
+			async function storeGame(record) {
+				const db = await openDatabase();
+				return new Promise((resolve, reject) => {
+					const transaction = db.transaction(storeName, "readwrite");
+					transaction.objectStore(storeName).put(record);
+					transaction.oncomplete = resolve;
+					transaction.onerror = () => reject(transaction.error || new Error("Hifadhi ya mchezo imeshindwa."));
+					transaction.onabort = () => reject(transaction.error || new Error("Hifadhi imekatishwa; kagua nafasi ya browser."));
+				});
+			}
+
+			async function removeGame(id) {
+				const db = await openDatabase();
+				return new Promise((resolve, reject) => {
+					const transaction = db.transaction(storeName, "readwrite");
+					transaction.objectStore(storeName).delete(id);
+					transaction.oncomplete = resolve;
+					transaction.onerror = () => reject(transaction.error || new Error("Mchezo haukuweza kufutwa."));
+					transaction.onabort = () => reject(transaction.error || new Error("Ufutaji umeshindwa."));
+				});
+			}
+
+			function element(tag, className, text) {
+				const node = document.createElement(tag);
+				if (className) node.className = className;
+				if (text !== undefined) node.textContent = text;
+				return node;
+			}
+
+			function renderGames(games) {
+				for (const url of downloadUrls) URL.revokeObjectURL(url);
+				downloadUrls.clear();
+				gameList.replaceChildren();
+				if (!games.length) {
+					gameList.append(element("p", "library-empty", "Maktaba bado haina michezo. Ongeza faili lako la mchezo hapo juu."));
+					return;
+				}
+				for (const game of games) {
+					const card = element("article", "library-game");
+					card.append(element("span", "game-icon", game.system.toUpperCase()));
+					const info = element("div", "game-info");
+					info.append(element("h3", "", game.title), element("p", "", `${systemNames[game.system] || game.system} · ${game.fileName} · ${formatSize(game.fileSize)}`));
+					const actions = element("div", "game-actions");
+					if (game.system === "ps1" || game.system === "psp") {
+						const playLink = element("a", "action primary", "▶ Cheza");
+						playLink.href = game.system === "ps1"
+							? `D-gamegape.html?consoleGame=${encodeURIComponent(game.id)}#ps1-emulator`
+							: `D-gamegape-psp.html?consoleGame=${encodeURIComponent(game.id)}`;
+						actions.append(playLink);
+					} else {
+						actions.append(element("span", "action disabled", "Browser haiichezi console hii"));
+					}
+					const download = element("a", "action", "Pakua faili");
+					download.href = URL.createObjectURL(game.file);
+					downloadUrls.add(download.href);
+					download.download = game.fileName;
+					actions.append(download);
+					const remove = element("button", "action", "Ondoa");
+					remove.type = "button";
+					remove.dataset.removeGame = game.id;
+					actions.append(remove);
+					info.append(actions);
+					card.append(info);
+					gameList.append(card);
+				}
+			}
+
+			function formatSize(bytes) {
+				if (!bytes) return "0 B";
+				const units = ["B", "KB", "MB", "GB", "TB"];
+				const index = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+				return `${(bytes / (1024 ** index)).toFixed(index ? 1 : 0)} ${units[index]}`;
+			}
+
+			async function refreshGames() {
+				try {
+					renderGames(await readGames());
+					setLibraryStatus("Maktaba yako ya kifaa hiki iko tayari.");
+				} catch (error) {
+					renderGames([]);
+					setLibraryStatus(error.message || "Maktaba haikuweza kufunguliwa.", true);
+				}
+			}
+
+			gameSystem.addEventListener("change", () => {
+				gameFile.value = "";
+				gameFile.accept = extensions[gameSystem.value].map((extension) => `.${extension}`).join(",");
+			});
+			gameFile.accept = extensions[gameSystem.value].map((extension) => `.${extension}`).join(",");
+			gameFile.addEventListener("change", () => {
+				if (!gameTitle.value.trim() && gameFile.files[0]) {
+					gameTitle.value = gameFile.files[0].name.replace(/\.[^.]+$/, "");
+				}
+			});
+			gameForm.addEventListener("submit", async (event) => {
+				event.preventDefault();
+				const file = gameFile.files && gameFile.files[0];
+				if (!file || !file.size) {
+					setLibraryStatus("Chagua faili la mchezo lenye maudhui kabla ya kuongeza.", true);
+					return;
+				}
+				const system = gameSystem.value;
+				const extension = file.name.split(".").pop().toLowerCase();
+				if (!extensions[system].includes(extension)) {
+					setLibraryStatus(`Faili la ${systemNames[system]} lazima liwe: ${extensions[system].join(", ").toUpperCase()}.`, true);
+					return;
+				}
+				const title = gameTitle.value.trim();
+				if (!title) {
+					setLibraryStatus("Andika jina la mchezo.", true);
+					gameTitle.focus();
+					return;
+				}
+				try {
+					await storeGame({
+						id: window.crypto && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+						title, system, fileName: file.name, fileSize: file.size, file, addedAt: Date.now()
+					});
+					gameForm.reset();
+					gameSystem.dispatchEvent(new Event("change"));
+					setLibraryStatus("Mchezo umehifadhiwa kwenye browser ya kifaa hiki.");
+					await refreshGames();
+				} catch (error) {
+					setLibraryStatus(`Mchezo haukuhifadhiwa. ${error.message || "Kagua ruhusa na nafasi ya browser."}`, true);
+				}
+			});
+			gameList.addEventListener("click", async (event) => {
+				const button = event.target.closest("[data-remove-game]");
+				if (!button) return;
+				try {
+					await removeGame(button.dataset.removeGame);
+					await refreshGames();
+				} catch (error) {
+					setLibraryStatus(error.message || "Mchezo haukuweza kuondolewa.", true);
+				}
+			});
+			window.addEventListener("beforeunload", () => {
+				for (const url of downloadUrls) URL.revokeObjectURL(url);
+			});
+			void refreshGames();
+		})();
+	</script>
+</body>
+</html>

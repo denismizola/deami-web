@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Filamu za Afrika</title>
+  <desc id="desc">Mchoro wa asili wa machweo ya savanna na miti ya mbuyu.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#7f3854"/><stop offset=".55" stop-color="#ee8758"/><stop offset="1" stop-color="#ffd47b"/></linearGradient>
+    <linearGradient id="land" x2="0" y2="1"><stop stop-color="#95613f"/><stop offset="1" stop-color="#332d35"/></linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h640v420H0z"/>
+  <circle cx="424" cy="164" r="85" fill="#ffe39a"/>
+  <path fill="#d78b58" d="M0 266q106-66 222-6t209-9q111-53 209 2v167H0z"/>
+  <path fill="url(#land)" d="M0 318q125-48 243 0t205-2q91-29 192 9v95H0z"/>
+  <path fill="#292630" d="M0 373q144-36 265 0t216-4q78-20 159 2v49H0z"/>
+  <path fill="#352833" d="M153 306q8-65 5-129-2-42-33-70 37 10 52 48 13-44 44-54-25 36-23 74l5 131z"/>
+  <path fill="#352833" d="M480 326q7-52 4-103-1-34-26-57 30 8 42 38 10-35 35-44-20 29-18 60l4 106z"/>
+  <path fill="#20242c" d="M300 325q-2-44 1-81l-28-34 9-8 26 28 25-30 10 8-28 37 1 80z"/>
+  <g fill="#fbe4a1"><circle cx="94" cy="82" r="3"/><circle cx="171" cy="110" r="2"/><circle cx="543" cy="93" r="3"/><circle cx="585" cy="212" r="2"/></g>
+</svg>

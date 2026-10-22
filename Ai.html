@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="DEAMi Ai ni msaidizi wako wa Kiswahili kwa maswali ya kila siku, kujifunza na hesabu.">
+	<meta name="theme-color" content="#f8f9fc">
+	<title>DEAMi Ai | Msaidizi wako wa Kiswahili</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--ink: #202432;
+			--muted: #737989;
+			--line: #e6e8ef;
+			--paper: #f8f9fc;
+			--panel: #fff;
+			--purple: #147a68;
+			--purple-dark: #105f53;
+			--accent-soft: #e4f3ee;
+			--accent-tint: #f1f8f5;
+			--accent-border: #c2dfd5;
+			--accent-glow: rgb(20 122 104 / 13%);
+			--accent-light: #72baa7;
+			--mint: #e8f5ef;
+			--shadow: 0 18px 50px rgb(34 37 61 / 9%);
+		}
+		body[data-theme="sunrise"] {
+			--purple: #bd5a3c;
+			--purple-dark: #91432f;
+			--accent-soft: #f9e8df;
+			--accent-tint: #fff6f0;
+			--accent-border: #ebc8b8;
+			--accent-glow: rgb(189 90 60 / 14%);
+			--accent-light: #e09370;
+		}
+		body[data-theme="ocean"] {
+			--purple: #2875ad;
+			--purple-dark: #1d5782;
+			--accent-soft: #e3f0f8;
+			--accent-tint: #f1f7fb;
+			--accent-border: #bed8ea;
+			--accent-glow: rgb(40 117 173 / 14%);
+			--accent-light: #71a9cf;
+		}
+		* { box-sizing: border-box; }
+		body { min-width: 320px; min-height: 100vh; margin: 0; background: var(--paper); color: var(--ink); font-family: Inter, "Segoe UI", Arial, sans-serif; transition: background-color .45s ease, color .45s ease; }
+		button, textarea, input { font: inherit; }
+		button, a { -webkit-tap-highlight-color: transparent; }
+		a { color: inherit; }
+		.app { display: grid; min-height: 100vh; grid-template-columns: 264px minmax(0, 1fr); }
+		.sidebar { display: flex; flex-direction: column; gap: 24px; padding: 22px 16px; border-right: 1px solid var(--line); background: #f1f2f8; }
+		.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 850; text-decoration: none; }
+		.brand-icon { display: grid; width: 36px; aspect-ratio: 1; place-items: center; border-radius: 12px; background: linear-gradient(140deg, var(--purple), var(--accent-light)); color: white; font-size: 1.15rem; }
+		.sidebar-actions { display: grid; gap: 10px; }
+		.new-chat, .account-trigger { display: flex; min-height: 44px; align-items: center; justify-content: center; gap: 8px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 13px; background: var(--panel); color: var(--ink); font-weight: 750; cursor: pointer; text-decoration: none; }
+		.new-chat { border-color: var(--accent-border); background: var(--accent-soft); color: var(--purple-dark); }
+		.new-chat:hover, .account-trigger:hover { border-color: var(--purple); }
+		.sidebar-note { margin-top: auto; padding: 14px; border: 1px solid #dcece3; border-radius: 14px; background: var(--mint); color: #43564b; font-size: .8rem; line-height: 1.55; }
+		.sidebar-note strong { display: block; margin-bottom: 4px; }
+		.main { display: flex; min-width: 0; min-height: 100vh; flex-direction: column; }
+		.topbar { display: flex; min-height: 68px; align-items: center; justify-content: space-between; gap: 12px; padding: 12px clamp(16px, 4vw, 52px); border-bottom: 1px solid var(--line); background: rgb(255 255 255 / 85%); }
+		.top-title { margin: 0; font-size: .98rem; font-weight: 800; }
+		.model-pill { display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--muted); font-size: .76rem; font-weight: 750; }
+		.topbar-actions { display: flex; align-items: center; gap: 10px; }
+		.theme-toggle { display: grid; width: 38px; aspect-ratio: 1; place-items: center; border: 1px solid var(--accent-border); border-radius: 11px; background: var(--accent-soft); color: var(--purple-dark); font-size: 1.15rem; cursor: pointer; transition: background-color .45s ease, color .45s ease, border-color .45s ease, transform .2s ease; }
+		.theme-toggle:hover { transform: rotate(18deg); }
+		.top-account { min-height: 38px; padding: 7px 10px; border: 1px solid var(--accent-border); border-radius: 10px; background: var(--panel); color: var(--purple-dark); font-size: .78rem; font-weight: 800; cursor: pointer; }
+		.provider-switch { display: inline-flex; align-self: center; gap: 4px; margin: 0 auto 18px; padding: 4px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+		.provider-switch button { min-height: 38px; padding: 8px 13px; border: 0; border-radius: 9px; background: transparent; color: var(--muted); font-size: .82rem; font-weight: 800; cursor: pointer; }
+		.provider-switch button[aria-pressed="true"] { background: var(--accent-soft); color: var(--purple-dark); }
+		.model-dot { width: 8px; aspect-ratio: 1; border-radius: 50%; background: #39a772; }
+		.chat-shell { display: flex; width: min(900px, 100%); flex: 1; flex-direction: column; align-self: center; padding: 28px clamp(16px, 4vw, 48px) 16px; }
+		.welcome { max-width: 720px; margin: auto auto 24px; text-align: center; }
+		.welcome-mark { display: grid; width: 58px; aspect-ratio: 1; place-items: center; margin: 0 auto 16px; border-radius: 19px; background: linear-gradient(140deg, var(--accent-soft), var(--accent-tint)); color: var(--purple); font-size: 1.65rem; transition: background .45s ease, color .45s ease; }
+		.welcome h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 4vw, 2.4rem); letter-spacing: 0; }
+		.welcome p { max-width: 600px; margin: 0 auto; color: var(--muted); line-height: 1.65; }
+		.prompts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 25px; text-align: left; }
+		.prompt { min-height: 64px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); line-height: 1.45; text-align: left; cursor: pointer; }
+		.prompt:hover, .prompt:focus-visible { border-color: var(--purple); background: var(--accent-tint); }
+		.guest-start { min-height: 44px; margin-top: 15px; padding: 10px 16px; border: 0; border-radius: 12px; background: var(--purple); color: white; font-weight: 850; cursor: pointer; transition: background-color .45s ease, transform .16s ease; }
+		.guest-start:hover { transform: translateY(-1px); background: var(--purple-dark); }
+		.guest-start:disabled { cursor: wait; opacity: .65; }
+		.conversation { display: grid; flex: 1; align-content: end; gap: 22px; padding: 8px 0 18px; }
+		.conversation:empty { display: none; }
+		.message { display: grid; grid-template-columns: 34px minmax(0, 1fr); align-items: start; gap: 12px; }
+		.message.user { grid-template-columns: minmax(0, 1fr) 34px; }
+		.message.user .avatar { grid-column: 2; grid-row: 1; background: var(--accent-soft); color: var(--purple-dark); }
+		.message.user .message-body { grid-column: 1; grid-row: 1; justify-self: end; max-width: min(680px, 95%); padding: 13px 16px; border: 1px solid var(--accent-border); border-radius: 18px 5px 18px 18px; background: var(--accent-tint); }
+		.avatar { display: grid; width: 34px; aspect-ratio: 1; place-items: center; border-radius: 12px; background: var(--mint); color: #28715a; font-weight: 900; }
+		.message-body { min-width: 0; padding: 3px 0; line-height: 1.7; overflow-wrap: anywhere; white-space: pre-wrap; }
+		.message-label { display: block; margin-bottom: 4px; color: var(--muted); font-size: .73rem; font-weight: 800; }
+		.message-content { margin: 0; }
+		.typing { color: var(--muted); font-size: .88rem; }
+		.composer-wrap { position: sticky; bottom: 0; padding-top: 14px; background: linear-gradient(transparent, var(--paper) 16%); }
+		.response-options { display: flex; align-items: center; gap: 10px; margin: 0 4px 9px; }
+		.detail-toggle { min-height: 34px; padding: 6px 10px; border: 1px solid var(--accent-border); border-radius: 10px; background: var(--panel); color: var(--purple-dark); font-size: .76rem; font-weight: 800; cursor: pointer; }
+		.detail-toggle[aria-pressed="true"] { background: var(--accent-soft); }
+		.response-options span { color: var(--muted); font-size: .72rem; line-height: 1.4; }
+		.composer { display: grid; grid-template-columns: minmax(0, 1fr) 46px; align-items: end; gap: 10px; padding: 10px; border: 1px solid #dfe2eb; border-radius: 19px; background: var(--panel); box-shadow: 0 8px 28px rgb(34 37 61 / 7%); }
+		.composer:focus-within { border-color: var(--purple); box-shadow: 0 0 0 3px var(--accent-glow); }
+		.composer textarea { width: 100%; min-height: 42px; max-height: 180px; resize: none; padding: 10px 8px; border: 0; outline: 0; background: transparent; color: var(--ink); line-height: 1.5; }
+		.send { display: grid; width: 42px; aspect-ratio: 1; place-items: center; border: 0; border-radius: 13px; background: var(--purple); color: white; font-size: 1.1rem; cursor: pointer; }
+		.send:hover { background: var(--purple-dark); }
+		.send:disabled, .composer textarea:disabled { cursor: not-allowed; opacity: .55; }
+		.composer-hint { margin: 8px 4px 0; color: var(--muted); font-size: .72rem; line-height: 1.5; text-align: center; }
+		.setup-note { margin: 7px 4px 0; color: var(--muted); font-size: .72rem; line-height: 1.5; text-align: center; }
+		.status { min-height: 1.35em; margin: 8px 4px 0; color: #a44736; font-size: .82rem; text-align: center; }
+		dialog { width: min(440px, calc(100% - 30px)); padding: 0; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); color: var(--ink); box-shadow: var(--shadow); }
+		dialog::backdrop { background: rgb(27 28 40 / 45%); backdrop-filter: blur(3px); }
+		.dialog-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+		.dialog-head h2 { margin: 0; font-size: 1.1rem; }
+		.close { width: 36px; aspect-ratio: 1; border: 1px solid var(--line); border-radius: 10px; background: white; cursor: pointer; }
+		.auth-form { display: grid; gap: 13px; padding: 20px; }
+		.auth-description { margin: 0; color: var(--muted); font-size: .85rem; line-height: 1.5; }
+		.auth-form label { display: grid; gap: 6px; font-size: .82rem; font-weight: 750; }
+		.auth-form input { min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 11px; }
+		.auth-form input:focus-visible, button:focus-visible, a:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent-light); outline-offset: 2px; }
+		.auth-status { min-height: 1.5em; margin: 0; color: var(--muted); font-size: .82rem; line-height: 1.45; }
+		.auth-submit { min-height: 46px; border: 0; border-radius: 12px; background: var(--purple); color: white; font-weight: 850; cursor: pointer; }
+		.auth-toggle { border: 0; background: transparent; color: var(--purple-dark); font-weight: 750; text-decoration: underline; cursor: pointer; }
+		.signed-in { padding: 20px; }
+		.signed-in p { color: var(--muted); font-size: .88rem; overflow-wrap: anywhere; }
+		.sign-out { min-height: 42px; padding: 0 14px; border: 1px solid var(--line); border-radius: 11px; background: white; color: var(--ink); font-weight: 750; cursor: pointer; }
+		[hidden] { display: none !important; }
+		@media (max-width: 720px) {
+			.app { grid-template-columns: 1fr; }
+			.sidebar { display: none; }
+			.topbar { min-height: 58px; }
+			.topbar-actions { gap: 6px; }
+			.model-pill { display: none; }
+			.top-account { max-width: 92px; overflow: hidden; padding-inline: 8px; text-overflow: ellipsis; white-space: nowrap; }
+			.chat-shell { min-height: calc(100dvh - 58px); padding-top: 18px; }
+			.welcome { margin-top: auto; }
+			.prompts { grid-template-columns: 1fr; }
+		}
+		@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+	</style>
+</head>
+<body>
+	<div class="app">
+		<aside class="sidebar">
+			<a class="brand" href="q.html"><span class="brand-icon" aria-hidden="true">D</span><span>DEAMi Web</span></a>
+			<div class="sidebar-actions">
+				<button class="new-chat" id="new-chat" type="button">＋ Mazungumzo mapya</button>
+			</div>
+			<div class="sidebar-note"><strong>Faragha na usalama</strong><span id="privacy-copy">Mode ya local hutuma mazungumzo kwa Ollama kwenye kifaa hiki pekee.</span></div>
+			<a class="account-trigger" href="q.html">← Rudi DEAMi Web</a>
+		</aside>
+		<main class="main">
+			<header class="topbar">
+				<h1 class="top-title">DEAMi Ai · Msaidizi wako</h1>
+				<div class="topbar-actions">
+					<button class="theme-toggle" id="theme-toggle" type="button" title="Badili rangi" aria-label="Badili rangi ya mwonekano">◐</button>
+					<button class="top-account" id="account-trigger" type="button">Ingia / Jiunge</button>
+					<span class="model-pill"><span class="model-dot" aria-hidden="true"></span>DEAMi Ai · Gemini online</span>
+				</div>
+			</header>
+			<section class="chat-shell" aria-label="Mazungumzo na AI">
+				<div class="provider-switch" role="group" aria-label="Chagua injini ya AI">
+					<button id="local-provider" type="button" aria-pressed="true">DEAMi Ai · ndani ya kifaa</button>
+					<button id="gemini-provider" type="button" aria-pressed="false">DEAMi Ai · Gemini online</button>
+				</div>
+				<div class="welcome" id="welcome">
+					<div class="welcome-mark" aria-hidden="true">✦</div>
+					<h2>Habari! Nikusaidie nini leo?</h2>
+					<p>Uliza swali lolote au chagua mfano hapa chini ili kuanza. Unaweza kuandika kwa Kiswahili au lugha nyingine.</p>
+					<div class="prompts" aria-label="Mifano ya maswali ya kila siku">
+						<button class="prompt" type="button">Nisaidie kupanga siku yangu kwa vipaumbele, muda na mapumziko.</button>
+						<button class="prompt" type="button">Nina viungo hivi: [andika viungo]. Nipe wazo la chakula rahisi.</button>
+						<button class="prompt" type="button">Nisaidie kuandika ujumbe wa heshima kuhusu [mada] kwa [mtu].</button>
+						<button class="prompt" type="button">Nielezee [mada] kwa lugha rahisi na mfano wa kawaida.</button>
+						<button class="prompt" type="button">Tafsiri ujumbe huu kwa Kiswahili au Kiingereza cha kawaida: [bandika ujumbe].</button>
+						<button class="prompt" type="button">Nisaidie kutatua tatizo hili la simu au kompyuta hatua kwa hatua: [eleza tatizo].</button>
+						<button class="prompt" type="button">Nisaidie kupanga bajeti ya wiki kwa mapato na matumizi haya: [andika kiasi].</button>
+						<button class="prompt" type="button">Nisaidie kutatua hesabu hii hatua kwa hatua na ukague jibu: [andika hesabu].</button>
+						<button class="prompt" type="button">Bidhaa ni [bei] na punguzo ni [asilimia]%. Hesabu bei mpya na unionyeshe hatua.</button>
+						<button class="prompt" type="button">Nielezee sehemu, asilimia au uwiano huu kwa mfano rahisi: [andika swali].</button>
+						<button class="prompt" type="button">Nifundishe [mada] hatua kwa hatua, kisha nipe maswali matatu ya mazoezi.</button>
+						<button class="prompt" type="button">Linganisha chaguo hizi na unisaidie kuchagua: [chaguo na vipaumbele].</button>
+						<button class="prompt" type="button">Nipe maelezo ya kina kuhusu [mada]: maana, mambo muhimu, mfano na muhtasari.</button>
+						<button class="prompt" type="button">Nisaidie kuandaa mpango wa kazi au biashara kwa wazo hili: [eleza wazo].</button>
+					</div>
+					<button class="guest-start" id="guest-start" type="button">Anza kama mgeni</button>
+				</div>
+				<div class="conversation" id="conversation" aria-live="polite" aria-relevant="additions text"></div>
+				<div class="composer-wrap">
+					<div class="response-options">
+						<button class="detail-toggle" id="detail-toggle" type="button" aria-pressed="false">Maelezo zaidi: yamezimwa</button>
+						<span id="detail-description">Washa ili upate maelezo, mifano na hatua zaidi kwa kila jibu.</span>
+					</div>
+					<form class="composer" id="composer">
+						<textarea id="prompt-input" maxlength="8000" rows="1" aria-label="Andika ujumbe wako" placeholder="Uliza chochote..."></textarea>
+						<button class="send" id="send-button" type="submit" aria-label="Tuma ujumbe">↑</button>
+					</form>
+					<p class="status" id="chat-status" role="status" aria-live="polite"></p>
+					<p class="composer-hint">AI inaweza kukosea. Hakiki taarifa muhimu. Enter kutuma · Shift+Enter mstari mpya.</p>
+					<p class="setup-note">Unaweza kuanza kama mgeni au kutumia akaunti yako. Fungua ukurasa huu kupitia HTTPS au localhost, si file://.</p>
+				</div>
+			</section>
+		</main>
+	</div>
+
+	<dialog id="auth-dialog" aria-labelledby="auth-title">
+		<div class="dialog-head"><h2 id="auth-title">Ingia kwenye DEAMi</h2><button class="close" id="auth-close" type="button" aria-label="Funga">×</button></div>
+		<form class="auth-form" id="auth-form">
+			<p class="auth-description" id="auth-description">Ingia kwa akaunti yako ya D-link ili kuanza mazungumzo na AI.</p>
+			<label id="name-label" for="display-name" hidden>Jina litakaloonekana kwenye profile<input id="display-name" type="text" maxlength="60" autocomplete="nickname"></label>
+			<label for="email">Barua pepe<input id="email" type="email" autocomplete="email" required></label>
+			<label for="password">Nenosiri (angalau herufi 8)<input id="password" type="password" minlength="8" autocomplete="current-password" required></label>
+			<p class="auth-status" id="auth-status" role="status" aria-live="polite"></p>
+			<button class="auth-submit" id="auth-submit" type="submit">Ingia</button>
+			<button class="auth-toggle" id="auth-toggle" type="button">Huna akaunti? Jiunge bure</button>
+		</form>
+		<div class="signed-in" id="signed-in" hidden><p id="signed-in-email"></p><button class="sign-out" id="sign-out" type="button">Toka kwenye akaunti</button></div>
+	</dialog>
+
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+	<script>
+		const SUPABASE_URL = "https://ixskiyoczhftgubuxscg.supabase.co";
+		const SUPABASE_ANON_KEY = "sb_publishable_kMbThKjK_1nCPtRgEuvY5Q_sOJU5bC3";
+		const supabaseClient = window.supabase
+			? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+			: null;
+		const conversation = [];
+		const welcome = document.getElementById("welcome");
+		const conversationElement = document.getElementById("conversation");
+		const composer = document.getElementById("composer");
+		const promptInput = document.getElementById("prompt-input");
+		const sendButton = document.getElementById("send-button");
+		const chatStatus = document.getElementById("chat-status");
+		const detailToggle = document.getElementById("detail-toggle");
+		let detailedAnswers = false;
+		const authDialog = document.getElementById("auth-dialog");
+		const authForm = document.getElementById("auth-form");
+		const authStatus = document.getElementById("auth-status");
+		const authTrigger = document.getElementById("account-trigger");
+		const authToggle = document.getElementById("auth-toggle");
+		const authSubmit = document.getElementById("auth-submit");
+		const localProviderButton = document.getElementById("local-provider");
+		const geminiProviderButton = document.getElementById("gemini-provider");
+		const modelPill = document.querySelector(".model-pill");
+		const setupNote = document.querySelector(".setup-note");
+		const privacyCopy = document.getElementById("privacy-copy");
+		const authNameLabel = document.getElementById("name-label");
+		const displayName = document.getElementById("display-name");
+		const emailInput = document.getElementById("email");
+		const passwordInput = document.getElementById("password");
+		const signedInPanel = document.getElementById("signed-in");
+		const signedInEmail = document.getElementById("signed-in-email");
+		const guestStart = document.getElementById("guest-start");
+		const isSupportedOrigin = location.protocol === "https:"
+			|| location.hostname === "localhost"
+			|| location.hostname === "127.0.0.1";
+		let currentUser = null;
+		let authMode = "login";
+		let isSending = false;
+		let aiProvider = "local";
+		const localModelName = "deami-assistant";
+		const localModelEndpoint = "http://localhost:11434/api/chat";
+		let localStatusSequence = 0;
+		const themeToggle = document.getElementById("theme-toggle");
+		const themes = ["forest", "sunrise", "ocean"];
+		let themeIndex = 0;
+
+		try {
+			const savedTheme = localStorage.getItem("deami-ai-theme");
+			if (themes.includes(savedTheme)) themeIndex = themes.indexOf(savedTheme);
+		} catch {}
+
+		function applyTheme() {
+			const theme = themes[themeIndex];
+			document.body.dataset.theme = theme;
+			themeToggle.setAttribute("aria-label", `Badili rangi ya mwonekano. Mandhari ya sasa: ${themeIndex + 1} kati ya ${themes.length}`);
+			try {
+				localStorage.setItem("deami-ai-theme", theme);
+			} catch {}
+		}
+
+		themeToggle.addEventListener("click", () => {
+			themeIndex = (themeIndex + 1) % themes.length;
+			applyTheme();
+		});
+		applyTheme();
+
+		detailToggle.addEventListener("click", () => {
+			detailedAnswers = !detailedAnswers;
+			detailToggle.setAttribute("aria-pressed", String(detailedAnswers));
+			detailToggle.textContent = `Maelezo zaidi: ${detailedAnswers ? "yamewashwa" : "yamezimwa"}`;
+		});
+
+		function updateAuthUI(user) {
+			currentUser = user || null;
+			authTrigger.textContent = currentUser ? "Akaunti yangu" : "Ingia / Jiunge";
+			authTrigger.hidden = aiProvider === "local";
+			authForm.hidden = Boolean(currentUser);
+			signedInPanel.hidden = !currentUser;
+			signedInEmail.textContent = currentUser
+				? currentUser.is_anonymous ? "Unaendelea kama mgeni." : `Umeingia kama ${currentUser.email}.`
+				: "";
+			guestStart.hidden = Boolean(currentUser) || aiProvider === "local";
+			const requiresAccount = aiProvider === "gemini" && !currentUser;
+			promptInput.placeholder = requiresAccount ? "Ingia kwanza ili kutuma swali..." : "Uliza model yako ya ndani...";
+			promptInput.disabled = requiresAccount || isSending;
+			sendButton.disabled = requiresAccount || isSending;
+		}
+
+		async function checkLocalModel() {
+			const sequence = ++localStatusSequence;
+			setupNote.textContent = "Inaangalia Ollama kwenye kompyuta hii...";
+			try {
+				const response = await fetch("http://localhost:11434/api/tags");
+				if (!response.ok) throw new Error("Ollama haijibu.");
+				const data = await response.json();
+				if (sequence !== localStatusSequence || aiProvider !== "local") return;
+				const models = Array.isArray(data.models) ? data.models : [];
+				const modelAvailable = models.some(model => (model.name || model.model || "").split(":")[0] === localModelName);
+				setupNote.textContent = modelAvailable
+					? "Model deami-assistant iko tayari kwenye kifaa hiki."
+					: "Ollama iko tayari; tengeneza deami-assistant kwa hatua zilizo kwenye D-LINK-SETUP.md.";
+			} catch {
+				if (sequence === localStatusSequence && aiProvider === "local") {
+					setupNote.textContent = "Ollama haipatikani. Isakinishe na fuata hatua za Model ya ndani kwenye D-LINK-SETUP.md.";
+				}
+			}
+		}
+
+		function setAIProvider(provider) {
+			aiProvider = provider;
+			localProviderButton.setAttribute("aria-pressed", String(provider === "local"));
+			geminiProviderButton.setAttribute("aria-pressed", String(provider === "gemini"));
+			modelPill.innerHTML = `<span class="model-dot" aria-hidden="true"></span>${provider === "local" ? "DEAMi Ai · ndani ya kifaa" : "DEAMi Ai · Gemini online"}`;
+			if (provider === "local") {
+				void checkLocalModel();
+			} else {
+				localStatusSequence += 1;
+				setupNote.textContent = "Gemini huhitaji kuingia na GEMINI_API_KEY iwekwe kwenye Supabase Secrets.";
+			}
+			privacyCopy.textContent = provider === "local"
+				? "Mode ya local hutuma mazungumzo kwa Ollama kwenye kifaa hiki pekee."
+				: "Gemini hutuma mazungumzo kwa huduma ya Google; Supabase huhifadhi user ID na muda wa request kwa quota. Usiweke taarifa za siri.";
+			chatStatus.textContent = "";
+			updateAuthUI(currentUser);
+		}
+
+		localProviderButton.addEventListener("click", () => setAIProvider("local"));
+		geminiProviderButton.addEventListener("click", () => setAIProvider("gemini"));
+		setAIProvider("local");
+
+		function setAuthMode(mode) {
+			authMode = mode;
+			const isSignup = mode === "signup";
+			document.getElementById("auth-title").textContent = isSignup ? "Fungua akaunti ya DEAMi" : "Ingia kwenye DEAMi";
+			document.getElementById("auth-description").textContent = isSignup
+				? "Tengeneza akaunti ya bure ili kuanza kutumia DEAMi Ai."
+				: "Ingia kwa akaunti yako ya D-link ili kuanza mazungumzo na AI.";
+			authNameLabel.hidden = !isSignup;
+			displayName.required = isSignup;
+			passwordInput.autocomplete = isSignup ? "new-password" : "current-password";
+			authSubmit.textContent = isSignup ? "Jiunge bure" : "Ingia";
+			authToggle.textContent = isSignup ? "Una akaunti tayari? Ingia" : "Huna akaunti? Jiunge bure";
+			authStatus.textContent = "";
+		}
+
+		function appendMessage(role, text) {
+			const item = document.createElement("article");
+			const avatar = document.createElement("span");
+			const body = document.createElement("div");
+			const label = document.createElement("span");
+			const content = document.createElement("p");
+			item.className = `message ${role}`;
+			avatar.className = "avatar";
+			avatar.setAttribute("aria-hidden", "true");
+			avatar.textContent = role === "assistant" ? "D" : "We";
+			label.className = "message-label";
+			label.textContent = role === "assistant" ? "DEAMi Ai" : "Wewe";
+			content.className = "message-content";
+			content.textContent = text;
+			body.className = "message-body";
+			body.append(label, content);
+			item.append(avatar, body);
+			conversationElement.append(item);
+			welcome.hidden = true;
+			item.scrollIntoView({ behavior: "smooth", block: "end" });
+			return content;
+		}
+
+		function setSending(sending) {
+			isSending = sending;
+			const requiresAccount = aiProvider === "gemini" && !currentUser;
+			promptInput.disabled = requiresAccount || sending;
+			sendButton.disabled = requiresAccount || sending;
+			document.getElementById("new-chat").disabled = sending;
+			sendButton.textContent = sending ? "…" : "↑";
+			document.querySelectorAll(".prompt").forEach(button => {
+				button.disabled = sending;
+			});
+		}
+
+		async function getFunctionErrorMessage(error) {
+			if (error?.context instanceof Response) {
+				try {
+					const body = await error.context.clone().json();
+					if (body?.error) return body.error;
+				} catch (parseError) {
+					console.warn("Jibu la hitilafu ya AI halikusomeka.", parseError);
+				}
+				if (error.context.status === 401) return "Ingia tena kwenye akaunti yako kisha ujaribu tena.";
+				if (error.context.status === 404) return "AI bado haijaunganishwa. Mmiliki wa tovuti anahitaji kupeleka Supabase Edge Function ya deami-ai.";
+			}
+			if (error?.name === "FunctionsFetchError" || error?.name === "FunctionsRelayError") {
+				return "AI haipatikani bado. Hakikisha function deami-ai imepelekwa kwenye Supabase na una intaneti.";
+			}
+			return "Jibu halikupatikana kwa sasa. Jaribu tena baada ya muda mfupi.";
+		}
+
+		async function sendMessage(rawText) {
+			const text = rawText.trim();
+			if (!text || isSending) return;
+			if (!isSupportedOrigin) {
+				chatStatus.textContent = "Fungua ukurasa huu kupitia HTTPS au localhost (kwa mfano http://localhost:8000/Ai.html), si file://.";
+				return;
+			}
+			if (aiProvider === "gemini" && !supabaseClient) {
+				chatStatus.textContent = "Maktaba ya Supabase haikupakiwa. Hakiki intaneti kisha refresh ukurasa.";
+				return;
+			}
+			if (aiProvider === "gemini" && !currentUser) {
+				chatStatus.textContent = "Ingia au jiunge bure ili kutumia AI.";
+				authDialog.showModal();
+				return;
+			}
+			if (aiProvider === "local" && !["localhost", "127.0.0.1"].includes(location.hostname)) {
+				chatStatus.textContent = "Model ya ndani inapatikana tu kwenye kompyuta hii. Fungua preview ya localhost.";
+				return;
+			}
+
+			chatStatus.textContent = "";
+			promptInput.value = "";
+			promptInput.style.height = "42px";
+			conversation.push({ role: "user", content: text });
+			const requestMessages = conversation.slice(-12).map(message => ({ ...message }));
+			if (detailedAnswers) {
+				const latestUserMessage = [...requestMessages].reverse().find(message => message.role === "user");
+				if (latestUserMessage) {
+					latestUserMessage.content += "\n\nTafadhali jibu kwa maelezo zaidi: fafanua wazo kuu kwa lugha rahisi, panga hoja katika sehemu au hatua, toa mfano unaofaa na umalizie kwa muhtasari mfupi. Taja wazi ikiwa jambo halijathibitishwa; usiongeze maelezo ya kubuni.";
+				}
+			}
+			appendMessage("user", text);
+			const answerElement = appendMessage("assistant", "");
+			answerElement.textContent = "Nafikiria...";
+			setSending(true);
+
+			try {
+				let answer = "";
+				if (aiProvider === "local") {
+					let response;
+					try {
+						response = await fetch(localModelEndpoint, {
+							method: "POST",
+							headers: { "Content-Type": "application/json" },
+							body: JSON.stringify({
+								model: localModelName,
+								messages: [
+									{ role: "system", content: "Wewe ni DEAMi Ai, msaidizi mchangamfu, mwenye heshima na usawa. Jibu kwa lugha ya mtumiaji; tumia Kiswahili rahisi akitumia Kiswahili. Saidia kwa maswali ya kila siku, shule, hesabu, sayansi, ratiba, maandishi, tafsiri, muhtasari, mapishi, teknolojia, bajeti na maamuzi. Kwa hesabu za msingi, asilimia, sehemu, uwiano, wastani, vipimo na milinganyo rahisi: onyesha kanuni na hatua, weka vitengo vinapohusika, kisha kagua jibu kwa hesabu ya kinyume au makadirio. Usibuni thamani zilizokosekana; uliza ufafanuzi ikiwa swali halieleweki, na sema wazi ikiwa huwezi kuthibitisha hesabu changamano. Kwa ratiba weka vipaumbele na mapumziko; mapishi yatumie viungo vilivyotajwa; ujumbe uwe tayari kunakiliwa; tafsiri ihifadhi maana; muhtasari uhifadhi hoja kuu; bajeti ionyeshe mapato, matumizi na salio; utatuzi wa kifaa utoe hatua moja baada ya nyingine. Jibu moja kwa moja, tofauti ukweli na maoni, usibuni vyanzo, takwimu au habari za sasa, na sema wazi usipojua. Kwa afya, sheria, fedha au dharura toa taarifa ya jumla na elekeza kwa mtaalamu inapofaa. Linda taarifa za siri; usiombe nenosiri au misimbo." },
+									...requestMessages
+								],
+								stream: false
+							})
+						});
+					} catch {
+						throw new Error("Ollama haipatikani. Sakinisha na washa Ollama, kisha fuata hatua za Model ya ndani kwenye D-LINK-SETUP.md.");
+					}
+					if (response.status === 404) throw new Error(`Model ${localModelName} haipo. Tengeneza kwa kufuata hatua za Modelfile kwenye D-LINK-SETUP.md.`);
+					if (!response.ok) throw new Error(`Ollama imerudisha hitilafu ${response.status}. Hakiki kuwa model inaendeshwa.`);
+					const data = await response.json();
+					answer = data.message?.content || "";
+				} else {
+					const { data, error } = await supabaseClient.functions.invoke("deami-ai", {
+						body: { messages: requestMessages }
+					});
+					if (error) throw new Error(await getFunctionErrorMessage(error));
+					answer = data?.answer || "";
+				}
+				if (typeof answer !== "string" || !answer.trim()) {
+					throw new Error("AI haikurudisha jibu linalosomeka.");
+				}
+				answerElement.textContent = answer;
+				conversation.push({ role: "assistant", content: answer });
+			} catch (error) {
+				console.error("AI assistant request failed.", error);
+				chatStatus.textContent = error instanceof Error && error.message !== "Failed to fetch"
+					? error.message
+					: "Imeshindikana kuwasiliana na AI. Hakiki intaneti na usanidi wa function.";
+				answerElement.closest(".message")?.remove();
+				if (conversation.at(-1)?.role === "user") conversation.pop();
+			} finally {
+				setSending(false);
+				promptInput.focus();
+			}
+		}
+
+		document.getElementById("new-chat").addEventListener("click", () => {
+			conversation.length = 0;
+			conversationElement.replaceChildren();
+			welcome.hidden = false;
+			chatStatus.textContent = "";
+			promptInput.value = "";
+			promptInput.focus();
+		});
+		guestStart.addEventListener("click", async () => {
+			if (!supabaseClient) {
+				chatStatus.textContent = "Supabase haikupatikana. Hakiki intaneti kisha refresh ukurasa.";
+				return;
+			}
+			guestStart.disabled = true;
+			guestStart.textContent = "Inaunganisha...";
+			chatStatus.textContent = "Tunafungua mazungumzo ya mgeni...";
+			try {
+				const { data, error } = await supabaseClient.auth.signInAnonymously();
+				if (error) throw error;
+				updateAuthUI(data.user);
+				chatStatus.textContent = "Umeingia kama mgeni. Uliza swali lako.";
+			} catch (error) {
+				console.error("Guest session setup failed.", error);
+				chatStatus.textContent = /anonymous|disabled/i.test(error?.message || "")
+					? "Akaunti za wageni hazijawashwa kwenye Supabase. Mmiliki awashe Anonymous Sign-Ins kwenye Authentication settings."
+					: "Imeshindikana kuanza kama mgeni. Jaribu kuingia au jiunge kwa akaunti.";
+			} finally {
+				guestStart.disabled = false;
+				guestStart.textContent = "Anza kama mgeni";
+			}
+		});
+		document.querySelectorAll(".prompt").forEach(button => {
+			button.addEventListener("click", () => void sendMessage(button.textContent));
+		});
+		composer.addEventListener("submit", event => {
+			event.preventDefault();
+			void sendMessage(promptInput.value);
+		});
+		promptInput.addEventListener("input", () => {
+			promptInput.style.height = "42px";
+			promptInput.style.height = `${Math.min(promptInput.scrollHeight, 180)}px`;
+		});
+		promptInput.addEventListener("keydown", event => {
+			if (event.key === "Enter" && !event.shiftKey) {
+				event.preventDefault();
+				composer.requestSubmit();
+			}
+		});
+		authTrigger.addEventListener("click", () => authDialog.showModal());
+		document.getElementById("auth-close").addEventListener("click", () => authDialog.close());
+		authDialog.addEventListener("click", event => {
+			if (event.target === authDialog) authDialog.close();
+		});
+		authToggle.addEventListener("click", () => setAuthMode(authMode === "signup" ? "login" : "signup"));
+		authForm.addEventListener("submit", async event => {
+			event.preventDefault();
+			if (!isSupportedOrigin) {
+				authStatus.textContent = "Ingia kupitia HTTPS au localhost, si kwa kubofya faili la file://.";
+				return;
+			}
+			if (!supabaseClient) {
+				authStatus.textContent = "Supabase haikupatikana. Hakiki intaneti kisha refresh ukurasa.";
+				return;
+			}
+			authSubmit.disabled = true;
+			authStatus.textContent = authMode === "signup" ? "Inatengeneza akaunti..." : "Inaingia...";
+			try {
+				if (authMode === "signup") {
+					const { data, error } = await supabaseClient.auth.signUp({
+						email: emailInput.value.trim(),
+						password: passwordInput.value,
+						options: { data: { display_name: displayName.value.trim() } }
+					});
+					if (error) throw error;
+					if (!data.session) {
+						authStatus.textContent = "Akaunti imetengenezwa. Fungua email yako (angalia Spam pia), thibitisha akaunti, kisha ingia.";
+					} else {
+						authDialog.close();
+					}
+				} else {
+					const { error } = await supabaseClient.auth.signInWithPassword({
+						email: emailInput.value.trim(),
+						password: passwordInput.value
+					});
+					if (error) throw error;
+					authDialog.close();
+				}
+			} catch (error) {
+				console.error("DEAMi Ai authentication failed.", error);
+				const message = error?.message || "";
+				authStatus.textContent = /email not confirmed/i.test(message)
+					? "Thibitisha email kupitia ujumbe wa Supabase kwanza, kisha ujaribu kuingia."
+					: /rate limit|too many requests/i.test(message)
+						? "Maombi ni mengi kwa sasa. Subiri kidogo kabla ya kujaribu tena."
+						: `Imeshindikana kuingia: ${message || "Hakiki email na nenosiri."}`;
+			} finally {
+				authSubmit.disabled = false;
+			}
+		});
+		document.getElementById("sign-out").addEventListener("click", async () => {
+			const { error } = await supabaseClient.auth.signOut();
+			if (error) {
+				authStatus.textContent = `Imeshindikana kutoka kwenye akaunti: ${error.message}`;
+				return;
+			}
+			authDialog.close();
+		});
+
+		if (supabaseClient) {
+			supabaseClient.auth.getSession().then(({ data, error }) => {
+				if (error) {
+					console.error("Imeshindikana kusoma session ya DEAMi.", error);
+					chatStatus.textContent = "Hali ya akaunti haikupakiwa. Refresh ukurasa au ingia tena.";
+					return;
+				}
+				updateAuthUI(data.session?.user);
+			});
+			supabaseClient.auth.onAuthStateChange((_event, session) => updateAuthUI(session?.user));
+		} else {
+			updateAuthUI(null);
+			chatStatus.textContent = "Maktaba ya Supabase haikupakiwa. Hakiki intaneti kisha refresh ukurasa.";
+		}
+		if (!isSupportedOrigin) {
+			chatStatus.textContent = "Kwa kuingia na kutumia AI, fungua Ai.html kupitia HTTPS au localhost badala ya file://.";
+		}
+		setAuthMode("login");
+		const contextPrompt = new URLSearchParams(window.location.search).get("prompt");
+		const contextSource = new URLSearchParams(window.location.search).get("source");
+		if (contextPrompt) {
+			promptInput.value = contextPrompt.slice(0, 7000);
+			promptInput.style.height = "42px";
+			promptInput.style.height = `${Math.min(promptInput.scrollHeight, 180)}px`;
+			detailedAnswers = true;
+			detailToggle.setAttribute("aria-pressed", "true");
+			detailToggle.textContent = "Maelezo zaidi: yamewashwa";
+			chatStatus.textContent = contextSource
+				? `Swali kuhusu "${contextSource}" limeandaliwa. Hakiki kisha bonyeza Tuma.`
+				: "Swali limeandaliwa. Hakiki kisha bonyeza Tuma.";
+		}
+	</script>
+</body>
+</html>

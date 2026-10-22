@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Mwongozo wa Kiswahili wenye mbinu, mifano na mpango wa kujifunza kwa ufanisi.">
+	<title>Mwongozo wa Kujifunza | DEAMi Web</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--forest: #163d32;
+			--green: #28715a;
+			--lime: #d9ed79;
+			--coral: #ee795c;
+			--ink: #1d2924;
+			--muted: #68736d;
+			--paper: #f4f5ef;
+			--line: #dce1d9;
+			--white: #fff;
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+		body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Trebuchet MS", "Segoe UI", sans-serif; line-height: 1.7; }
+		a { color: var(--green); text-underline-offset: 4px; }
+
+		.topbar { padding: 16px max(5vw, 20px); background: var(--forest); color: var(--white); }
+		.topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; width: min(1080px, 100%); margin: auto; }
+		.brand { color: var(--white); font-size: 0.86rem; font-weight: 800; letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase; }
+		.topbar a:last-child { color: var(--lime); font-size: 0.9rem; font-weight: 700; }
+
+		.hero { padding: clamp(55px, 9vw, 100px) max(7vw, 22px) 58px; background: var(--forest); color: var(--white); }
+		.hero-inner { width: min(1080px, 100%); margin: auto; }
+		.eyebrow { margin: 0 0 12px; color: var(--lime); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+		h1, h2, h3, p { margin-top: 0; }
+		h1 { max-width: 760px; margin-bottom: 18px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.7rem, 7vw, 5.8rem); font-weight: 500; letter-spacing: 0; line-height: 1; }
+		.hero-copy { max-width: 660px; margin-bottom: 0; color: #d5e4dc; font-size: 1.05rem; }
+
+		main { width: min(1080px, 88vw); margin: auto; }
+		.intro { max-width: 760px; padding: 34px 0 10px; color: var(--muted); font-size: 1.04rem; }
+		.contents { display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 0 34px; border-bottom: 1px solid var(--line); }
+		.contents a { padding: 8px 12px; border: 1px solid var(--line); background: var(--white); color: var(--forest); font-size: 0.84rem; font-weight: 700; text-decoration: none; }
+		.contents a:hover { border-color: var(--green); background: #e8f2e9; }
+
+		section { padding: 52px 0; border-bottom: 1px solid var(--line); }
+		h2 { margin-bottom: 14px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.9rem, 4vw, 2.7rem); font-weight: 500; letter-spacing: 0; line-height: 1.15; }
+		h3 { margin-bottom: 8px; font-size: 1.04rem; }
+		.section-intro { max-width: 720px; margin-bottom: 24px; color: var(--muted); }
+		.method { padding: 22px 0; border-top: 1px solid var(--line); }
+		.method p { max-width: 790px; margin-bottom: 9px; color: var(--muted); }
+		.try { padding: 14px 17px; border-left: 3px solid var(--coral); background: var(--white); color: var(--ink); }
+		.try strong { color: var(--forest); }
+
+		.study-cycle { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; border: 1px solid var(--line); background: var(--line); }
+		.cycle-step { padding: 18px; background: var(--white); }
+		.cycle-step strong { display: block; margin-bottom: 7px; color: var(--green); font-family: Georgia, "Times New Roman", serif; font-size: 1.25rem; font-weight: 500; }
+		.cycle-step span { color: var(--muted); font-size: 0.88rem; }
+
+		.plan-wrap { overflow-x: auto; }
+		.plan { width: 100%; border-collapse: collapse; background: var(--white); font-size: 0.9rem; }
+		.plan th, .plan td { padding: 13px 15px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+		.plan thead th { background: var(--forest); color: var(--white); }
+		.plan tbody th { width: 120px; color: var(--green); }
+
+		.checklist { margin: 0; padding-left: 22px; }
+		.checklist li { margin: 0 0 9px; padding-left: 4px; }
+		.sources { display: grid; gap: 12px; }
+		.source { padding: 17px 19px; border-left: 3px solid var(--green); background: var(--white); }
+		.source strong { display: block; margin-bottom: 3px; }
+		.source p { margin-bottom: 6px; color: var(--muted); font-size: 0.9rem; }
+		.source a { font-size: 0.88rem; font-weight: 700; }
+		.note { margin: 28px 0 46px; padding: 18px 20px; border-left: 4px solid var(--lime); background: #fff9e5; color: #55491f; font-size: 0.92rem; }
+		footer { padding: 24px 5%; background: #e7ebe4; color: var(--muted); font-size: 0.84rem; text-align: center; }
+		footer p { margin: 0; }
+
+		@media (max-width: 720px) {
+			.study-cycle { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			section { padding: 42px 0; }
+		}
+
+		@media (max-width: 480px) {
+			main { width: min(100% - 36px, 1080px); }
+			.topbar-inner { align-items: flex-start; flex-direction: column; }
+			.study-cycle { grid-template-columns: 1fr; }
+			.plan { min-width: 560px; }
+		}
+	</style>
+	<link rel="stylesheet" href="deami-layout.css">
+</head>
+<body>
+	<header class="topbar">
+		<div class="topbar-inner">
+			<a class="brand" href="q.html">DEAMi Web</a>
+			<a href="q.html#picha">Rudi kwenye matunzio</a>
+		</div>
+	</header>
+
+	<header class="hero">
+		<div class="hero-inner">
+			<p class="eyebrow">Elimu · Mwongozo wa vitendo</p>
+			<h1>Jifunze kwa uelewa, si kwa kukariri tu.</h1>
+			<p class="hero-copy">Mbinu rahisi za kupanga muda, kuelewa mada, kukumbuka ulichosoma na kufuatilia maendeleo yako.</p>
+		</div>
+	</header>
+
+	<main>
+		<p class="intro">Hakuna ratiba moja inayofaa kila mtu. Anza na mbinu moja au mbili, zijaribu kwa wiki kadhaa, kisha rekebisha kulingana na somo, muda na namna unavyojifunza. Mwongozo huu unakupa hatua za kuanzia na mifano ya kuzitumia.</p>
+
+		<nav class="contents" aria-label="Yaliyomo">
+			<a href="#mbinu">Mbinu kuu</a>
+			<a href="#mzunguko">Mzunguko wa somo</a>
+			<a href="#mpango">Mpango wa wiki</a>
+			<a href="#masomo">Aina za masomo</a>
+			<a href="#changamoto">Changamoto</a>
+			<a href="#video-zaidi">Video</a>
+			<a href="#vyanzo">Vyanzo</a>
+		</nav>
+
+		<section id="mbinu">
+			<p class="eyebrow" style="color: var(--green);">01 / Mbinu</p>
+			<h2>Mbinu sita za kujifunza kwa ufanisi</h2>
+
+			<article class="method">
+				<h3>1. Weka lengo linalopimika</h3>
+				<p>Lengo zuri linaeleza kitendo na matokeo unayotaka. “Nitasoma hisabati” ni pana; “nitafanya maswali manne ya sehemu na kueleza nilipokosea” ni rahisi kupima. Lengo dogo husaidia kuanza na kuona maendeleo.</p>
+				<p class="try"><strong>Jaribu:</strong> Kabla ya kipindi, andika sentensi moja: “Mwisho wa kipindi hiki nitaweza...”</p>
+			</article>
+
+			<article class="method">
+				<h3>2. Gawa kazi na panga muda</h3>
+				<p>Gawa kazi kubwa katika hatua kama kusoma maelezo, kujibu maswali na kukagua makosa. Tumia vipindi vinavyolingana na umakini wako; unaweza kuanza na dakika 20–30 kisha kupumzika kwa muda mfupi. Mbinu ya dakika 25 na mapumziko ya dakika 5 ni chaguo, si sheria.</p>
+				<p class="try"><strong>Jaribu:</strong> Andika kazi tatu tu za kipindi chako na weka simu kimya wakati wa kusoma.</p>
+			</article>
+
+			<article class="method">
+				<h3>3. Jikumbushe bila kuangalia kitabu</h3>
+				<p>Baada ya kusoma sehemu fupi, funga kitabu na ueleze wazo kuu kwa maneno yako. Tumia maswali, kadi za kumbukumbu au ukurasa tupu kuandika unachokumbuka. Kisha fungua chanzo na urekebishe mapengo. Kukumbuka kwa juhudi huonyesha sehemu unazozielewa na zinazohitaji kurudiwa.</p>
+				<p class="try"><strong>Jaribu:</strong> Tengeneza maswali matatu kutoka kwenye mada na ujibu kesho bila kusoma majibu kwanza.</p>
+			</article>
+
+			<article class="method">
+				<h3>4. Rudia mada kwa vipindi tofauti</h3>
+				<p>Badala ya kurudia kila kitu kwa muda mrefu siku moja kabla ya mtihani, gawanya marudio katika siku tofauti. Anza kwa kurudia baada ya siku moja, kisha baada ya siku kadhaa na tena wiki inayofuata. Ongeza au punguza nafasi kulingana na ugumu wa mada na jinsi unavyoikumbuka.</p>
+				<p class="try"><strong>Jaribu:</strong> Weka tarehe ya kurudia kwenye kalenda mara tu unapomaliza somo.</p>
+			</article>
+
+			<article class="method">
+				<h3>5. Changanya aina za mazoezi</h3>
+				<p>Kwa masomo yenye aina nyingi za maswali, changanya mifano tofauti badala ya kufanya aina moja pekee kwa muda mrefu. Hii hukusaidia kutambua ni mbinu gani inafaa kwa swali husika. Kwa mada mpya kabisa, jifunze msingi kwanza kabla ya kuchanganya maswali magumu.</p>
+				<p class="try"><strong>Jaribu:</strong> Baada ya mfano mmoja ulioongozwa, fanya swali la aina nyingine kisha eleza kwa nini umechagua njia hiyo.</p>
+			</article>
+
+			<article class="method">
+				<h3>6. Eleza na unganisha mawazo</h3>
+				<p>Jiulize “kwa nini?” na “hii inahusianaje na nilichojifunza awali?” Toa mfano mpya, chora mchoro au mweleze mtu mwingine mada. Ukikwama kueleza hatua fulani, rudi kwenye chanzo na ulifanyie kazi eneo hilo.</p>
+				<p class="try"><strong>Jaribu:</strong> Eleza mada kwa dakika mbili kana kwamba unamfundisha rafiki ambaye hajaisoma.</p>
+			</article>
+		</section>
+
+		<section id="mzunguko">
+			<p class="eyebrow" style="color: var(--green);">02 / Kipindi kimoja</p>
+			<h2>Mzunguko wa kipindi cha kujifunza</h2>
+			<p class="section-intro">Tumia mzunguko huu kama mwongozo unaoweza kurekebishwa. Kwa kipindi kirefu, rudia hatua za mazoezi na mapumziko.</p>
+			<div class="study-cycle">
+				<div class="cycle-step"><strong>1. Panga</strong><span>Chagua lengo moja na vifaa utakavyohitaji.</span></div>
+				<div class="cycle-step"><strong>2. Elewa</strong><span>Soma au tazama maelezo mafupi; andika maswali yanayojitokeza.</span></div>
+				<div class="cycle-step"><strong>3. Kumbuka</strong><span>Funga chanzo na jaribu kujibu maswali au kueleza mada.</span></div>
+				<div class="cycle-step"><strong>4. Kagua</strong><span>Linganisha majibu, sahihisha makosa na panga marudio.</span></div>
+			</div>
+		</section>
+
+		<section id="mpango">
+			<p class="eyebrow" style="color: var(--green);">03 / Mfano</p>
+			<h2>Mpango wa wiki wa kuanzia</h2>
+			<p class="section-intro">Huu ni mfano tu. Badilisha siku na muda kulingana na ratiba yako, kazi za shule au majukumu mengine.</p>
+			<div class="plan-wrap">
+				<table class="plan">
+					<thead><tr><th scope="col">Siku</th><th scope="col">Kazi</th><th scope="col">Mwisho wa kipindi</th></tr></thead>
+					<tbody>
+						<tr><th scope="row">Jumatatu</th><td>Soma mada mpya na andika maswali muhimu.</td><td>Eleza mawazo makuu bila kuangalia daftari.</td></tr>
+						<tr><th scope="row">Jumanne</th><td>Jibu maswali mafupi kuhusu mada ya Jumatatu.</td><td>Kagua makosa na andika kwa nini yalitokea.</td></tr>
+						<tr><th scope="row">Jumatano</th><td>Jifunze sehemu inayofuata ya mada.</td><td>Unganisha sehemu mpya na uliyojifunza awali.</td></tr>
+						<tr><th scope="row">Alhamisi</th><td>Fanya mazoezi ya mada zote mbili.</td><td>Weka alama kwenye maswali yanayohitaji msaada.</td></tr>
+						<tr><th scope="row">Ijumaa</th><td>Fanya jaribio fupi bila kuangalia majibu.</td><td>Panga marudio na lengo la wiki inayofuata.</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+
+		<section id="masomo">
+			<p class="eyebrow" style="color: var(--green);">04 / Chagua mbinu</p>
+			<h2>Rekebisha mbinu kulingana na somo</h2>
+			<p class="section-intro">Mbinu ileile haifai kwa kila kazi. Anza na aina ya ujuzi unaohitaji, kisha chagua mazoezi yanayokupa nafasi ya kuutumia.</p>
+			<div class="plan-wrap">
+				<table class="plan">
+					<thead><tr><th scope="col">Aina ya somo</th><th scope="col">Jaribu kufanya hivi</th><th scope="col">Jinsi ya kujipima</th></tr></thead>
+					<tbody>
+						<tr><th scope="row">Hisabati na sayansi</th><td>Jifunze mfano mmoja uliofanyiwa kazi, kisha suluhisha swali jipya bila kuangalia hatua.</td><td>Eleza kwa nini ulichagua kanuni au hatua hiyo. Andika makosa yanayojirudia.</td></tr>
+						<tr><th scope="row">Lugha mpya</th><td>Rudia maneno kwa kadi za kumbukumbu katika siku tofauti. Sikiliza, soma kwa sauti na andika sentensi zako.</td><td>Tumia maneno mapya katika mazungumzo au aya fupi bila kunakili mfano.</td></tr>
+						<tr><th scope="row">Historia na masomo ya jamii</th><td>Tengeneza mstari wa nyakati na ramani ya sababu, tukio na matokeo. Linganisha vyanzo mbalimbali.</td><td>Eleza uhusiano wa matukio kwa maneno yako na tofautisha ushahidi na maoni.</td></tr>
+						<tr><th scope="row">Ujuzi wa vitendo</th><td>Gawa kazi katika hatua, tazama onyesho fupi, kisha fanya mwenyewe kwa usalama.</td><td>Rudia kazi bila mwongozo na kagua hatua ulizokosa.</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+
+		<section id="changamoto">
+			<p class="eyebrow" style="color: var(--green);">05 / Marekebisho</p>
+			<h2>Ukikwama, jaribu haya</h2>
+			<ul class="checklist">
+				<li><strong>Hujui pa kuanzia:</strong> chagua swali moja au soma kichwa na malengo ya mada kwanza.</li>
+				<li><strong>Unasoma lakini hukumbuki:</strong> punguza kusoma tena bila mpango; ongeza maswali ya kujikumbusha na marudio ya siku tofauti.</li>
+				<li><strong>Unakosea mara kwa mara:</strong> weka daftari la makosa. Andika swali, sababu ya kosa na hatua sahihi ya kulitatua.</li>
+				<li><strong>Unachoka:</strong> punguza urefu wa kipindi, pumzika, kunywa maji na rudi kwenye kazi ndogo zaidi.</li>
+				<li><strong>Huelewi chanzo:</strong> tafuta maelezo ya pili kutoka kwa mwalimu, kitabu cha kiada au tovuti ya elimu inayoaminika.</li>
+			</ul>
+		</section>
+
+		<section id="video-zaidi">
+			<p class="eyebrow" style="color: var(--green);">06 / Video za kutazama</p>
+			<h2>Jifunze kwa mifano ya video</h2>
+			<p class="section-intro">Video inaweza kusaidia kuelewa wazo au kuona hatua zikifanyika. Sitisha mara kwa mara na jaribu kueleza ulichokiona; kutazama pekee hakutoshi kupima kama umeelewa.</p>
+			<div class="sources">
+				<article class="source">
+					<strong>The First 20 Hours: How to Learn Anything</strong>
+					<p>Josh Kaufman anaeleza njia ya kuanza kujifunza ujuzi mpya kwa mazoezi yaliyopangwa. Video iko kwa Kiingereza.</p>
+					<a href="https://www.youtube.com/watch?v=5MgBikgcWnY" target="_blank" rel="noopener noreferrer">Tazama video ya Josh Kaufman kwenye TEDx</a>
+				</article>
+				<article class="source">
+					<strong>Kujikumbusha na marudio ya vipindi</strong>
+					<p>Tafuta maelezo ya video kuhusu active recall na spaced practice kutoka kwa walimu au taasisi za elimu.</p>
+					<a href="https://www.youtube.com/results?search_query=The+Learning+Scientists+retrieval+practice+spaced+practice" target="_blank" rel="noopener noreferrer">Tafuta video kuhusu kukumbuka na kurudia</a>
+				</article>
+				<article class="source">
+					<strong>Kujiandaa kwa mtihani na kupanga muda</strong>
+					<p>Chunguza mbinu za kutengeneza ratiba, kufanya majaribio ya kujipima na kukagua majibu.</p>
+					<a href="https://www.youtube.com/results?search_query=study+schedule+practice+tests+exam+preparation" target="_blank" rel="noopener noreferrer">Tafuta video kuhusu ratiba na maandalizi ya mtihani</a>
+				</article>
+			</div>
+		</section>
+
+		<section id="vyanzo">
+			<p class="eyebrow" style="color: var(--green);">07 / Endelea kujifunza</p>
+			<h2>Vyanzo vya kusoma zaidi</h2>
+			<div class="sources">
+				<article class="source">
+					<strong>The Learning Scientists</strong>
+					<p>Vifaa vya kujifunza kuhusu kujikumbusha, marudio yaliyotawanywa na mbinu nyingine za kusoma.</p>
+					<a href="https://www.learningscientists.org/downloadable-materials" target="_blank" rel="noopener noreferrer">Fungua vifaa vya kujifunza</a>
+				</article>
+				<article class="source">
+					<strong>Cornell Learning Strategies Center</strong>
+					<p>Mikakati ya kupanga masomo, kujiandaa kwa mitihani na kuboresha matumizi ya muda.</p>
+					<a href="https://lsc.cornell.edu/how-to-study/" target="_blank" rel="noopener noreferrer">Soma mikakati ya kujifunza</a>
+				</article>
+				<article class="source">
+					<strong>UNESCO - Elimu</strong>
+					<p>Taarifa kuhusu elimu, ujifunzaji na rasilimali za elimu duniani.</p>
+					<a href="https://www.unesco.org/en/education" target="_blank" rel="noopener noreferrer">Tembelea ukurasa wa elimu wa UNESCO</a>
+				</article>
+			</div>
+		</section>
+
+		<div class="note"><strong>Kumbuka:</strong> Mwongozo huu ni wa elimu ya jumla, si mbadala wa maelekezo ya mwalimu au mtaalamu. Chagua mbinu zinazofaa umri, somo, lugha na mazingira yako; kama moja haikusaidii, jaribu nyingine na ufuatilie matokeo.</div>
+	</main>
+
+	<footer><p>&copy; 2026 DEAMi Web · Mwongozo wa kujifunza</p></footer>
+    <script src="deami-context.js" defer></script>
+</body>
+</html>

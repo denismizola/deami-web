@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Vichekesho</title>
+  <desc id="desc">Mchoro wa asili wa jukwaa la vichekesho lenye pazia na taa za rangi.</desc>
+  <defs>
+    <linearGradient id="stage" x2="0" y2="1"><stop stop-color="#32164f"/><stop offset=".58" stop-color="#a33264"/><stop offset="1" stop-color="#f5a14a"/></linearGradient>
+    <radialGradient id="spot"><stop stop-color="#fff2a6" stop-opacity=".95"/><stop offset="1" stop-color="#fff2a6" stop-opacity="0"/></radialGradient>
+  </defs>
+  <path fill="url(#stage)" d="M0 0h640v420H0z"/>
+  <circle cx="320" cy="30" r="210" fill="url(#spot)"/>
+  <path fill="#281444" d="M0 0h108q25 120 12 232T62 420H0zm640 0H532q-25 120-12 232t58 188h62z"/>
+  <path fill="#331643" d="M0 315q150-42 320 0t320 0v105H0z"/>
+  <path fill="#17142b" d="M105 420q35-93 75-110 41-16 75 26l28 84zm430 0q-35-93-75-110-41-16-75 26l-28 84z"/>
+  <path fill="#f8d27b" d="M125 303h390v13H125z"/>
+  <circle cx="320" cy="170" r="71" fill="#ffd6a0"/>
+  <path fill="#292047" d="M246 168q74-82 148 0l-10-54H258z"/>
+  <ellipse cx="294" cy="172" rx="6" ry="10" fill="#31203c"/><ellipse cx="346" cy="172" rx="6" ry="10" fill="#31203c"/>
+  <path d="M290 202q30 33 60 0" fill="none" stroke="#9c365a" stroke-linecap="round" stroke-width="9"/>
+  <g fill="#fff0ac"><circle cx="80" cy="85" r="5"/><circle cx="560" cy="86" r="5"/><circle cx="116" cy="153" r="4"/><circle cx="525" cy="154" r="4"/></g>
+</svg>

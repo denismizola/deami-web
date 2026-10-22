@@ -1,0 +1,2507 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="D-link ni jukwaa la video fupi za kujifunza, kushiriki na kugundua mada mpya.">
+	<meta name="theme-color" content="#123a30">
+	<link rel="manifest" href="./manifest.webmanifest">
+	<link rel="icon" href="./dlink-icon-192.png" type="image/png">
+	<title>D-link | Video fupi</title>
+	<style>
+		@property --ambient-one {
+			syntax: "<color>";
+			inherits: true;
+			initial-value: rgba(220, 237, 107, 0.32);
+		}
+		@property --ambient-two {
+			syntax: "<color>";
+			inherits: true;
+			initial-value: rgba(239, 118, 88, 0.18);
+		}
+		@property --ambient-three {
+			syntax: "<color>";
+			inherits: true;
+			initial-value: rgba(29, 122, 93, 0.10);
+		}
+		:root {
+			color-scheme: light;
+				--ambient-one: rgba(220, 237, 107, 0.32);
+				--ambient-two: rgba(239, 118, 88, 0.18);
+				--ambient-three: rgba(29, 122, 93, 0.10);
+				--ink: #122b2a;
+				--muted: #637b75;
+				--paper: #eef5f1;
+				--panel: rgba(255, 255, 255, 0.9);
+				--white: #fff;
+				--line: rgba(19, 43, 37, 0.09);
+				--forest: #123a30;
+				--green: #1d7a5d;
+				--mint: #dff7df;
+				--lime: #dced6b;
+				--coral: #ef7658;
+				--sun: #ffc76d;
+				--header-height: 72px;
+				--shadow: 0 20px 50px rgba(17, 35, 28, 0.12);
+				transition: --ambient-one 1.5s ease, --ambient-two 1.5s ease, --ambient-three 1.5s ease;
+			}
+		:root[data-sun-phase="night"] {
+			color-scheme: dark;
+			--ink: #e5eee9;
+			--muted: #afbeb7;
+			--paper: #1a2925;
+			--panel: rgba(23, 38, 33, 0.96);
+			--line: rgba(222, 239, 230, 0.14);
+		}
+
+			* { box-sizing: border-box; }
+			html, body { width: 100%; min-height: 100%; margin: 0; }
+			body {
+				overflow: hidden;
+				background:
+					radial-gradient(circle at 12% 12%, var(--ambient-one), transparent 22%),
+					radial-gradient(circle at 90% 8%, var(--ambient-two), transparent 24%),
+					radial-gradient(circle at 50% 100%, var(--ambient-three), transparent 32%),
+					linear-gradient(180deg, #f8faf7 0%, #edf4ee 100%);
+				color: var(--ink);
+				font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+			}
+			:root[data-sun-phase="night"] body {
+				background:
+					radial-gradient(circle at 12% 12%, var(--ambient-one), transparent 22%),
+					radial-gradient(circle at 90% 8%, var(--ambient-two), transparent 24%),
+					radial-gradient(circle at 50% 100%, var(--ambient-three), transparent 32%),
+					linear-gradient(180deg, #10191b 0%, #172322 100%);
+			}
+			:root[data-sun-phase="night"] .topbar,
+			:root[data-sun-phase="night"] .left-rail,
+			:root[data-sun-phase="night"] .right-rail {
+				border-color: var(--line);
+				background: rgba(22, 36, 32, 0.86);
+			}
+			:root[data-sun-phase="night"] .feed-area {
+				border-color: var(--line);
+				background:
+					radial-gradient(circle at top, rgba(117, 153, 205, 0.12), transparent 28%),
+					linear-gradient(180deg, #172321 0%, #101a19 100%);
+			}
+			:root[data-sun-phase="night"] .search-form,
+			:root[data-sun-phase="night"] .account-button,
+			:root[data-sun-phase="night"] .theme-button,
+			:root[data-sun-phase="night"] .topic,
+			:root[data-sun-phase="night"] .color-mode-option,
+			:root[data-sun-phase="night"] .custom-color-picker,
+			:root[data-sun-phase="night"] .auth-dialog,
+			:root[data-sun-phase="night"] .upload-dialog,
+			:root[data-sun-phase="night"] .share-dialog,
+			:root[data-sun-phase="night"] .color-dialog {
+				border-color: var(--line);
+				background-color: #1a2a25;
+				color: var(--ink);
+			}
+			:root[data-sun-phase="night"] .spotlight-card,
+			:root[data-sun-phase="night"] .mini-showcase {
+				border-color: var(--line);
+				background: linear-gradient(135deg, #26372e, #1a2a25);
+			}
+			:root[data-sun-phase="night"] .local-note { background: #352a26; color: #f1c7b5; }
+			:root[data-sun-phase="night"] .auth-form input,
+			:root[data-sun-phase="night"] .profile-form input,
+			:root[data-sun-phase="night"] .upload-form input,
+			:root[data-sun-phase="night"] .upload-form textarea,
+			:root[data-sun-phase="night"] .comment-form input {
+				border-color: var(--line);
+				background: #12201c;
+				color: var(--ink);
+			}
+			:root[data-sun-phase="night"] .close-button,
+			:root[data-sun-phase="night"] .sign-out-button { border-color: var(--line); background: #22332d; color: var(--ink); }
+			:root[data-sun-phase="night"] .auth-privacy { background: #263d32; }
+			:root[data-sun-phase="night"] .dialog-head { border-color: var(--line); }
+			body::before {
+				content: "";
+				position: fixed;
+				inset: 0;
+				pointer-events: none;
+				background-image:
+					linear-gradient(rgba(18, 58, 48, 0.02), rgba(18, 58, 48, 0.02)),
+					repeating-linear-gradient(
+						90deg,
+						rgba(18, 58, 48, 0.015),
+						rgba(18, 58, 48, 0.015) 1px,
+						transparent 1px,
+						transparent 18px
+					);
+				opacity: 0.9;
+			}
+			button, input, textarea { font: inherit; }
+			button, a { -webkit-tap-highlight-color: transparent; }
+			a { color: inherit; }
+			img { display: block; max-width: 100%; }
+			button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+				outline: 3px solid var(--coral);
+				outline-offset: 3px;
+			}
+
+			.topbar {
+				position: relative;
+				z-index: 5;
+				display: flex;
+				height: var(--header-height);
+				align-items: center;
+				justify-content: space-between;
+				gap: 22px;
+				padding: 0 26px;
+				border-bottom: 1px solid rgba(18, 58, 48, 0.08);
+				background: rgba(255, 255, 255, 0.76);
+				backdrop-filter: blur(14px);
+				box-shadow: 0 10px 28px rgba(17, 35, 28, 0.06);
+			}
+			.brand {
+				display: flex;
+				flex: 0 0 auto;
+				align-items: center;
+				gap: 10px;
+				color: var(--forest);
+				font-size: 1.08rem;
+				font-weight: 900;
+				letter-spacing: 0.02em;
+				text-decoration: none;
+			}
+			.brand-mark {
+				display: grid;
+				width: 36px;
+				aspect-ratio: 1;
+				place-items: center;
+				background: linear-gradient(135deg, var(--forest), #1f5545);
+				color: var(--lime);
+				font-family: Georgia, "Times New Roman", serif;
+				font-size: 1.2rem;
+				border-radius: 12px;
+				box-shadow: inset 0 2px 8px rgba(255,255,255,.18);
+			}
+			.top-nav { display: flex; align-items: center; gap: 24px; }
+			.top-nav a {
+				color: var(--muted);
+				font-size: 0.9rem;
+				font-weight: 700;
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+			.top-nav a:hover { color: var(--forest); }
+			.top-nav a[aria-current="page"] { color: var(--forest); }
+			.top-actions { display: flex; align-items: center; gap: 10px; }
+			.search-form {
+				display: flex;
+				width: min(30vw, 330px);
+				height: 40px;
+				border: 1px solid var(--line);
+				background: rgba(236, 244, 240, 0.9);
+				border-radius: 999px;
+				overflow: hidden;
+			}
+			.search-form input {
+				width: 100%;
+				min-width: 0;
+				padding: 0 12px;
+				border: 0;
+				outline: 0;
+				background: transparent;
+				color: var(--ink);
+			}
+			.search-form button { flex: 0 0 auto; }
+			.search-form:focus-within { outline: 2px solid rgba(29, 122, 93, 0.35); outline-offset: 1px; }
+			.search-form button {
+				min-width: 38px;
+				padding: 0 9px;
+				border: 0;
+				background: transparent;
+				color: var(--forest);
+				font-size: 0.95rem;
+				font-weight: 800;
+				cursor: pointer;
+			}
+			.search-form button[hidden] { display: none; }
+			.search-count { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+			.upload-button {
+				display: inline-flex;
+				min-height: 40px;
+				align-items: center;
+				gap: 8px;
+				padding: 0 14px;
+				border: 0;
+				border-radius: 999px;
+				background: linear-gradient(135deg, var(--lime), #cfe963);
+				color: var(--forest);
+				font-size: 0.88rem;
+				font-weight: 900;
+				cursor: pointer;
+				box-shadow: 0 8px 20px rgba(220, 237, 107, 0.4);
+			}
+			.upload-button:hover { filter: brightness(0.98); }
+			.upload-button:disabled { cursor: not-allowed; opacity: 0.55; }
+			.account-button { min-height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,0.88); color: var(--forest); font-size: 0.84rem; font-weight: 900; cursor: pointer; }
+			.theme-button { display: inline-flex; min-height: 40px; align-items: center; gap: 7px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,0.88); color: var(--forest); font-size: 0.82rem; font-weight: 900; cursor: pointer; }
+			.theme-button-swatch { width: 18px; aspect-ratio: 1; border: 2px solid rgba(18, 58, 48, 0.15); border-radius: 50%; background: var(--green); }
+			.install-button { border-color: var(--forest); }
+			.install-button[hidden] { display: none; }
+			.upload-button:focus-visible, .account-button:focus-visible, .icon-button:focus-visible, .top-nav a:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+
+			.workspace {
+				display: grid;
+				height: calc(100dvh - var(--header-height));
+				grid-template-columns: 220px minmax(350px, 1fr) 310px;
+				gap: 18px;
+				padding: 18px;
+			}
+			.left-rail, .right-rail {
+				overflow-y: auto;
+				padding: 20px 16px;
+				border: 1px solid rgba(18, 58, 48, 0.08);
+				border-radius: 22px;
+				background: rgba(255,255,255,0.75);
+				backdrop-filter: blur(10px);
+				box-shadow: 0 18px 34px rgba(15, 31, 28, 0.07);
+			}
+			.rail-label {
+				margin: 0 0 12px;
+				color: var(--muted);
+				font-size: 0.72rem;
+				font-weight: 900;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+			}
+			.rail-link {
+				display: flex;
+				align-items: center;
+				gap: 11px;
+				padding: 11px 12px;
+				margin-bottom: 8px;
+				border-radius: 12px;
+				color: var(--muted);
+				font-size: 0.9rem;
+				font-weight: 700;
+				text-decoration: none;
+				transition: all 0.2s ease;
+				border: 1px solid transparent;
+			}
+			.rail-link:hover {
+				background: rgba(29, 122, 93, 0.06);
+				border-color: rgba(29, 122, 93, 0.08);
+				transform: translateX(2px);
+			}
+			.rail-link span {
+				display: grid;
+				width: 28px;
+				aspect-ratio: 1;
+				place-items: center;
+				color: var(--green);
+				font-size: 1.1rem;
+			}
+			.rail-link.active {
+				background: linear-gradient(135deg, rgba(29, 122, 93, 0.12), rgba(220, 237, 107, 0.18));
+				color: var(--forest);
+			}
+			.rail-divider { height: 1px; margin: 20px 0; background: var(--line); }
+			.rail-note { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+
+			.feed-area {
+				position: relative;
+				display: grid;
+				min-width: 0;
+				place-items: center;
+				overflow: hidden;
+				border: 1px solid rgba(18, 58, 48, 0.08);
+				border-radius: 28px;
+				background:
+					radial-gradient(circle at top, rgba(220, 237, 107, 0.22), transparent 26%),
+					linear-gradient(180deg, #edf6ef 0%, #e4efe8 100%);
+				box-shadow: 0 24px 42px rgba(15, 31, 28, 0.08);
+			}
+			.feed {
+				display: flex;
+				width: 100%;
+				height: 100%;
+				flex-direction: column;
+				align-items: center;
+				overflow-y: auto;
+				overflow-x: hidden;
+				overscroll-behavior: contain;
+				scroll-snap-type: y mandatory;
+				scrollbar-width: thin;
+				scrollbar-color: rgba(16, 42, 37, 0.4) transparent;
+				padding: 28px 0 36px;
+			}
+			.feed:empty::before { max-width: 330px; padding: 28px; color: var(--muted); content: "Hakuna video inayolingana na utafutaji wako."; font-size: 0.95rem; text-align: center; }
+			.video-post {
+				position: relative;
+				flex: 0 0 auto;
+				width: min(420px, 100%);
+				height: min(780px, 100%);
+				min-height: 560px;
+				margin: 0 auto;
+				overflow: hidden;
+				background: #101715;
+				scroll-snap-align: start;
+				scroll-snap-stop: always;
+				isolation: isolate;
+				border-radius: 26px;
+				border: 1px solid rgba(255,255,255,0.08);
+				box-shadow: 0 24px 40px rgba(9, 18, 16, 0.40), inset 0 1px 0 rgba(255,255,255,0.12);
+				transition: transform 0.22s ease, box-shadow 0.22s ease;
+			}
+			.video-post:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 28px 46px rgba(9, 18, 16, 0.48), inset 0 1px 0 rgba(255,255,255,0.14);
+			}
+			.video-post::after {
+				position: absolute;
+				z-index: 1;
+				inset: 42% 0 0;
+				background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+				content: "";
+				pointer-events: none;
+			}
+			.clip {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				background: #101715;
+			}
+			.media-error {
+				position: absolute;
+				z-index: 4;
+				inset: 0;
+				display: grid;
+				place-items: center;
+				padding: 28px;
+				background: rgba(16, 23, 21, 0.92);
+				color: var(--white);
+				font-size: 0.92rem;
+				font-weight: 700;
+				text-align: center;
+			}
+			.media-error[hidden] { display: none; }
+			.video-label {
+				position: absolute;
+				z-index: 2;
+				top: 16px;
+				left: 16px;
+				padding: 6px 10px;
+				background: rgba(16, 42, 35, 0.7);
+				color: var(--lime);
+				font-size: 0.72rem;
+				font-weight: 900;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				border-radius: 999px;
+			}
+			.post-caption { position: absolute; z-index: 2; right: 78px; bottom: 28px; left: 20px; color: var(--white); }
+			.post-caption h2 { margin-bottom: 6px; font-family: inherit; font-size: 1.1rem; font-weight: 900; line-height: 1.25; }
+			.post-caption p { margin: 0; color: rgba(255,255,255,0.8); font-size: 0.88rem; }
+			.post-owner {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				margin-bottom: 10px;
+				font-size: 0.9rem;
+				font-weight: 900;
+			}
+			.owner-avatar {
+				display: grid;
+				flex: 0 0 auto;
+				width: 30px;
+				aspect-ratio: 1;
+				place-items: center;
+				overflow: hidden;
+				border: 1px solid rgba(255,255,255,0.65);
+				border-radius: 50%;
+				background: linear-gradient(135deg, var(--lime), #e6ef78);
+				color: var(--forest);
+				font-size: 0.78rem;
+			}
+			.owner-avatar img { width: 100%; height: 100%; border-radius: inherit; object-fit: cover; }
+
+			.post-actions {
+				position: absolute;
+				z-index: 3;
+				right: 12px;
+				bottom: 24px;
+				display: grid;
+				gap: 14px;
+				justify-items: center;
+			}
+			.action-group { display: grid; gap: 3px; justify-items: center; color: var(--white); }
+			.icon-button {
+				display: grid;
+				width: 46px;
+				aspect-ratio: 1;
+				place-items: center;
+				border: 1px solid rgba(255,255,255,0.35);
+				border-radius: 50%;
+				background: rgba(15, 25, 22, 0.52);
+				color: var(--white);
+				font-size: 1.2rem;
+				cursor: pointer;
+				backdrop-filter: blur(6px);
+				transition: transform 0.2s ease, background 0.2s ease;
+			}
+			.icon-button:hover { transform: translateY(-1px); background: rgba(18,58,48,0.9); }
+			.icon-button.liked { background: var(--coral); border-color: var(--coral); }
+			.action-count { color: rgba(255,255,255,0.9); font-size: 0.72rem; font-weight: 800; text-shadow: 0 1px 4px #000; }
+
+			.right-rail {
+				display: grid;
+				align-content: start;
+				gap: 18px;
+			}
+			.right-rail h2 {
+				margin: 10px 0 6px;
+				font-family: inherit;
+				font-size: 0.96rem;
+				font-weight: 900;
+				letter-spacing: 0.02em;
+			}
+			.spotlight-card {
+				display: grid;
+				gap: 10px;
+				padding: 12px;
+				border: 1px solid rgba(18, 58, 48, 0.08);
+				border-radius: 18px;
+				background: linear-gradient(135deg, rgba(220, 237, 107, 0.2), rgba(255,255,255,0.9));
+				box-shadow: 0 14px 22px rgba(17, 35, 28, 0.04);
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+			}
+			.spotlight-card:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 18px 28px rgba(17, 35, 28, 0.08);
+			}
+			.spotlight-visual {
+				overflow: hidden;
+				border-radius: 16px;
+				background: linear-gradient(135deg, rgba(18, 58, 48, 0.08), rgba(255, 199, 109, 0.18));
+			}
+			.spotlight-visual img {
+				height: 180px;
+				width: 100%;
+				object-fit: contain; 
+			}
+			.spotlight-copy { padding: 2px 4px 0; }
+			.eyebrow {
+				display: inline-block;
+				margin-bottom: 4px;
+				color: var(--green);
+				font-size: 0.7rem;
+				font-weight: 900;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+			}
+			.spotlight-copy strong {
+				display: block;
+				font-size: 1.2rem;
+				margin-bottom: 4px;
+			}
+			.spotlight-copy p {
+				margin: 0;
+				color: var(--muted);
+				font-size: 0.8rem;
+				line-height: 1.5;
+			}
+			.mini-showcase {
+				overflow: hidden;
+				border: 1px solid rgba(18, 58, 48, 0.08);
+				background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(223, 247, 223, 0.5));
+				border-radius: 18px;
+				box-shadow: 0 14px 22px rgba(17, 35, 28, 0.04);
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+			}
+			.mini-showcase:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 18px 28px rgba(17, 35, 28, 0.08);
+			}
+			.mini-showcase img {
+				height: 160px;
+				width: 100%;
+				object-fit: cover;
+			}
+			.topic-list { display: grid; gap: 9px; }
+			.topic {
+				padding: 12px 10px;
+				border: 1px solid rgba(18, 58, 48, 0.08);
+				border-radius: 14px;
+				background: rgba(255,255,255,0.7);
+				transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+			}
+			.topic:hover {
+				transform: translateY(-2px);
+				border-color: rgba(29, 122, 93, 0.18);
+				box-shadow: 0 12px 18px rgba(17, 35, 28, 0.04);
+			}
+			.topic strong { display: block; font-size: 0.86rem; }
+			.topic span { color: var(--muted); font-size: 0.78rem; }
+			.local-note {
+				margin-top: 0;
+				padding: 14px;
+				border-left: 3px solid var(--coral);
+				background: rgba(255, 239, 234, 0.8);
+				color: #664438;
+				font-size: 0.78rem;
+				border-radius: 14px;
+			}
+			.feed-status {
+				position: absolute;
+				z-index: 4;
+				top: 14px;
+				left: 50%;
+				width: max-content;
+				max-width: calc(100% - 28px);
+				padding: 8px 12px;
+				transform: translateX(-50%);
+				background: rgba(18,58,48,0.95);
+				color: var(--white);
+				font-size: 0.82rem;
+				border-radius: 999px;
+				box-shadow: 0 8px 18px rgba(18,58,48,0.28);
+			}
+			.feed-status:empty { display: none; }
+			.feed-navigation {
+				position: absolute;
+				z-index: 4;
+				top: 50%;
+				left: 12px;
+				display: grid;
+				gap: 8px;
+				transform: translateY(-50%);
+			}
+			.feed-navigation button {
+				display: grid;
+				width: 40px;
+				aspect-ratio: 1;
+				place-items: center;
+				border: 1px solid rgba(255,255,255,0.48);
+				border-radius: 50%;
+				background: rgba(15, 25, 22, 0.68);
+				color: var(--white);
+				font-size: 1.15rem;
+				cursor: pointer;
+				backdrop-filter: blur(6px);
+			}
+			.feed-navigation button:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+			.feed-navigation-hint {
+				position: absolute;
+				z-index: 2;
+				top: 12px;
+				right: 12px;
+				padding: 6px 9px;
+				border-radius: 999px;
+				background: rgba(16, 42, 35, 0.72);
+				color: var(--white);
+				font-size: 0.72rem;
+				pointer-events: none;
+			}
+
+			dialog { width: min(460px, calc(100% - 32px)); max-height: min(80dvh, 650px); padding: 0; border: 0; background: var(--white); color: var(--ink); box-shadow: 0 20px 80px rgba(0,0,0,0.35); border-radius: 18px; }
+			dialog::backdrop { background: rgba(15, 26, 22, 0.65); }
+			.dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+			.dialog-head h2 { margin: 0; font-size: 1.1rem; }
+			.dialog-body { max-height: 55dvh; overflow-y: auto; padding: 16px 20px; }
+			.comment { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 0.9rem; }
+			.comment strong { display: block; color: var(--green); }
+			.comment p { margin: 4px 0 0; overflow-wrap: anywhere; }
+			.comment-form { display: flex; gap: 8px; padding: 14px 20px 20px; }
+			.comment-form input { flex: 1; min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 10px; }
+			.comment-form button { padding: 0 14px; border: 0; border-radius: 10px; background: var(--forest); color: var(--white); font-weight: 800; cursor: pointer; }
+			.comment-form :disabled { cursor: not-allowed; opacity: 0.6; }
+			.comment-login-prompt { margin: 0; padding: 0 20px 18px; color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
+			.comment-login-prompt button, .auth-toggle { padding: 0; border: 0; background: none; color: var(--green); font-weight: 900; text-decoration: underline; cursor: pointer; }
+			.close-button { width: 36px; aspect-ratio: 1; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); cursor: pointer; }
+			.auth-dialog { width: min(440px, calc(100% - 32px)); padding: 22px; }
+			.auth-dialog h2 { margin: 0; font-size: 1.2rem; }
+			.auth-description, .auth-privacy, .auth-status { color: var(--muted); font-size: 0.86rem; line-height: 1.5; }
+			.auth-description { margin: 8px 0 0; }
+			.auth-privacy { margin: 0; padding: 10px 12px; border-radius: 10px; background: var(--mint); }
+			.auth-status { min-height: 1.4em; margin: 0; }
+			.auth-form, .profile-form { display: grid; gap: 12px; padding-top: 16px; }
+			.auth-form label, .profile-form label { display: grid; gap: 5px; font-size: 0.82rem; font-weight: 800; }
+			.auth-form input, .profile-form input { min-height: 42px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 10px; }
+			.profile-avatar { display: flex; align-items: center; gap: 12px; }
+			.profile-avatar-preview { display: grid; width: 64px; aspect-ratio: 1; place-items: center; overflow: hidden; border: 1px solid var(--line); border-radius: 50%; background: linear-gradient(135deg, var(--mint), var(--lime)); color: var(--forest); font-size: 1.4rem; font-weight: 900; }
+			.profile-avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
+			.profile-avatar input[type="file"] { flex: 1; min-width: 0; }
+			.auth-submit, .profile-form button, .sign-out-button { min-height: 44px; border: 0; border-radius: 10px; background: var(--forest); color: var(--white); font-weight: 900; cursor: pointer; }
+			.auth-toggle { justify-self: center; font-size: 0.84rem; }
+			.sign-out-button { width: 100%; margin-top: 12px; border: 1px solid var(--line); background: var(--white); color: var(--forest); }
+			[hidden] { display: none !important; }
+			.upload-dialog { width: min(540px, calc(100% - 32px)); max-height: 90dvh; overflow-y: auto; }
+			.upload-form { display: grid; gap: 14px; padding: 20px; }
+			.upload-intro { margin: 0; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+			.upload-form label { display: grid; gap: 6px; font-size: 0.82rem; font-weight: 800; }
+			.upload-form input, .upload-form textarea { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); color: var(--ink); }
+			.upload-form textarea { min-height: 84px; resize: vertical; }
+			.upload-form input:focus, .upload-form textarea:focus { outline: 2px solid rgba(29, 122, 93, 0.35); outline-offset: 1px; }
+			.upload-preview { display: grid; min-height: 150px; place-items: center; overflow: hidden; border-radius: 14px; background: #12221e; color: rgba(255,255,255,0.75); font-size: 0.85rem; text-align: center; }
+			.upload-preview video { display: block; width: 100%; max-height: 280px; object-fit: contain; }
+			.upload-preview video[hidden] { display: none; }
+			.upload-submit { min-height: 46px; border: 0; border-radius: 999px; background: var(--forest); color: var(--white); font-weight: 900; cursor: pointer; }
+			.upload-submit:disabled { cursor: wait; opacity: 0.65; }
+			.upload-hint { margin: 0; color: var(--muted); font-size: 0.75rem; line-height: 1.45; }
+			.topic-source-link { display: block; padding: 14px; border: 1px solid rgba(29, 122, 93, 0.16); border-radius: 16px; background: linear-gradient(135deg, rgba(29, 122, 93, 0.10), rgba(220, 237, 107, 0.18)); }
+			.topic-source-link strong { display: block; margin-bottom: 4px; font-size: 0.88rem; }
+			.topic-source-link p { margin: 0 0 10px; color: var(--muted); font-size: 0.76rem; line-height: 1.45; }
+			.topic-source-link button { width: 100%; min-height: 38px; border: 0; border-radius: 999px; background: var(--forest); color: var(--white); font-size: 0.78rem; font-weight: 900; cursor: pointer; }
+			.share-dialog { width: min(380px, calc(100% - 32px)); padding: 20px; }
+			.share-dialog h2 { margin: 0; font-size: 1.1rem; }
+			.share-options { display: grid; gap: 10px; padding-top: 16px; }
+			.share-option { display: flex; min-height: 46px; align-items: center; justify-content: center; border: 0; border-radius: 12px; color: var(--white); font-weight: 900; text-decoration: none; cursor: pointer; }
+			.share-whatsapp { background: #168b50; }
+			.share-facebook { background: #1877f2; }
+			.share-copy { background: var(--forest); }
+			.color-dialog { width: min(390px, calc(100% - 32px)); padding: 20px; }
+			.color-dialog h2 { margin: 0; font-size: 1.1rem; }
+			.color-description { margin: 8px 0 0; color: var(--muted); font-size: 0.84rem; line-height: 1.5; }
+			.color-mode-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding-top: 18px; }
+			.color-mode-option { display: grid; min-height: 74px; justify-items: center; align-content: center; gap: 7px; padding: 8px 4px; border: 1px solid var(--line); border-radius: 14px; background: var(--white); color: var(--ink); font-size: 0.75rem; font-weight: 800; cursor: pointer; }
+			.color-mode-option[aria-pressed="true"] { border-color: var(--green); box-shadow: 0 0 0 2px color-mix(in srgb, var(--green) 22%, transparent); }
+			.color-mode-option:disabled { cursor: wait; opacity: 0.6; }
+			.color-mode-status { min-height: 1.4em; margin: 12px 0 0; color: var(--muted); font-size: 0.8rem; line-height: 1.45; }
+			.color-mode-swatch { width: 28px; aspect-ratio: 1; border: 2px solid rgba(18, 43, 42, 0.12); border-radius: 50%; background: var(--swatch-color); }
+			.custom-color-picker { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); font-size: 0.84rem; font-weight: 800; }
+			.custom-color-picker input { width: 48px; height: 38px; padding: 2px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); cursor: pointer; }
+			.club-dialog { width: min(620px, calc(100% - 32px)); max-height: 86dvh; padding: 18px; }
+			.club-dialog h2 { margin: 0; font-size: 1.12rem; }
+			.club-grid { display: grid; gap: 10px; padding-top: 14px; }
+			.club-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 14px; border: 1px solid var(--line); border-left: 4px solid var(--club-color); border-radius: 14px; background: var(--panel); }
+			.club-card strong { display: block; color: var(--club-color); font-size: 0.95rem; }
+			.club-card p { margin: 3px 0 0; color: var(--muted); font-size: 0.78rem; line-height: 1.45; }
+			.club-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+			.club-links a { padding: 8px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--forest); font-size: 0.75rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
+			.club-links a:hover { border-color: var(--green); background: var(--mint); }
+			.club-note { margin: 12px 0 0; color: var(--muted); font-size: 0.78rem; line-height: 1.5; }
+			:root[data-sun-phase="night"] .club-card { border-color: var(--line); background: #1a2a25; }
+			:root[data-sun-phase="night"] .club-links a { border-color: var(--line); color: var(--ink); }
+			@media (max-width: 1050px) {
+				.workspace { grid-template-columns: 175px minmax(330px, 1fr); }
+				.right-rail { display: none; }
+				.left-rail { padding-inline: 12px; }
+			}
+
+			@media (max-width: 700px) {
+				:root { --header-height: 62px; }
+				.topbar { gap: 10px; padding: 0 12px; }
+				.brand { font-size: 0.9rem; }
+				.brand-mark { width: 32px; }
+				.top-nav { display: none; }
+				.top-actions { min-width: 0; flex: 1; justify-content: flex-end; gap: 6px; }
+				.search-form { width: auto; min-width: 72px; max-width: 160px; height: 38px; flex: 1; }
+				.upload-button { width: 40px; min-height: 38px; justify-content: center; padding: 0; font-size: 0; }
+				.upload-button::before { content: "+"; font-size: 1.35rem; }
+				.account-button { max-width: 78px; min-height: 38px; overflow: hidden; padding: 0 8px; font-size: 0.72rem; text-overflow: ellipsis; white-space: nowrap; }
+				.theme-button { width: 38px; min-width: 38px; min-height: 38px; justify-content: center; padding: 0; font-size: 0; }
+				.theme-button-swatch { width: 20px; }
+				.club-info-button { width: 38px; min-width: 38px; min-height: 38px; justify-content: center; padding: 0; font-size: 1rem; }
+				.install-button { width: 36px; min-width: 36px; padding: 0; font-size: 0; }
+				.install-button::before { content: "↓"; font-size: 1.2rem; }
+				.workspace { display: block; height: calc(100dvh - var(--header-height)); }
+				.left-rail { display: none; }
+				.feed-area { display: block; height: 100%; background: #101715; }
+				.feed { height: 100%; }
+				.video-post { width: 100%; height: 100%; min-height: 0; border-radius: 0; }
+				.post-actions { right: 10px; bottom: 18px; gap: 12px; }
+				.icon-button { width: 42px; }
+				.feed-navigation { left: 8px; }
+				.feed-navigation button { width: 36px; }
+				.feed-navigation-hint { top: 8px; right: 8px; font-size: 0.66rem; }
+				.post-caption { right: 68px; bottom: 22px; left: 14px; }
+				.post-caption h2 { font-size: 0.98rem; }
+				.post-caption p { font-size: 0.82rem; }
+				.video-label { top: 12px; left: 12px; }
+			}
+
+			@media (max-width: 350px) {
+				.install-button { display: none; }
+				.search-form { min-width: 54px; }
+				.theme-button { width: 34px; min-width: 34px; }
+				.club-info-button { width: 34px; min-width: 34px; }
+				.account-button { max-width: 66px; }
+			}
+			@media (max-width: 440px) {
+				.club-card { grid-template-columns: 1fr; }
+				.club-links { justify-content: flex-start; }
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				*, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+			}
+		</style>
+</head>
+<body>
+	<header class="topbar">
+		<a class="brand" href="#"><span class="brand-mark" aria-hidden="true">D</span>D-link</a>
+		<nav class="top-nav" aria-label="Menyu kuu">
+			<a href="#" aria-current="page">Kwa ajili yako</a>
+			<a href="#topics">Mada</a>
+		</nav>
+		<div class="top-actions">
+			<form class="search-form" id="video-search-form" role="search">
+				<input id="video-search" type="search" placeholder="Tafuta video, creator..." aria-label="Tafuta video, creator au faili" aria-keyshortcuts="Control+K">
+				<button id="video-search-clear" type="button" aria-label="Futa utafutaji" title="Futa utafutaji" hidden>×</button>
+				<button type="submit" aria-label="Tafuta video">⌕</button>
+				<output class="search-count" id="video-search-count" aria-live="polite"></output>
+			</form>
+			<button class="upload-button" id="upload-trigger" type="button" title="Ongeza video">Ongeza video</button>
+			<button class="theme-button" id="theme-trigger" type="button" aria-label="Chagua rangi za mwonekano" title="Chagua rangi za mwonekano">
+				<span class="theme-button-swatch" id="theme-button-swatch" aria-hidden="true"></span>Rangi
+			</button>
+			<button class="theme-button club-info-button" id="club-info-trigger" type="button" aria-label="Taarifa za Simba, Yanga na Azam" title="Taarifa za klabu">⚽</button>
+			<button class="account-button" id="account-trigger" type="button">Jiunge / Ingia</button>
+			<button class="account-button install-button" id="install-trigger" type="button" aria-label="Sakinisha D-link" title="Sakinisha D-link" hidden>Sakinisha</button>
+		</div>
+	</header>
+
+	<div class="workspace">
+		<aside class="left-rail" aria-label="Mada za video">
+			<p class="rail-label">Gundua</p>
+			<a class="rail-link active" href="#"><span aria-hidden="true">▶</span>Kwa ajili yako</a>
+			<a class="rail-link" href="#topics"><span aria-hidden="true">#</span>Mada za elimu</a>
+			<a class="rail-link" href="#topics"><span aria-hidden="true">✦</span>Maarufu</a>
+			<div class="rail-divider"></div>
+			<p class="rail-label">D-link</p>
+			<a class="rail-link" href="q.html"><span aria-hidden="true">D</span>Tovuti kuu</a>
+			<a class="rail-link" href="mwongozo_kujifunza.html"><span aria-hidden="true">↗</span>Mwongozo wa kujifunza</a>
+			<p class="rail-note" id="storage-note">Unganisha Supabase ili video zilizochapishwa zionekane kwa wageni wote.</p>
+		</aside>
+
+		<main class="feed-area">
+			<div class="feed-status" id="feed-status" role="status" aria-live="polite"></div>
+			<div class="feed-navigation" aria-label="Sogeza kati ya video">
+				<button id="feed-previous" type="button" aria-label="Video iliyotangulia" title="Video iliyotangulia">↑</button>
+				<button id="feed-next" type="button" aria-label="Video inayofuata" title="Video inayofuata">↓</button>
+			</div>
+			<span class="feed-navigation-hint">Sogeza/swipe juu-chini · ♪ sauti · ▶/Ⅱ pause/play</span>
+			<section class="feed" id="video-feed" aria-label="Video fupi za D-link" tabindex="0">
+				<article class="video-post" data-local-file="Contamination.2025 2.mp4" data-title="Contamination 2025" data-caption="Video kutoka kwenye maktaba ya ndani." data-creator="@deami23fast">
+					<video class="clip" src="Contamination.2025 2.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Video ya D-link: Contamination 2025"></video>
+					<div class="media-error" hidden>Video hii haiwezi kuchezwa kwenye kivinjari hiki. Jaribu format nyingine ya video inayotambulika.</div>
+					<span class="video-label">D-link · Video fupi</span>
+					<div class="post-caption">
+						<div class="post-owner"><span class="owner-avatar" aria-hidden="true">D</span>@deami23fast</div>
+						<h2>Contamination 2025</h2>
+						<p>Video kutoka kwenye maktaba ya D-link.</p>
+					</div>
+					<div class="post-actions" aria-label="Vitendo vya video">
+						<div class="action-group"><button class="icon-button like-button" type="button" aria-label="Penda video" aria-pressed="false">♡</button><span class="action-count like-count">0</span></div>
+						<div class="action-group"><button class="icon-button comment-button" type="button" aria-label="Fungua maoni">▢</button><span class="action-count comment-count">0</span></div>
+						<div class="action-group"><button class="icon-button share-button" type="button" aria-label="Shiriki video">↗</button><span class="action-count">Shiriki</span></div>
+						<div class="action-group"><button class="icon-button save-button" type="button" aria-label="Hifadhi video" aria-pressed="false">＋</button><span class="action-count save-label">Hifadhi</span></div>
+						<div class="action-group"><button class="icon-button playback-button" type="button" aria-label="Sitisha video">Ⅱ</button><span class="action-count playback-label">Sitisha</span></div>
+						<div class="action-group"><button class="icon-button mute-button" type="button" aria-label="Washa sauti" aria-pressed="false">♪</button><span class="action-count mute-label">Kimya</span></div>
+					</div>
+				</article>
+			</section>
+		</main>
+
+		<aside class="right-rail" id="topics">
+			<div class="spotlight-card">
+				<div class="spotlight-visual">
+					<img src="pngtree-beautiful-formal-young-black-african-businesswoman-smiling-on-transparent-background-png-image_17593187.webp" alt="Mwanamke wa biashara akitabasamu">
+				</div>
+				<div class="spotlight-copy">
+					<span class="eyebrow">Featured creator</span>
+					<strong>Makini Achieng</strong>
+					<p>Confidence, clarity and practical learning for everyday growth.</p>
+				</div>
+			</div>
+
+			<div class="mini-showcase">
+				<img src="pngtree-realistic-cut-fruits-design-png-image_17932918.webp" alt="Mchoro wa matunda yaliyochakatwa">
+			</div>
+
+			<h2>Mada za kugundua</h2>
+			<div class="topic-list">
+				<div class="topic"><strong>#Elimu</strong><span>Masomo na ujuzi mpya</span></div>
+				<div class="topic"><strong>#Mazingira</strong><span>Maarifa ya kutunza mazingira</span></div>
+				<div class="topic"><strong>#Teknolojia</strong><span>Vidokezo vya kidijitali</span></div>
+				<div class="topic"><strong>#Tanzania</strong><span>Hadithi na vipaji vya nyumbani</span></div>
+			</div>
+			<div class="topic-source-link">
+				<strong>Una link ya video?</strong>
+				<p>Ongeza video ya moja kwa moja kutoka tovuti nyingine kwenye feed ya D-link.</p>
+				<button id="add-video-link-trigger" type="button">Ongeza video kwa link</button>
+			</div>
+			<div class="local-note">Kila mtu anaweza kushiriki video za format nyingi, hata faili ndogo za KB, hadi MB 100. Video zilizochapishwa zitaonekana kwa wageni wote.</div>
+		</aside>
+	</div>
+
+	<dialog id="comments-dialog" aria-labelledby="comments-title">
+		<div class="dialog-head">
+			<h2 id="comments-title">Maoni</h2>
+			<button class="close-button" id="comments-close" type="button" aria-label="Funga maoni">×</button>
+		</div>
+		<div class="dialog-body" id="comments-list"><p class="empty-comments">Bado hakuna maoni. Anza mazungumzo.</p></div>
+		<p class="auth-status" id="comments-status" role="status" aria-live="polite"></p>
+		<p class="comment-login-prompt" id="comment-login-prompt">Ingia au tengeneza akaunti ya bure ili kutoa maoni. <button type="button" id="comment-login-trigger">Jiunge / Ingia</button></p>
+		<form class="comment-form" id="comment-form">
+			<input id="comment-input" type="text" maxlength="500" placeholder="Andika maoni..." aria-label="Andika maoni" required disabled>
+			<button type="submit" id="comment-submit" disabled>Tuma</button>
+		</form>
+	</dialog>
+
+	<dialog class="share-dialog" id="share-dialog" aria-labelledby="share-title">
+		<div class="dialog-head">
+			<h2 id="share-title">Shiriki video</h2>
+			<button class="close-button" id="share-close" type="button" aria-label="Funga">×</button>
+		</div>
+		<div class="share-options">
+			<a class="share-option share-whatsapp" id="share-whatsapp" href="#" target="_blank" rel="noopener noreferrer">Shiriki kwa WhatsApp</a>
+			<a class="share-option share-facebook" id="share-facebook" href="#" target="_blank" rel="noopener noreferrer">Shiriki kwa Facebook</a>
+			<button class="share-option share-copy" id="share-copy" type="button">Nakili link ya video</button>
+		</div>
+	</dialog>
+
+	<dialog class="color-dialog" id="color-dialog" aria-labelledby="color-dialog-title">
+		<div class="dialog-head">
+			<div>
+				<h2 id="color-dialog-title">Rangi za mwonekano</h2>
+				<p class="color-description">Chagua rangi unayoipenda, au tumia Auto/kufuatana na kuchomoza na kuzama kwa jua. Mode ya Jua huomba location na haitumi wala kuhifadhi kuratibu kwenye D-link.</p>
+			</div>
+			<button class="close-button" id="color-dialog-close" type="button" aria-label="Funga">×</button>
+		</div>
+		<div class="color-mode-options" id="color-mode-options" aria-label="Rangi za haraka">
+			<button class="color-mode-option" type="button" data-color-mode="auto">
+				<span class="color-mode-swatch" style="--swatch-color: conic-gradient(#dced6b, #ef7658, #1d7a5d, #dced6b)" aria-hidden="true"></span>Auto
+			</button>
+			<button class="color-mode-option" type="button" data-color-mode="sun">
+				<span class="color-mode-swatch" style="--swatch-color: linear-gradient(145deg, #f8b75e 0 48%, #293a59 52% 100%)" aria-hidden="true"></span>Jua
+			</button>
+			<button class="color-mode-option" type="button" data-color-mode="#1d7a5d">
+				<span class="color-mode-swatch" style="--swatch-color: #1d7a5d" aria-hidden="true"></span>Kijani
+			</button>
+			<button class="color-mode-option" type="button" data-color-mode="#2878c7">
+				<span class="color-mode-swatch" style="--swatch-color: #2878c7" aria-hidden="true"></span>Buluu
+			</button>
+			<button class="color-mode-option" type="button" data-color-mode="#8056b3">
+				<span class="color-mode-swatch" style="--swatch-color: #8056b3" aria-hidden="true"></span>Zambarau
+			</button>
+			<button class="color-mode-option" type="button" data-color-mode="#d85b45">
+				<span class="color-mode-swatch" style="--swatch-color: #d85b45" aria-hidden="true"></span>Chungwa
+			</button>
+			<button class="color-mode-option" type="button" data-color-mode="#c04478">
+				<span class="color-mode-swatch" style="--swatch-color: #c04478" aria-hidden="true"></span>Waridi
+			</button>
+		</div>
+		<label class="custom-color-picker" for="custom-theme-color">
+			<span>Chagua rangi yako mwenyewe</span>
+			<input id="custom-theme-color" type="color" value="#1d7a5d">
+		</label>
+		<p class="color-mode-status" id="color-mode-status" role="status" aria-live="polite"></p>
+	</dialog>
+
+	<dialog class="club-dialog" id="club-info-dialog" aria-labelledby="club-info-title">
+		<div class="dialog-head">
+			<div>
+				<span class="eyebrow">Soka la Tanzania</span>
+				<h2 id="club-info-title">Simba · Yanga · Azam</h2>
+			</div>
+			<button class="close-button" id="club-info-close" type="button" aria-label="Funga taarifa za klabu">×</button>
+		</div>
+		<div class="club-grid">
+			<article class="club-card" style="--club-color: #c9272c">
+				<div><strong>Simba SC</strong><p>Klabu ya Dar es Salaam. Fungua historia au angalia matangazo kutoka klabu.</p></div>
+				<div class="club-links"><a href="./simba.html">Historia</a><a href="https://simbasc.co.tz/" target="_blank" rel="noopener noreferrer">Taarifa rasmi</a></div>
+			</article>
+			<article class="club-card" style="--club-color: #087a45">
+				<div><strong>Young Africans (Yanga SC)</strong><p>Klabu ya Dar es Salaam. Tazama historia na taarifa rasmi za klabu.</p></div>
+				<div class="club-links"><a href="./yanga.html">Historia</a><a href="https://yangasc.co.tz/" target="_blank" rel="noopener noreferrer">Taarifa rasmi</a></div>
+			</article>
+			<article class="club-card" style="--club-color: #176b91">
+				<div><strong>Azam FC</strong><p>Klabu ya Chamazi, Temeke, Dar es Salaam. Fungua historia, habari na kikosi rasmi.</p></div>
+				<div class="club-links"><a href="./azam.html">Historia</a><a href="https://azamfc.com/news" target="_blank" rel="noopener noreferrer">Habari rasmi</a></div>
+			</article>
+		</div>
+		<p class="club-note">Matokeo, msimamo na taarifa za usajili hubadilika mara kwa mara; fungua tovuti rasmi ili kupata taarifa mpya zilizothibitishwa.</p>
+	</dialog>
+
+	<dialog class="auth-dialog" id="auth-dialog" aria-labelledby="auth-title">
+		<div class="dialog-head">
+			<div>
+				<span class="eyebrow">Jumuiya ya D-link</span>
+				<h2 id="auth-title">Fungua akaunti ya bure</h2>
+			</div>
+			<button class="close-button" id="auth-close" type="button" aria-label="Funga">×</button>
+		</div>
+		<div class="dialog-body">
+			<p class="auth-description" id="auth-description">Tengeneza profile yako ili utoe maoni na kushiriki na jamii.</p>
+			<p class="auth-privacy">Barua pepe yako haitakuwa ya umma. Nenosiri hutunzwa na Supabase Auth kwa usalama—D-link hailihifadhi wala kulionyesha.</p>
+			<p class="auth-status" id="auth-status" role="status" aria-live="polite"></p>
+			<form class="auth-form" id="auth-form">
+				<label id="auth-name-label" for="auth-display-name">Jina litaonekana kwenye profile na comments
+					<input id="auth-display-name" type="text" maxlength="60" autocomplete="nickname" required>
+				</label>
+				<label for="auth-email">Barua pepe
+					<input id="auth-email" type="email" autocomplete="email" required>
+				</label>
+				<label for="auth-password">Nenosiri (angalau herufi 8)
+					<input id="auth-password" type="password" minlength="8" autocomplete="new-password" required>
+				</label>
+				<button class="auth-submit" id="auth-submit" type="submit">Fungua akaunti</button>
+				<button class="auth-toggle" id="auth-mode-toggle" type="button">Tayari una akaunti? Ingia</button>
+			</form>
+			<div id="signed-in-panel" hidden>
+				<form class="profile-form" id="profile-form">
+					<div class="profile-avatar">
+						<div class="profile-avatar-preview" id="profile-avatar-preview" aria-label="Picha ya profile">D</div>
+						<label for="profile-avatar-input">Picha ya profile
+							<input id="profile-avatar-input" type="file" accept="image/jpeg,image/png,image/webp">
+						</label>
+					</div>
+					<label for="profile-display-name">Jina lako la umma
+						<input id="profile-display-name" type="text" maxlength="60" required>
+					</label>
+					<button type="submit">Hifadhi profile</button>
+				</form>
+				<button class="sign-out-button" id="sign-out-button" type="button">Toka kwenye akaunti</button>
+			</div>
+		</div>
+	</dialog>
+
+	<dialog class="upload-dialog" id="upload-dialog" aria-labelledby="upload-title">
+		<div class="dialog-head">
+			<div>
+				<span class="eyebrow">D-link creators</span>
+				<h2 id="upload-title">Shiriki video yako</h2>
+			</div>
+			<button class="close-button" id="upload-close" type="button" aria-label="Funga">×</button>
+		</div>
+		<form class="upload-form" id="upload-form">
+			<p class="upload-intro">Weka jina la creator, chagua faili au bandika link ya video, kisha ongeza maelezo. Akaunti si lazima. Video itaonekana kwa umma—shiriki tu maudhui yanayofaa familia na ambayo una ruhusa ya kuyasambaza.</p>
+			<label for="creator-name">Jina lako la creator
+				<input id="creator-name" name="creatorName" type="text" maxlength="60" placeholder="Mfano: Amina Creates" autocomplete="nickname" required>
+			</label>
+			<label for="video-title">Kichwa cha video
+				<input id="video-title" name="videoTitle" type="text" maxlength="100" placeholder="Video inahusu nini?" required>
+			</label>
+			<label for="video-caption">Maelezo
+				<textarea id="video-caption" name="videoCaption" maxlength="500" placeholder="Shiriki maelezo mafupi kuhusu video yako..."></textarea>
+			</label>
+			<label for="video-url">Au bandika link ya moja kwa moja ya video (HTTPS)
+				<input id="video-url" name="videoUrl" type="url" inputmode="url" placeholder="https://tovuti.com/video.mp4">
+			</label>
+			<p class="upload-hint">Link lazima ifungue faili la video moja kwa moja (MP4, WebM, MOV n.k.), si link ya YouTube/TikTok au ukurasa wa kawaida. D-link itaonyesha video kutoka kwenye tovuti ya chanzo bila kutengeneza nakala yake.</p>
+			<label for="video-picker">Au chagua video kutoka kifaa chako
+				<input id="video-picker" name="videoFile" type="file" accept="video/*,.mp4,.m4v,.webm,.mov,.avi,.mkv,.mpeg,.mpg,.m4v,.3gp,.3g2,.ogv,.wmv,.flv,.ts">
+			</label>
+			<div class="upload-preview" id="upload-preview" aria-live="polite">
+				<span id="upload-preview-label">Video yako itaonekana hapa kabla ya kuchapishwa.</span>
+				<video id="upload-preview-video" controls playsinline hidden></video>
+			</div>
+			<p class="upload-hint">Faili kutoka kifaa: format nyingi za video, hakuna ukubwa wa chini (hata KB), hadi MB 100. Video za link hutegemea upatikanaji wa tovuti ya chanzo. Kwa kuchapisha, unakubali kuwa video itaonekana kwa wageni wote.</p>
+			<button class="upload-submit" id="upload-submit" type="submit">Chapisha video</button>
+		</form>
+	</dialog>
+
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+	<script>
+		const SUPABASE_URL = "https://ixskiyoczhftgubuxscg.supabase.co";
+		const SUPABASE_ANON_KEY = "sb_publishable_kMbThKjK_1nCPtRgEuvY5Q_sOJU5bC3";
+		const isSupabaseConfigured = !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_");
+		const supabaseClient = isSupabaseConfigured && window.supabase
+			? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+			: null;
+		const videoFeed = document.getElementById("video-feed");
+		const videoPicker = document.getElementById("video-picker");
+		const videoUrlInput = document.getElementById("video-url");
+		const uploadDialog = document.getElementById("upload-dialog");
+		const uploadForm = document.getElementById("upload-form");
+		const creatorNameInput = document.getElementById("creator-name");
+		const videoTitleInput = document.getElementById("video-title");
+		const videoCaptionInput = document.getElementById("video-caption");
+		const uploadPreviewVideo = document.getElementById("upload-preview-video");
+		const uploadPreviewLabel = document.getElementById("upload-preview-label");
+		const uploadSubmit = document.getElementById("upload-submit");
+		const feedStatus = document.getElementById("feed-status");
+		const uploadTrigger = document.getElementById("upload-trigger");
+		const accountTrigger = document.getElementById("account-trigger");
+		const authDialog = document.getElementById("auth-dialog");
+		const authForm = document.getElementById("auth-form");
+		const authStatus = document.getElementById("auth-status");
+		const authNameLabel = document.getElementById("auth-name-label");
+		const authDisplayName = document.getElementById("auth-display-name");
+		const authEmail = document.getElementById("auth-email");
+		const authPassword = document.getElementById("auth-password");
+		const authSubmit = document.getElementById("auth-submit");
+		const authModeToggle = document.getElementById("auth-mode-toggle");
+		const signedInPanel = document.getElementById("signed-in-panel");
+		const profileForm = document.getElementById("profile-form");
+		const profileDisplayName = document.getElementById("profile-display-name");
+		const profileAvatarInput = document.getElementById("profile-avatar-input");
+		const profileAvatarPreview = document.getElementById("profile-avatar-preview");
+		const signOutButton = document.getElementById("sign-out-button");
+		const commentsDialog = document.getElementById("comments-dialog");
+		const shareDialog = document.getElementById("share-dialog");
+		const shareWhatsApp = document.getElementById("share-whatsapp");
+		const shareFacebook = document.getElementById("share-facebook");
+		const shareCopy = document.getElementById("share-copy");
+		const colorDialog = document.getElementById("color-dialog");
+		const colorOptions = document.getElementById("color-mode-options");
+		const customThemeColor = document.getElementById("custom-theme-color");
+		const themeButtonSwatch = document.getElementById("theme-button-swatch");
+		const colorModeStatus = document.getElementById("color-mode-status");
+		const clubInfoDialog = document.getElementById("club-info-dialog");
+		const commentsList = document.getElementById("comments-list");
+		const commentsStatus = document.getElementById("comments-status");
+		const commentLoginPrompt = document.getElementById("comment-login-prompt");
+		const commentSubmit = document.getElementById("comment-submit");
+		const commentForm = document.getElementById("comment-form");
+		const commentInput = document.getElementById("comment-input");
+		const videoMimeByExtension = {
+			".3g2": "video/3gpp2",
+			".3gp": "video/3gpp",
+			".avi": "video/x-msvideo",
+			".flv": "video/x-flv",
+			".m4v": "video/x-m4v",
+			".mkv": "video/x-matroska",
+			".mov": "video/quicktime",
+			".mp2t": "video/mp2t",
+			".mp4": "video/mp4",
+			".mpe": "video/mpeg",
+			".mpeg": "video/mpeg",
+			".mpg": "video/mpeg",
+			".ogv": "video/ogg",
+			".ts": "video/mp2t",
+			".webm": "video/webm",
+			".wmv": "video/x-ms-wmv"
+		};
+		const supportedVideoMimeTypes = new Set(Object.values(videoMimeByExtension));
+		let currentUser = null;
+		let currentProfile = null;
+		let authMode = "signup";
+		let commentsChannel = null;
+		let feedMuted = loadFeedMutedPreference();
+		let profileAvatarPreviewUrl = "";
+		let backgroundPaletteIndex = 0;
+		let colorMode = loadColorModePreference();
+		let solarCoordinates = null;
+		let solarUpdateTimer = 0;
+		let solarRequestId = 0;
+		let activeShareUrl = "";
+		let activeShareTitle = "";
+		let activePost = videoFeed.querySelector(".video-post");
+		let pendingCommentPost = activePost;
+		const backgroundPalettes = [
+			["rgba(220, 237, 107, 0.32)", "rgba(239, 118, 88, 0.18)", "rgba(29, 122, 93, 0.10)"],
+			["rgba(113, 205, 177, 0.30)", "rgba(255, 199, 109, 0.20)", "rgba(74, 139, 177, 0.12)"],
+			["rgba(255, 185, 145, 0.28)", "rgba(150, 194, 236, 0.20)", "rgba(156, 202, 126, 0.12)"],
+			["rgba(176, 166, 235, 0.26)", "rgba(255, 199, 109, 0.18)", "rgba(111, 197, 170, 0.14)"]
+		];
+
+		function loadFeedMutedPreference() {
+			try {
+				return window.localStorage.getItem("dlink-feed-muted") !== "false";
+			} catch (error) {
+				console.warn("Haikuwezekana kusoma chaguo la sauti.", error);
+				return true;
+			}
+		}
+
+		function saveFeedMutedPreference() {
+			try {
+				window.localStorage.setItem("dlink-feed-muted", String(feedMuted));
+			} catch (error) {
+				console.warn("Haikuwezekana kuhifadhi chaguo la sauti.", error);
+			}
+		}
+
+		function loadColorModePreference() {
+			try {
+				const savedColor = window.localStorage.getItem("dlink-color-mode");
+				return savedColor === "auto" || savedColor === "sun" || /^#[0-9a-f]{6}$/i.test(savedColor || "") ? savedColor : "auto";
+			} catch (error) {
+				console.warn("Haikuwezekana kusoma chaguo la rangi.", error);
+				return "auto";
+			}
+		}
+
+		function saveColorModePreference() {
+			try {
+				window.localStorage.setItem("dlink-color-mode", colorMode);
+			} catch (error) {
+				console.warn("Haikuwezekana kuhifadhi chaguo la rangi.", error);
+			}
+		}
+
+		function applyColorMode() {
+			const root = document.documentElement;
+			if (colorMode === "auto") {
+				delete root.dataset.sunPhase;
+				root.style.setProperty("--forest", "#123a30");
+				root.style.setProperty("--green", "#1d7a5d");
+				themeButtonSwatch.style.background = "#1d7a5d";
+				const [ambientOne, ambientTwo, ambientThree] = backgroundPalettes[backgroundPaletteIndex];
+				root.style.setProperty("--ambient-one", ambientOne);
+				root.style.setProperty("--ambient-two", ambientTwo);
+				root.style.setProperty("--ambient-three", ambientThree);
+			} else if (colorMode === "sun") {
+				const isDaytime = solarCoordinates ? getSolarState(solarCoordinates, new Date()).isDaytime : true;
+				root.dataset.sunPhase = isDaytime ? "day" : "night";
+				root.style.setProperty("--forest", isDaytime ? "#123a30" : "#263852");
+				root.style.setProperty("--green", isDaytime ? "#1d7a5d" : "#769bd0");
+				root.style.setProperty("--ambient-one", isDaytime ? "rgba(255, 190, 103, 0.30)" : "rgba(88, 120, 190, 0.25)");
+				root.style.setProperty("--ambient-two", isDaytime ? "rgba(239, 118, 88, 0.17)" : "rgba(135, 104, 190, 0.18)");
+				root.style.setProperty("--ambient-three", isDaytime ? "rgba(29, 122, 93, 0.10)" : "rgba(76, 130, 160, 0.14)");
+				themeButtonSwatch.style.background = isDaytime
+					? "linear-gradient(145deg, #f8b75e 0 48%, #1d7a5d 52% 100%)"
+					: "linear-gradient(145deg, #263852 0 48%, #769bd0 52% 100%)";
+			} else {
+				delete root.dataset.sunPhase;
+				const red = parseInt(colorMode.slice(1, 3), 16);
+				const green = parseInt(colorMode.slice(3, 5), 16);
+				const blue = parseInt(colorMode.slice(5, 7), 16);
+				const darkForest = `#${[red, green, blue].map(channel => Math.round(channel * 0.32).toString(16).padStart(2, "0")).join("")}`;
+				const accessibleGreen = `#${[red, green, blue].map(channel => Math.round(channel * 0.45).toString(16).padStart(2, "0")).join("")}`;
+				root.style.setProperty("--forest", darkForest);
+				root.style.setProperty("--green", accessibleGreen);
+				root.style.setProperty("--ambient-one", `rgba(${red}, ${green}, ${blue}, 0.22)`);
+				root.style.setProperty("--ambient-two", `rgba(${red}, ${green}, ${blue}, 0.13)`);
+				root.style.setProperty("--ambient-three", `rgba(${red}, ${green}, ${blue}, 0.09)`);
+				themeButtonSwatch.style.background = colorMode;
+				customThemeColor.value = colorMode;
+			}
+
+			for (const option of colorOptions.querySelectorAll("[data-color-mode]")) {
+				option.setAttribute("aria-pressed", String(option.dataset.colorMode === colorMode));
+			}
+		}
+
+		function chooseColorMode(mode) {
+			if (mode === "sun") {
+				void enableSunMode();
+				return;
+			}
+			solarRequestId += 1;
+			for (const option of colorOptions.querySelectorAll("[data-color-mode]")) option.disabled = false;
+			if (solarUpdateTimer) window.clearTimeout(solarUpdateTimer);
+			solarCoordinates = null;
+			colorMode = mode;
+			colorModeStatus.textContent = "";
+			applyColorMode();
+			saveColorModePreference();
+		}
+
+		function getSolarEventUtc(year, month, day, latitude, longitude, sunrise) {
+			const date = new Date(Date.UTC(year, month, day));
+			const dayOfYear = Math.floor((date - new Date(Date.UTC(year, 0, 0))) / 86400000);
+			const longitudeHour = longitude / 15;
+			const approximateTime = dayOfYear + ((sunrise ? 6 : 18) - longitudeHour) / 24;
+			const meanAnomaly = 0.9856 * approximateTime - 3.289;
+			const trueLongitude = ((meanAnomaly
+				+ 1.916 * Math.sin(meanAnomaly * Math.PI / 180)
+				+ 0.020 * Math.sin(2 * meanAnomaly * Math.PI / 180)
+				+ 282.634) % 360 + 360) % 360;
+			let rightAscension = (Math.atan(0.91764 * Math.tan(trueLongitude * Math.PI / 180)) * 180 / Math.PI + 360) % 360;
+			rightAscension += Math.floor(trueLongitude / 90) * 90 - Math.floor(rightAscension / 90) * 90;
+			rightAscension /= 15;
+
+			const sinDeclination = 0.39782 * Math.sin(trueLongitude * Math.PI / 180);
+			const cosDeclination = Math.cos(Math.asin(sinDeclination));
+			const latitudeRadians = latitude * Math.PI / 180;
+			const cosineHourAngle = (Math.cos(90.833 * Math.PI / 180) - sinDeclination * Math.sin(latitudeRadians))
+				/ (cosDeclination * Math.cos(latitudeRadians));
+			if (cosineHourAngle < -1 || cosineHourAngle > 1) return null;
+
+			const hourAngle = (sunrise ? 360 - Math.acos(cosineHourAngle) * 180 / Math.PI : Math.acos(cosineHourAngle) * 180 / Math.PI) / 15;
+			const localMeanTime = hourAngle + rightAscension - 0.06571 * approximateTime - 6.622;
+			const utcHour = ((localMeanTime - longitudeHour) % 24 + 24) % 24;
+			return new Date(Date.UTC(year, month, day) + utcHour * 3600000);
+		}
+
+		function getSolarState(coordinates, now) {
+			const days = [];
+			for (let offset = -1; offset <= 1; offset += 1) {
+				const date = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + offset));
+				const year = date.getUTCFullYear();
+				const month = date.getUTCMonth();
+				const day = date.getUTCDate();
+				days.push({
+					sunrise: getSolarEventUtc(year, month, day, coordinates.latitude, coordinates.longitude, true),
+					sunset: getSolarEventUtc(year, month, day, coordinates.latitude, coordinates.longitude, false)
+				});
+			}
+			const sunrises = days.map(day => day.sunrise).filter(Boolean);
+			const sunsets = days.map(day => day.sunset).filter(Boolean);
+			const lastSunrise = sunrises.filter(time => time <= now).sort((a, b) => b - a)[0];
+			const lastSunset = sunsets.filter(time => time <= now).sort((a, b) => b - a)[0];
+			const nextEvents = [...sunrises, ...sunsets].filter(time => time > now).sort((a, b) => a - b);
+			return {
+				isDaytime: lastSunrise ? !lastSunset || lastSunrise > lastSunset : false,
+				nextEvent: nextEvents[0] || null
+			};
+		}
+
+		function scheduleSolarUpdate() {
+			if (solarUpdateTimer) window.clearTimeout(solarUpdateTimer);
+			if (colorMode !== "sun" || !solarCoordinates) return;
+			const solarState = getSolarState(solarCoordinates, new Date());
+			applyColorMode();
+			if (!solarState.nextEvent) {
+				colorModeStatus.textContent = "Nyakati za jua hazikupatikana kwa eneo hili kwa sasa.";
+				return;
+			}
+			colorModeStatus.textContent = `Mode ya Jua imewashwa. Eneo lako linatumika kwenye kifaa hiki pekee; mabadiliko yajayo yanatarajiwa ${solarState.nextEvent.toLocaleTimeString("sw-TZ", { hour: "2-digit", minute: "2-digit" })}.`;
+			solarUpdateTimer = window.setTimeout(scheduleSolarUpdate, Math.max(1000, solarState.nextEvent.getTime() - Date.now() + 1000));
+		}
+
+		function enableSunMode() {
+			if (!navigator.geolocation) {
+				colorModeStatus.textContent = "Kivinjari hiki hakiwezi kupata eneo la kifaa. Ruhusu location kwenye browser inayotumia HTTPS.";
+				return;
+			}
+			const requestId = ++solarRequestId;
+			colorModeStatus.textContent = "Inaomba ruhusa ya eneo ili kukadiria nyakati za jua...";
+			for (const option of colorOptions.querySelectorAll("[data-color-mode]")) option.disabled = true;
+			navigator.geolocation.getCurrentPosition(position => {
+				if (requestId !== solarRequestId) return;
+				if (solarUpdateTimer) window.clearTimeout(solarUpdateTimer);
+				solarCoordinates = {
+					latitude: position.coords.latitude,
+					longitude: position.coords.longitude
+				};
+				colorMode = "sun";
+				applyColorMode();
+				saveColorModePreference();
+				scheduleSolarUpdate();
+				for (const option of colorOptions.querySelectorAll("[data-color-mode]")) option.disabled = false;
+			}, error => {
+				if (requestId !== solarRequestId) return;
+				console.warn("Eneo halikupatikana kwa mode ya Jua.", error);
+				colorModeStatus.textContent = error.code === 1
+					? "Ruhusa ya eneo imekataliwa. Ruhusu location kwenye mipangilio ya browser kisha chagua Jua tena."
+					: "Eneo halikupatikana. Hakikisha location imewashwa na ujaribu tena.";
+				for (const option of colorOptions.querySelectorAll("[data-color-mode]")) option.disabled = false;
+			}, { enableHighAccuracy: false, maximumAge: 600000, timeout: 15000 });
+		}
+
+		document.getElementById("theme-trigger").addEventListener("click", () => colorDialog.showModal());
+		document.getElementById("color-dialog-close").addEventListener("click", () => colorDialog.close());
+		colorOptions.addEventListener("click", event => {
+			const option = event.target.closest("[data-color-mode]");
+			if (option) chooseColorMode(option.dataset.colorMode);
+		});
+		customThemeColor.addEventListener("input", () => chooseColorMode(customThemeColor.value));
+
+		function getAvatarUrl(avatarPath) {
+			if (!avatarPath || !supabaseClient) return "";
+			const publicUrl = supabaseClient.storage.from("dlink-avatars").getPublicUrl(avatarPath).data.publicUrl;
+			return `${publicUrl}?v=${Date.now()}`;
+		}
+
+		function renderAvatar(avatar, avatarPath, fallback) {
+			avatar.replaceChildren();
+			if (!avatarPath) {
+				avatar.textContent = fallback;
+				return;
+			}
+
+			const image = document.createElement("img");
+			image.src = getAvatarUrl(avatarPath);
+			image.alt = "";
+			image.addEventListener("error", () => {
+				avatar.replaceChildren();
+				avatar.textContent = fallback;
+			}, { once: true });
+			avatar.append(image);
+		}
+
+		function updateCreatorAvatars(userId, avatarPath, displayName) {
+			for (const post of videoFeed.querySelectorAll(".video-post")) {
+				if (post.dataset.authorId !== userId) continue;
+				const creatorName = post.querySelector(".post-owner-name");
+				const avatar = post.querySelector(".owner-avatar");
+				if (creatorName && displayName) {
+					creatorName.textContent = displayName;
+					post.dataset.creator = displayName;
+					post.dataset.search = getSearchText(post.dataset.title, post.dataset.caption, displayName, post.dataset.videoUrl);
+				}
+				if (avatar) renderAvatar(avatar, avatarPath, (displayName || "D").trim().charAt(0).toLocaleUpperCase("sw") || "D");
+			}
+		}
+
+		document.getElementById("club-info-trigger").addEventListener("click", () => clubInfoDialog.showModal());
+		document.getElementById("club-info-close").addEventListener("click", () => clubInfoDialog.close());
+
+		window.setInterval(() => {
+			if (colorMode === "auto") {
+				backgroundPaletteIndex = (backgroundPaletteIndex + 1) % backgroundPalettes.length;
+				applyColorMode();
+			}
+		}, 20000);
+		applyColorMode();
+		if (colorMode === "sun") enableSunMode();
+
+		if (!isSupabaseConfigured || !supabaseClient) {
+			uploadTrigger.disabled = true;
+			uploadTrigger.title = "Unganisha Supabase ili kuwezesha video za wageni";
+			accountTrigger.disabled = true;
+			accountTrigger.title = "Unganisha Supabase ili kuunda akaunti";
+			showStatus("Unganisha Supabase ili wageni waweze kupakia video.");
+		}
+
+		function showStatus(message) {
+			feedStatus.textContent = message;
+			window.setTimeout(() => {
+				if (feedStatus.textContent === message) feedStatus.textContent = "";
+			}, 6500);
+		}
+
+		function getUploadErrorMessage(error, stage) {
+			const code = error?.code || error?.statusCode || "";
+			const message = error?.message || "";
+			if (code === "BucketNotFound" || /bucket.*not found/i.test(message)) {
+				return "Sehemu ya kuhifadhi video haipo. Mmiliki wa D-link ahakikishe bucket dlink-videos ipo kwenye Supabase.";
+			}
+			if (code === "InvalidMimeType" || /mime type|content type.*not allowed/i.test(message)) {
+				return "Supabase haikubali format hii bado. Tumia MP4 au WebM, au sasisha allowed_mime_types kwenye bucket.";
+			}
+			if (code === "EntityTooLarge" || /too large|exceed.*size|payload too large/i.test(message)) {
+				return "Faili limezidi kikomo cha MB 100. Punguza ukubwa wa video kisha ujaribu tena.";
+			}
+			if (/row-level security|permission denied|not authorized|unauthorized/i.test(message) || code === "42501") {
+				return stage === "storage"
+					? "Supabase imekataa ruhusa ya upload. Hakikisha sera ya Anyone can upload D-link videos imewekwa kwenye storage.objects."
+					: "Video imehifadhiwa lakini haikuchapishwa kwa sababu ruhusa za jedwali haziruhusu. Hakikisha sera za dlink_posts zimetekelezwa.";
+			}
+			if (code === "PGRST205" || /could not find the table/i.test(message)) {
+				return "Jedwali la D-link halipo kwenye Supabase. Mmiliki aendeshe dlink_supabase.sql kwenye project sahihi.";
+			}
+			if (/video_url.*(column|schema cache)|column.*video_url/i.test(message)) {
+				return "Link za video bado hazijawezeshwa kwenye Supabase. Endesha dlink_supabase.sql ili kuongeza video_url.";
+			}
+			if (stage === "database") {
+				return "Video imehifadhiwa lakini haijaonekana kwenye feed. Hakiki ruhusa za dlink_posts kisha jaribu tena.";
+			}
+			return "Upload imeshindikana kuunganishwa na Supabase. Hakiki intaneti na ruhusa za bucket, kisha jaribu tena.";
+		}
+
+		function setAuthMode(mode) {
+			authMode = mode;
+			const isSignup = mode === "signup";
+			document.getElementById("auth-title").textContent = isSignup ? "Fungua akaunti ya bure" : "Karibu tena";
+			document.getElementById("auth-description").textContent = isSignup
+				? "Tengeneza profile yako ili utoe maoni na kushiriki na jamii."
+				: "Ingia kwenye akaunti yako ya D-link ili uendelee na profile na comments zako.";
+			authNameLabel.hidden = !isSignup;
+			authDisplayName.required = isSignup;
+			authPassword.autocomplete = isSignup ? "new-password" : "current-password";
+			authSubmit.textContent = isSignup ? "Fungua akaunti" : "Ingia";
+			authModeToggle.textContent = isSignup ? "Tayari una akaunti? Ingia" : "Huna akaunti? Jiunge bure";
+			authStatus.textContent = "";
+		}
+
+		function getAuthErrorMessage(error, action) {
+			const code = error?.code || "";
+			const message = error?.message || "";
+			if (code === "email_not_confirmed" || /email not confirmed/i.test(message)) {
+				return "Bado hujathibitisha email. Fungua ujumbe wa Supabase uliotumwa kwenye inbox au Spam, bonyeza link, kisha ujaribu kuingia tena.";
+			}
+			if (code === "invalid_credentials" || /invalid login credentials/i.test(message)) {
+				return "Email au nenosiri si sahihi. Hakikisha umetumia email ileile ya usajili na nenosiri sahihi.";
+			}
+			if (code === "user_already_exists" || /user already registered/i.test(message)) {
+				return "Email hii tayari ina akaunti. Chagua “Tayari una akaunti? Ingia” badala ya kujisajili tena.";
+			}
+			if (code === "weak_password" || /password should be/i.test(message)) {
+				return "Nenosiri halikidhi masharti ya Supabase. Tumia nenosiri imara lenye angalau herufi 8.";
+			}
+			if (code === "over_email_send_rate_limit" || /email rate limit|over_email_send_rate_limit/i.test(message)) {
+				return "Supabase imefikia kikomo cha email za uthibitisho. Kwa email ya majaribio ya Supabase, kikomo cha kawaida ni email 2 kwa saa kwa project nzima. Usijisajili tena mara kwa mara: angalia Inbox na Spam; kama akaunti ilishatengenezwa, badili kwenda “Ingia”. Ili kuongeza email, mmiliki wa project aweke SMTP yake kwenye Supabase → Project Settings → Auth → SMTP Settings.";
+			}
+			if (code === "over_request_rate_limit" || /too many requests|rate limit/i.test(message)) {
+				return "Supabase imezuia maombi mengi kwa muda mfupi. Subiri kabla ya kujaribu tena; kurudia kubonyeza kutachelewesha kufungua akaunti.";
+			}
+			return `${action} kumeshindikana: ${message || "Sababu haikupatikana."}`;
+		}
+
+		async function updateAuthSession(session) {
+			currentUser = session?.user || null;
+			currentProfile = null;
+			accountTrigger.textContent = currentUser ? "Profile" : "Jiunge / Ingia";
+			accountTrigger.title = currentUser ? "Angalia na hariri profile yako" : "Fungua akaunti au ingia";
+			commentInput.disabled = !currentUser;
+			commentSubmit.disabled = !currentUser;
+			commentLoginPrompt.hidden = Boolean(currentUser);
+			authForm.hidden = Boolean(currentUser);
+			signedInPanel.hidden = !currentUser;
+
+			if (!currentUser || !supabaseClient) return;
+
+			const userId = currentUser.id;
+			const { data: profile, error } = await supabaseClient
+				.from("dlink_profiles")
+				.select("id, display_name, avatar_path")
+				.eq("id", userId)
+				.maybeSingle();
+			if (currentUser?.id !== userId) return;
+			if (error) {
+				console.error("Imeshindikana kupakia profile ya D-link.", error);
+				authStatus.textContent = "Umeingia, lakini profile haikupakiwa. Hakikisha SQL mpya ya D-link imeendeshwa kwenye project hii.";
+				return;
+			}
+
+			currentProfile = profile;
+			if (profile) {
+				profileDisplayName.value = profile.display_name;
+				creatorNameInput.value = profile.display_name;
+				renderAvatar(profileAvatarPreview, profile.avatar_path, "D");
+				authStatus.textContent = "";
+			} else {
+				authStatus.textContent = "Profile haipo bado. Toka kisha jiunge tena, au hakiki trigger ya profile kwenye Supabase.";
+			}
+		}
+
+		profileAvatarInput.addEventListener("change", () => {
+			if (profileAvatarPreviewUrl) URL.revokeObjectURL(profileAvatarPreviewUrl);
+			profileAvatarPreviewUrl = "";
+			const file = profileAvatarInput.files?.[0];
+			if (!file) {
+				renderAvatar(profileAvatarPreview, currentProfile?.avatar_path, "D");
+				return;
+			}
+			if (!["image/jpeg", "image/png", "image/webp"].includes(file.type) || file.size <= 0 || file.size > 5 * 1024 * 1024) {
+				authStatus.textContent = "Chagua picha ya JPG, PNG au WebP yenye ukubwa usiozidi MB 5.";
+				profileAvatarInput.value = "";
+				renderAvatar(profileAvatarPreview, currentProfile?.avatar_path, "D");
+				return;
+			}
+			profileAvatarPreviewUrl = URL.createObjectURL(file);
+			renderAvatar(profileAvatarPreview, "", "D");
+			const image = document.createElement("img");
+			image.src = profileAvatarPreviewUrl;
+			image.alt = "";
+			profileAvatarPreview.replaceChildren(image);
+			authStatus.textContent = "";
+		});
+
+		function openAuthDialog() {
+			if (!supabaseClient) {
+				showStatus("Unganisha Supabase ili kuunda akaunti na kutumia comments.");
+				return;
+			}
+			authStatus.textContent = "";
+			if (currentUser) {
+				authForm.hidden = true;
+				signedInPanel.hidden = false;
+			} else {
+				setAuthMode(authMode);
+				authForm.hidden = false;
+				signedInPanel.hidden = true;
+			}
+			authDialog.showModal();
+		}
+
+		document.getElementById("auth-close").addEventListener("click", () => authDialog.close());
+		accountTrigger.addEventListener("click", openAuthDialog);
+		document.getElementById("comment-login-trigger").addEventListener("click", () => {
+			commentsDialog.close();
+			openAuthDialog();
+		});
+		authModeToggle.addEventListener("click", () => {
+			setAuthMode(authMode === "signup" ? "login" : "signup");
+		});
+		authForm.addEventListener("submit", async event => {
+			event.preventDefault();
+			if (!supabaseClient) return;
+			const email = authEmail.value.trim();
+			const password = authPassword.value;
+			authSubmit.disabled = true;
+			authStatus.textContent = authMode === "signup" ? "Tunatengeneza akaunti..." : "Tunaingia...";
+
+			try {
+				if (authMode === "signup") {
+					const displayName = authDisplayName.value.trim();
+					if (!displayName) {
+						authDisplayName.reportValidity();
+						return;
+					}
+					const { data, error } = await supabaseClient.auth.signUp({
+						email,
+						password,
+						options: {
+							data: { display_name: displayName },
+							...(window.location.protocol === "http:" || window.location.protocol === "https:"
+								? { emailRedirectTo: window.location.origin }
+								: {})
+						}
+					});
+					if (error) {
+						authStatus.textContent = getAuthErrorMessage(error, "Usajili");
+						return;
+					}
+					if (data.session) {
+						await updateAuthSession(data.session);
+						authStatus.textContent = "Akaunti imefunguliwa. Karibu D-link!";
+					} else {
+						authStatus.textContent = "Akaunti imetengenezwa. Angalia inbox na Spam, fungua email ya Supabase na bonyeza link ya uthibitisho; kisha rudi hapa uingie.";
+					}
+				} else {
+					const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+					if (error) {
+						authStatus.textContent = getAuthErrorMessage(error, "Kuingia");
+						return;
+					}
+					await updateAuthSession(data.session);
+					authStatus.textContent = "Umeingia kwenye akaunti yako.";
+				}
+			} catch (error) {
+				console.error("Hitilafu ya D-link Auth.", error);
+				authStatus.textContent = "Imeshindikana kuwasiliana na Supabase Auth. Jaribu tena.";
+			} finally {
+				authSubmit.disabled = false;
+			}
+		});
+
+		profileForm.addEventListener("submit", async event => {
+			event.preventDefault();
+			if (!supabaseClient || !currentUser) return;
+			const displayName = profileDisplayName.value.trim();
+			if (!displayName) {
+				profileDisplayName.reportValidity();
+				return;
+			}
+
+			const saveButton = profileForm.querySelector("button[type=submit]");
+			saveButton.disabled = true;
+			try {
+				const avatarFile = profileAvatarInput.files?.[0];
+				let avatarPath = currentProfile?.avatar_path || null;
+				if (avatarFile) {
+					avatarPath = `${currentUser.id}/avatar`;
+					const { error: avatarError } = await supabaseClient.storage
+						.from("dlink-avatars")
+						.upload(avatarPath, avatarFile, {
+							cacheControl: "3600",
+							contentType: avatarFile.type,
+							upsert: true
+						});
+					if (avatarError) {
+						console.error("Picha ya profile haikupakiwa.", avatarError);
+						authStatus.textContent = "Picha haikupakiwa. Hakiki bucket na ruhusa za dlink-avatars kwenye Supabase.";
+						return;
+					}
+				}
+
+				const { data: profile, error } = await supabaseClient
+					.from("dlink_profiles")
+					.update({ display_name: displayName, avatar_path: avatarPath })
+					.eq("id", currentUser.id)
+					.select("id, display_name, avatar_path")
+					.single();
+				if (error) {
+					authStatus.textContent = "Profile haikuhifadhiwa. Hakiki ruhusa za profile kwenye Supabase.";
+					console.error("Imeshindikana kusasisha profile.", error);
+					return;
+				}
+				currentProfile = profile;
+				creatorNameInput.value = profile.display_name;
+				profileAvatarInput.value = "";
+				if (profileAvatarPreviewUrl) URL.revokeObjectURL(profileAvatarPreviewUrl);
+				profileAvatarPreviewUrl = "";
+				renderAvatar(profileAvatarPreview, profile.avatar_path, "D");
+				updateCreatorAvatars(currentUser.id, profile.avatar_path, profile.display_name);
+				authStatus.textContent = "Profile imesasishwa.";
+			} catch (error) {
+				console.error("Hitilafu wakati wa kusasisha profile.", error);
+				authStatus.textContent = "Jina halikuhifadhiwa kwa hitilafu ya mtandao.";
+			} finally {
+				saveButton.disabled = false;
+			}
+		});
+
+		signOutButton.addEventListener("click", async () => {
+			if (!supabaseClient) return;
+			signOutButton.disabled = true;
+			try {
+				const { error } = await supabaseClient.auth.signOut();
+				if (error) {
+					authStatus.textContent = "Imeshindikana kutoka kwenye akaunti.";
+					console.error("Imeshindikana kutoka D-link Auth.", error);
+					return;
+				}
+				await updateAuthSession(null);
+				authDialog.close();
+				showStatus("Umetoka kwenye akaunti.");
+			} catch (error) {
+				console.error("Hitilafu wakati wa kutoka D-link Auth.", error);
+				authStatus.textContent = "Imeshindikana kutoka kwa hitilafu ya mtandao.";
+			} finally {
+				signOutButton.disabled = false;
+			}
+		});
+
+		if (supabaseClient) {
+			supabaseClient.auth.onAuthStateChange((_event, session) => {
+				window.setTimeout(() => {
+					updateAuthSession(session).catch(error => {
+						console.error("Imeshindikana kusasisha session ya D-link.", error);
+						authStatus.textContent = "Profile haikuweza kupakiwa baada ya kubadilika kwa session.";
+					});
+				}, 0);
+			});
+			supabaseClient.auth.getSession()
+				.then(({ data, error }) => {
+					if (error) {
+						console.error("Imeshindikana kusoma session ya D-link.", error);
+						authStatus.textContent = "Session haikupatikana. Jaribu kuingia tena.";
+						return;
+					}
+					return updateAuthSession(data.session);
+				})
+				.catch(error => {
+					console.error("Imeshindikana kuanzisha D-link Auth.", error);
+					authStatus.textContent = "Auth haijaweza kuunganishwa na Supabase.";
+				});
+		}
+
+		function setCommentsStatus(message) {
+			commentsStatus.textContent = message;
+		}
+
+		function renderComment(record) {
+			if (commentsList.querySelector(`[data-comment-id="${record.id}"]`)) return;
+			commentsList.querySelector(".empty-comments")?.remove();
+
+			const comment = document.createElement("div");
+			const author = document.createElement("strong");
+			const text = document.createElement("p");
+			comment.className = "comment";
+			comment.dataset.commentId = record.id;
+			author.textContent = record.author?.display_name || "D-link Creator";
+			text.textContent = record.body;
+			comment.append(author, text);
+			commentsList.append(comment);
+		}
+
+		async function refreshCommentCount(post) {
+			if (!supabaseClient || !post.dataset.postId) return;
+			const { count, error } = await supabaseClient
+				.from("dlink_comments")
+				.select("id", { count: "exact", head: true })
+				.eq("post_id", post.dataset.postId);
+			if (error) {
+				console.error("Imeshindikana kusoma idadi ya comments.", error);
+				return;
+			}
+			post.querySelector(".comment-count").textContent = String(count || 0);
+		}
+
+		async function loadComments(post) {
+			commentsList.replaceChildren();
+			if (!supabaseClient || !post.dataset.postId) {
+				commentsList.innerHTML = '<p class="empty-comments">Comments za pamoja zitapatikana baada ya kuunganisha Supabase.</p>';
+				setCommentsStatus("");
+				return;
+			}
+
+			setCommentsStatus("Inapakia comments...");
+			try {
+				const { data: records, error } = await supabaseClient
+					.from("dlink_comments")
+					.select("id, body, user_id, created_at, author:dlink_profiles(display_name)")
+					.eq("post_id", post.dataset.postId)
+					.order("created_at", { ascending: true })
+					.limit(100);
+				if (error) {
+					console.error("Imeshindikana kupakia comments za D-link.", error);
+					setCommentsStatus("Comments hazikupatikana. Hakiki SQL na ruhusa za Supabase.");
+					return;
+				}
+
+				for (const record of records) renderComment(record);
+				if (!records.length) {
+					const empty = document.createElement("p");
+					empty.className = "empty-comments";
+					empty.textContent = "Bado hakuna maoni. Anza mazungumzo.";
+					commentsList.append(empty);
+				}
+				setCommentsStatus("");
+				await refreshCommentCount(post);
+			} catch (error) {
+				console.error("Hitilafu ya mtandao wakati wa kupakia comments.", error);
+				setCommentsStatus("Comments hazikupatikana kwa hitilafu ya mtandao.");
+			}
+		}
+
+		async function openComments(post) {
+			pendingCommentPost = post;
+			commentsDialog.showModal();
+			if (commentsChannel && supabaseClient) {
+				await supabaseClient.removeChannel(commentsChannel);
+				commentsChannel = null;
+			}
+			await loadComments(post);
+			if (supabaseClient && post.dataset.postId) {
+				commentsChannel = supabaseClient
+					.channel(`dlink-comments-${post.dataset.postId}`)
+					.on("postgres_changes", {
+						event: "INSERT",
+						schema: "public",
+						table: "dlink_comments",
+						filter: `post_id=eq.${post.dataset.postId}`
+					}, () => {
+						void loadComments(post);
+					})
+					.subscribe(status => {
+						if (status === "CHANNEL_ERROR") {
+							setCommentsStatus("Live comments hazijaunganishwa; fungua tena maoni ili kuyarudisha.");
+						}
+					});
+			}
+		}
+
+		commentsDialog.addEventListener("close", () => {
+			if (commentsChannel && supabaseClient) {
+				void supabaseClient.removeChannel(commentsChannel);
+				commentsChannel = null;
+			}
+		});
+
+		let previewObjectUrl = null;
+
+		function loadCreatorName() {
+			try {
+				return localStorage.getItem("dlink-creator-name") || "";
+			} catch (error) {
+				console.warn("Jina la creator halikuweza kusomwa kutoka kwenye kifaa hiki.", error);
+				return "";
+			}
+		}
+
+		function saveCreatorName(name) {
+			try {
+				localStorage.setItem("dlink-creator-name", name);
+				return true;
+			} catch (error) {
+				console.warn("Jina la creator halikuweza kuhifadhiwa kwenye kifaa hiki.", error);
+				return false;
+			}
+		}
+
+		function clearUploadPreview() {
+			uploadPreviewVideo.pause();
+			uploadPreviewVideo.removeAttribute("src");
+			uploadPreviewVideo.load();
+			uploadPreviewVideo.hidden = true;
+			uploadPreviewLabel.hidden = false;
+			if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
+			previewObjectUrl = null;
+		}
+
+		function getVideoContentType(file) {
+			if (file.type.startsWith("video/") && supportedVideoMimeTypes.has(file.type.toLowerCase())) {
+				return file.type.toLowerCase();
+			}
+			const extension = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
+			return videoMimeByExtension[extension] || "";
+		}
+
+		document.getElementById("upload-close").addEventListener("click", () => uploadDialog.close());
+		uploadDialog.addEventListener("close", () => {
+			clearUploadPreview();
+			uploadForm.reset();
+			uploadSubmit.disabled = false;
+			uploadSubmit.textContent = "Chapisha video";
+		});
+
+		videoPicker.addEventListener("change", () => {
+			clearUploadPreview();
+			videoUrlInput.value = "";
+			const file = videoPicker.files?.[0];
+			if (!file) return;
+			if (!getVideoContentType(file)) {
+				showStatus("Aina hii ya video haitambuliki. Chagua format ya video inayojulikana.");
+				videoPicker.value = "";
+				return;
+			}
+			if (file.size <= 0) {
+				showStatus("Faili hili la video halina maudhui.");
+				videoPicker.value = "";
+				return;
+			}
+			if (file.size > 100 * 1024 * 1024) {
+				showStatus("Ukubwa wa juu wa video ni MB 100.");
+				videoPicker.value = "";
+				return;
+			}
+
+			previewObjectUrl = URL.createObjectURL(file);
+			uploadPreviewVideo.src = previewObjectUrl;
+			uploadPreviewVideo.hidden = false;
+			uploadPreviewLabel.hidden = true;
+			if (!videoTitleInput.value.trim()) {
+				videoTitleInput.value = file.name.replace(/\.[^.]+$/, "").slice(0, 100);
+			}
+		});
+
+		function getDirectVideoUrl(value) {
+			try {
+				const url = new URL(value.trim());
+				if (url.protocol !== "https:" || url.username || url.password) return "";
+				return url.href;
+			} catch {
+				return "";
+			}
+		}
+
+		videoUrlInput.addEventListener("input", () => {
+			if (videoUrlInput.value.trim()) {
+				videoPicker.value = "";
+				clearUploadPreview();
+				const sourceUrl = getDirectVideoUrl(videoUrlInput.value);
+				if (sourceUrl) {
+					uploadPreviewVideo.src = sourceUrl;
+					uploadPreviewVideo.hidden = false;
+					uploadPreviewLabel.hidden = true;
+				}
+			} else {
+				clearUploadPreview();
+			}
+		});
+
+		function updateVideoCount(post) {
+			const video = post.querySelector("video");
+			if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+			post.dataset.duration = `${Math.floor(video.duration / 60)}:${String(Math.floor(video.duration % 60)).padStart(2, "0")}`;
+		}
+
+		function wirePost(post) {
+			const video = post.querySelector("video");
+			const likeButton = post.querySelector(".like-button");
+			const likeCount = post.querySelector(".like-count");
+			const saveButton = post.querySelector(".save-button");
+			const saveLabel = post.querySelector(".save-label");
+			const muteButton = post.querySelector(".mute-button");
+			const muteLabel = post.querySelector(".mute-label");
+			const playbackButton = post.querySelector(".playback-button");
+			const playbackLabel = post.querySelector(".playback-label");
+
+			video.muted = feedMuted;
+			muteButton.setAttribute("aria-pressed", String(!feedMuted));
+			muteButton.setAttribute("aria-label", feedMuted ? "Washa sauti kwenye video zote" : "Zima sauti kwenye video zote");
+			muteButton.textContent = feedMuted ? "♪" : "♫";
+			muteLabel.textContent = feedMuted ? "Kimya" : "Sauti";
+
+			video.addEventListener("loadedmetadata", () => updateVideoCount(post));
+			video.addEventListener("play", () => {
+				playbackButton.setAttribute("aria-label", "Sitisha video");
+				playbackButton.textContent = "Ⅱ";
+				playbackLabel.textContent = "Sitisha";
+			});
+			video.addEventListener("pause", () => {
+				playbackButton.setAttribute("aria-label", "Endeleza video");
+				playbackButton.textContent = "▶";
+				playbackLabel.textContent = "Endeleza";
+			});
+			video.addEventListener("error", () => {
+				const mediaError = post.querySelector(".media-error");
+				if (mediaError) mediaError.hidden = false;
+			});
+			likeButton.addEventListener("click", () => {
+				const liked = likeButton.getAttribute("aria-pressed") !== "true";
+				likeButton.setAttribute("aria-pressed", String(liked));
+				likeButton.classList.toggle("liked", liked);
+				likeButton.textContent = liked ? "♥" : "♡";
+				likeCount.textContent = liked ? "1" : "0";
+			});
+			saveButton.addEventListener("click", () => {
+				const saved = saveButton.getAttribute("aria-pressed") !== "true";
+				saveButton.setAttribute("aria-pressed", String(saved));
+				saveButton.textContent = saved ? "✓" : "＋";
+				saveLabel.textContent = saved ? "Imehifadhiwa" : "Hifadhi";
+				showStatus(saved ? "Video imehifadhiwa kwenye orodha ya kipindi hiki." : "Video imeondolewa kwenye zilizohifadhiwa.");
+			});
+			muteButton.addEventListener("click", () => {
+				feedMuted = !feedMuted;
+				saveFeedMutedPreference();
+				for (const feedPost of videoFeed.querySelectorAll(".video-post")) {
+					feedPost.querySelector("video").muted = feedMuted;
+					const feedMuteButton = feedPost.querySelector(".mute-button");
+					feedMuteButton.setAttribute("aria-pressed", String(!feedMuted));
+					feedMuteButton.setAttribute("aria-label", feedMuted ? "Washa sauti kwenye video zote" : "Zima sauti kwenye video zote");
+					feedMuteButton.textContent = feedMuted ? "♪" : "♫";
+					feedPost.querySelector(".mute-label").textContent = feedMuted ? "Kimya" : "Sauti";
+				}
+				showStatus(feedMuted ? "Sauti imezimwa kwenye video zote." : "Sauti imewashwa kwenye video zote.");
+			});
+			playbackButton.addEventListener("click", () => {
+				if (video.paused) {
+					post.dataset.userPaused = "false";
+					video.play().catch(error => {
+						if (error.name !== "NotAllowedError") showStatus("Video haikuweza kuendelea kuchezwa.");
+					});
+				} else {
+					post.dataset.userPaused = "true";
+					video.pause();
+				}
+			});
+			post.querySelector(".comment-button").addEventListener("click", () => {
+				void openComments(post);
+			});
+			post.querySelector(".share-button").addEventListener("click", () => {
+				const shareUrl = new URL(window.location.href);
+				shareUrl.searchParams.set("video", post.dataset.postId || post.dataset.localFile);
+				activeShareUrl = shareUrl.href;
+				activeShareTitle = post.dataset.title || "Video ya D-link";
+				shareWhatsApp.href = `https://wa.me/?text=${encodeURIComponent(`${activeShareTitle} ${activeShareUrl}`)}`;
+				shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(activeShareUrl)}`;
+				shareDialog.showModal();
+			});
+		}
+
+		document.getElementById("share-close").addEventListener("click", () => shareDialog.close());
+		shareCopy.addEventListener("click", async () => {
+			try {
+				if (!navigator.clipboard?.writeText) throw new Error("Clipboard API haipatikani.");
+				await navigator.clipboard.writeText(activeShareUrl);
+				shareDialog.close();
+				showStatus("Kiungo cha video kimenakiliwa.");
+			} catch (error) {
+				console.error("Kiungo cha video hakikuweza kunakiliwa.", error);
+				showStatus(`Nakili kiungo hiki: ${activeShareUrl}`);
+			}
+		});
+
+		function renderSharedPost(record, prepend = false, avatarPath = "") {
+			if (!supabaseClient || videoFeed.querySelector(`[data-post-id="${record.id}"]`)) return;
+
+			const post = document.createElement("article");
+			const video = document.createElement("video");
+			const owner = document.createElement("div");
+			const ownerAvatar = document.createElement("span");
+			const ownerName = document.createElement("span");
+			const caption = document.createElement("div");
+			const title = document.createElement("h2");
+			const description = document.createElement("p");
+			const videoLabel = document.createElement("span");
+			const mediaError = document.createElement("div");
+			const videoSource = record.video_url || supabaseClient.storage.from("dlink-videos").getPublicUrl(record.video_path).data.publicUrl;
+
+			post.className = "video-post";
+			post.dataset.postId = record.id;
+			post.dataset.authorId = record.user_id || "";
+			post.dataset.title = record.title;
+			post.dataset.caption = record.caption || "Video kutoka D-link.";
+			post.dataset.creator = record.author_name || "D-link Creator";
+			post.dataset.videoUrl = record.video_url || "";
+
+			video.className = "clip";
+			video.dataset.src = videoSource;
+			video.autoplay = true;
+			video.muted = true;
+			video.loop = true;
+			video.playsInline = true;
+			video.preload = "none";
+			video.setAttribute("aria-label", `Video ya D-link: ${record.title}`);
+
+			mediaError.className = "media-error";
+			mediaError.hidden = true;
+			mediaError.textContent = "Video hii haiwezi kuchezwa kwenye kivinjari hiki.";
+			videoLabel.className = "video-label";
+			videoLabel.textContent = "D-link · Video fupi";
+			owner.className = "post-owner";
+			ownerAvatar.className = "owner-avatar";
+			ownerAvatar.setAttribute("aria-hidden", "true");
+			const creatorName = record.author_name || "D-link Creator";
+			renderAvatar(ownerAvatar, avatarPath, creatorName.trim().charAt(0).toLocaleUpperCase("sw") || "D");
+			ownerName.className = "post-owner-name";
+			ownerName.textContent = creatorName;
+			post.dataset.creator = creatorName;
+			post.dataset.search = getSearchText(post.dataset.title, post.dataset.caption, creatorName, post.dataset.videoUrl);
+			owner.append(ownerAvatar, ownerName);
+			caption.className = "post-caption";
+			title.textContent = record.title;
+			description.textContent = record.caption || "Video fupi iliyochapishwa kwenye D-link.";
+			caption.append(owner, title, description);
+
+			const actions = document.createElement("div");
+			actions.className = "post-actions";
+			actions.setAttribute("aria-label", "Vitendo vya video");
+			actions.innerHTML = `
+				<div class="action-group"><button class="icon-button like-button" type="button" aria-label="Penda video" aria-pressed="false">♡</button><span class="action-count like-count">0</span></div>
+				<div class="action-group"><button class="icon-button comment-button" type="button" aria-label="Fungua maoni">▢</button><span class="action-count comment-count">0</span></div>
+				<div class="action-group"><button class="icon-button share-button" type="button" aria-label="Shiriki video">↗</button><span class="action-count">Shiriki</span></div>
+				<div class="action-group"><button class="icon-button save-button" type="button" aria-label="Hifadhi video" aria-pressed="false">＋</button><span class="action-count save-label">Hifadhi</span></div>
+				<div class="action-group"><button class="icon-button playback-button" type="button" aria-label="Sitisha video">Ⅱ</button><span class="action-count playback-label">Sitisha</span></div>
+				<div class="action-group"><button class="icon-button mute-button" type="button" aria-label="Washa sauti" aria-pressed="false">♪</button><span class="action-count mute-label">Kimya</span></div>`;
+
+			post.append(video, mediaError, videoLabel, caption, actions);
+			if (prepend) videoFeed.prepend(post);
+			else videoFeed.append(post);
+			wirePost(post);
+			postObserver.observe(post);
+			if (videoSearch.value.trim()) filterVideos();
+		}
+
+		function getLocalVideoTitle(filename) {
+			return filename.replace(/\.[^.]+$/, "").replace(/_/g, " ").replace(/\s+/g, " ").trim();
+		}
+
+		function renderLocalPost(filename) {
+			const post = document.createElement("article");
+			const video = document.createElement("video");
+			const title = getLocalVideoTitle(filename);
+			const creator = document.createElement("div");
+			const avatar = document.createElement("span");
+			const creatorName = document.createElement("span");
+			const caption = document.createElement("div");
+			const heading = document.createElement("h2");
+			const description = document.createElement("p");
+			const label = document.createElement("span");
+			const mediaError = document.createElement("div");
+			const actions = document.createElement("div");
+
+			post.className = "video-post";
+			post.dataset.localFile = filename;
+			post.dataset.title = title;
+			post.dataset.caption = "Video kutoka kwenye maktaba ya ndani.";
+			post.dataset.creator = "Maktaba ya ndani";
+			post.dataset.search = getSearchText(title, post.dataset.caption, post.dataset.creator, filename);
+			video.className = "clip";
+			video.dataset.src = encodeURIComponent(filename);
+			video.autoplay = true;
+			video.muted = true;
+			video.loop = true;
+			video.playsInline = true;
+			video.preload = "none";
+			video.setAttribute("aria-label", `Video ya D-link: ${title}`);
+			mediaError.className = "media-error";
+			mediaError.hidden = true;
+			mediaError.textContent = "Video hii haiwezi kuchezwa kwenye kivinjari hiki.";
+			label.className = "video-label";
+			label.textContent = "D-link · Maktaba ya ndani";
+			creator.className = "post-owner";
+			avatar.className = "owner-avatar";
+			avatar.setAttribute("aria-hidden", "true");
+			avatar.textContent = "D";
+			creatorName.textContent = "Maktaba ya ndani";
+			creator.append(avatar, creatorName);
+			caption.className = "post-caption";
+			heading.textContent = title;
+			description.textContent = "Video kutoka kwenye folda ya kifaa hiki.";
+			caption.append(creator, heading, description);
+			actions.className = "post-actions";
+			actions.setAttribute("aria-label", "Vitendo vya video");
+			actions.innerHTML = `
+				<div class="action-group"><button class="icon-button like-button" type="button" aria-label="Penda video" aria-pressed="false">♡</button><span class="action-count like-count">0</span></div>
+				<div class="action-group"><button class="icon-button comment-button" type="button" aria-label="Fungua maoni">▢</button><span class="action-count comment-count">0</span></div>
+				<div class="action-group"><button class="icon-button share-button" type="button" aria-label="Shiriki video">↗</button><span class="action-count">Shiriki</span></div>
+				<div class="action-group"><button class="icon-button save-button" type="button" aria-label="Hifadhi video" aria-pressed="false">＋</button><span class="action-count save-label">Hifadhi</span></div>
+				<div class="action-group"><button class="icon-button playback-button" type="button" aria-label="Sitisha video">Ⅱ</button><span class="action-count playback-label">Sitisha</span></div>
+				<div class="action-group"><button class="icon-button mute-button" type="button" aria-label="Washa sauti" aria-pressed="false">♪</button><span class="action-count mute-label">Kimya</span></div>`;
+
+			post.append(video, mediaError, label, caption, actions);
+			videoFeed.append(post);
+			wirePost(post);
+			postObserver.observe(post);
+			if (videoSearch.value.trim()) filterVideos();
+		}
+
+		async function initializeLocalFeed() {
+			const response = await fetch("video-library.json");
+			if (!response.ok) throw new Error("Video library unavailable");
+			const filenames = await response.json();
+			const existingFiles = new Set([...videoFeed.querySelectorAll("[data-local-file]")].map(post => post.dataset.localFile));
+
+			for (const filename of filenames) {
+				if (!existingFiles.has(filename)) renderLocalPost(filename);
+			}
+		}
+
+		async function initializeSharedFeed() {
+			if (!supabaseClient) return;
+
+			const { data: records, error } = await supabaseClient
+				.from("dlink_posts")
+				.select("id, user_id, author_name, title, caption, video_path, video_url, created_at")
+				.order("created_at", { ascending: false });
+
+			if (error) {
+				showStatus("Feed ya pamoja haikupatikana. Hakiki Supabase na RLS.");
+				return;
+			}
+
+			const authorIds = [...new Set(records.map(record => record.user_id).filter(Boolean))];
+			let avatarByUser = new Map();
+			if (authorIds.length) {
+				const { data: profiles, error: profileError } = await supabaseClient
+					.from("dlink_profiles")
+					.select("id, avatar_path")
+					.in("id", authorIds);
+				if (profileError) {
+					console.warn("Picha za profile za feed hazikupatikana.", profileError);
+				} else {
+					avatarByUser = new Map(profiles.map(profile => [profile.id, profile.avatar_path]));
+				}
+			}
+			for (const record of records) renderSharedPost(record, false, avatarByUser.get(record.user_id) || "");
+
+			supabaseClient
+				.channel("dlink-live-feed")
+				.on("postgres_changes", { event: "INSERT", schema: "public", table: "dlink_posts" }, async event => {
+					let avatarPath = "";
+					if (event.new.user_id) {
+						const { data: profile, error: profileError } = await supabaseClient
+							.from("dlink_profiles")
+							.select("avatar_path")
+							.eq("id", event.new.user_id)
+							.maybeSingle();
+						if (profileError) console.warn("Picha ya profile ya creator haikupatikana.", profileError);
+						avatarPath = profile?.avatar_path || "";
+					}
+					renderSharedPost(event.new, true, avatarPath);
+				})
+				.on("postgres_changes", { event: "DELETE", schema: "public", table: "dlink_posts" }, event => {
+					videoFeed.querySelector(`[data-post-id="${event.old.id}"]`)?.remove();
+				})
+				.subscribe();
+		}
+
+		wirePost(activePost);
+
+		function scrollToPost(direction) {
+			const posts = [...videoFeed.querySelectorAll(".video-post:not([hidden])")];
+			if (!posts.length) return;
+			const currentIndex = posts.indexOf(activePost);
+			const targetIndex = currentIndex < 0
+				? direction > 0 ? 0 : posts.length - 1
+				: Math.min(posts.length - 1, Math.max(0, currentIndex + direction));
+			activePost = posts[targetIndex];
+			const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+			activePost.scrollIntoView({ behavior, block: "start" });
+			videoFeed.focus({ preventScroll: true });
+		}
+
+		function openLinkedVideo() {
+			const requestedVideo = new URLSearchParams(window.location.search).get("video");
+			if (!requestedVideo) return;
+
+			const linkedPost = [...videoFeed.querySelectorAll(".video-post")].find(post =>
+				post.dataset.postId === requestedVideo || post.dataset.localFile === requestedVideo
+			);
+			if (!linkedPost) {
+				showStatus("Video haipatikani tena au kiungo si sahihi.");
+				return;
+			}
+
+			activePost = linkedPost;
+			const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+			linkedPost.scrollIntoView({ behavior, block: "start" });
+		}
+
+		document.getElementById("feed-previous").addEventListener("click", () => scrollToPost(-1));
+		document.getElementById("feed-next").addEventListener("click", () => scrollToPost(1));
+		videoFeed.addEventListener("keydown", event => {
+			if (event.target !== videoFeed) return;
+			if (event.key === "ArrowDown" || event.key === "PageDown") {
+				event.preventDefault();
+				scrollToPost(1);
+			} else if (event.key === "ArrowUp" || event.key === "PageUp") {
+				event.preventDefault();
+				scrollToPost(-1);
+			}
+		});
+
+		const postObserver = new IntersectionObserver(entries => {
+			for (const entry of entries) {
+				const video = entry.target.querySelector("video");
+				if (entry.isIntersecting && entry.intersectionRatio >= 0.65) {
+					activePost = entry.target;
+					if (!video.getAttribute("src") && video.dataset.src) {
+						video.src = video.dataset.src;
+						video.load();
+					}
+					if (entry.target.dataset.userPaused !== "true") {
+						video.play().catch(error => {
+							if (error.name !== "NotAllowedError") showStatus("Video haikuweza kuanza kuchezwa.");
+						});
+					}
+				} else {
+					video.pause();
+				}
+			}
+		}, { root: videoFeed, threshold: [0.2, 0.65, 0.9] });
+		postObserver.observe(activePost);
+
+		uploadTrigger.addEventListener("click", () => {
+			if (!supabaseClient) {
+				showStatus("Unganisha Supabase ili wageni waweze kupakia video.");
+				return;
+			}
+			creatorNameInput.value = currentProfile?.display_name || loadCreatorName();
+			creatorNameInput.readOnly = Boolean(currentUser);
+			uploadDialog.showModal();
+		});
+
+		document.getElementById("add-video-link-trigger").addEventListener("click", () => {
+			uploadTrigger.click();
+			if (supabaseClient) window.setTimeout(() => videoUrlInput.focus(), 0);
+		});
+
+		uploadForm.addEventListener("submit", async event => {
+			event.preventDefault();
+			if (!supabaseClient) {
+				showStatus("Unganisha Supabase ili wageni waweze kupakia video.");
+				return;
+			}
+
+			const file = videoPicker.files?.[0];
+			const sourceUrl = getDirectVideoUrl(videoUrlInput.value);
+			const creatorName = creatorNameInput.value.trim();
+			const title = videoTitleInput.value.trim();
+			const caption = videoCaptionInput.value.trim();
+			if ((!file && !videoUrlInput.value.trim()) || !creatorName || !title) {
+				if (!file && !videoUrlInput.value.trim()) {
+					showStatus("Bandika link ya moja kwa moja ya video au chagua faili kutoka kifaa chako.");
+					videoUrlInput.focus();
+					return;
+				}
+				uploadForm.reportValidity();
+				return;
+			}
+			if (videoUrlInput.value.trim() && !sourceUrl) {
+				videoUrlInput.setCustomValidity("Tumia link ya HTTPS ya faili la video moja kwa moja.");
+				videoUrlInput.reportValidity();
+				videoUrlInput.setCustomValidity("");
+				return;
+			}
+
+			const videoContentType = file ? getVideoContentType(file) : "";
+			if (file) {
+				if (!videoContentType) {
+					showStatus("Aina hii ya video haitambuliki. Chagua format ya video inayojulikana.");
+					return;
+				}
+				if (file.size <= 0) {
+					showStatus("Faili hili la video halina maudhui.");
+					return;
+				}
+				if (file.size > 100 * 1024 * 1024) {
+					showStatus("Ukubwa wa juu wa video ni MB 100.");
+					return;
+				}
+			}
+
+			uploadTrigger.disabled = true;
+			uploadSubmit.disabled = true;
+			uploadSubmit.textContent = sourceUrl ? "Inachapisha link..." : "Inapakia video...";
+			const safeFileName = file ? file.name.normalize("NFKD").replace(/[^a-zA-Z0-9._-]+/g, "-").slice(-120) || "video" : "";
+			const uniqueId = globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+			const videoPath = file ? `community/${uniqueId}-${safeFileName}` : null;
+
+			try {
+				if (file) {
+					showStatus(`Inapakia ${file.name}...`);
+					const { error: uploadError } = await supabaseClient.storage.from("dlink-videos").upload(videoPath, file, {
+						cacheControl: "3600",
+						contentType: videoContentType,
+						upsert: false
+					});
+					if (uploadError) {
+						showStatus(getUploadErrorMessage(uploadError, "storage"));
+						console.error("Supabase video upload failed.", uploadError);
+						return;
+					}
+				}
+
+				const { data: newPost, error: postError } = await supabaseClient
+					.from("dlink_posts")
+					.insert({
+						user_id: currentUser?.id || null,
+						author_name: currentProfile?.display_name || creatorName,
+						title,
+						caption,
+						video_path: videoPath,
+						video_url: sourceUrl || null
+					})
+					.select("id, user_id, author_name, title, caption, video_path, video_url, created_at")
+					.single();
+				if (postError) {
+					showStatus(getUploadErrorMessage(postError, "database"));
+					console.error("Supabase post creation failed.", postError);
+					return;
+				}
+
+				const profileSaved = currentUser || saveCreatorName(creatorName);
+				renderSharedPost(newPost, true, currentProfile?.avatar_path || "");
+				uploadDialog.close();
+				showStatus(sourceUrl
+					? `${title} imeongezwa kwenye feed kutoka kwenye link ya video.`
+					: profileSaved
+						? `${title} imechapishwa na ${creatorName}.`
+						: `${title} imechapishwa. Jina lako halikuweza kuhifadhiwa kwenye kifaa hiki.`);
+			} catch (error) {
+				console.error("D-link creator upload failed.", error);
+				showStatus("Upload imeshindikana kwa hitilafu ya mtandao. Jaribu tena.");
+			} finally {
+				uploadTrigger.disabled = false;
+				uploadSubmit.disabled = false;
+				uploadSubmit.textContent = "Chapisha video";
+			}
+		});
+
+		const videoSearchForm = document.getElementById("video-search-form");
+		const videoSearch = document.getElementById("video-search");
+		const videoSearchClear = document.getElementById("video-search-clear");
+		const videoSearchCount = document.getElementById("video-search-count");
+		function normalizeSearchText(value) {
+			return value
+				.toLocaleLowerCase("sw")
+				.normalize("NFD")
+				.replace(/[\u0300-\u036f]/g, "")
+				.replace(/[^\p{L}\p{N}]+/gu, " ")
+				.trim();
+		}
+
+		function getSearchText(...values) {
+			return normalizeSearchText(values.filter(Boolean).join(" "));
+		}
+
+		function filterVideos() {
+			const query = normalizeSearchText(videoSearch.value);
+			const terms = query.split(/\s+/).filter(Boolean);
+			let visibleCount = 0;
+			videoSearchClear.hidden = !videoSearch.value;
+
+			for (const post of videoFeed.querySelectorAll(".video-post")) {
+				const searchText = post.dataset.search || getSearchText(
+					post.dataset.title,
+					post.dataset.caption,
+					post.dataset.creator,
+					post.dataset.localFile
+				);
+				const matches = terms.every(term => searchText.includes(term));
+				post.hidden = !matches;
+				if (matches) visibleCount += 1;
+			}
+
+			videoSearchCount.value = query
+				? `${visibleCount} ${visibleCount === 1 ? "video imepatikana" : "video zimepatikana"}`
+				: "";
+			if (query && visibleCount === 0) {
+				showStatus("Hakuna video inayolingana na utafutaji.");
+			} else if (!query && feedStatus.textContent === "Hakuna video inayolingana na utafutaji.") {
+				feedStatus.textContent = "";
+			}
+		}
+		videoSearchForm.addEventListener("submit", event => {
+			event.preventDefault();
+			filterVideos();
+		});
+		videoSearch.addEventListener("input", filterVideos);
+		videoSearchClear.addEventListener("click", () => {
+			videoSearch.value = "";
+			filterVideos();
+			videoSearch.focus();
+		});
+		videoSearch.addEventListener("keydown", event => {
+			if (event.key === "Escape" && videoSearch.value) {
+				event.preventDefault();
+				videoSearchClear.click();
+			}
+		});
+		document.addEventListener("keydown", event => {
+			if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== "k") return;
+			event.preventDefault();
+			videoSearch.focus();
+			videoSearch.select();
+		});
+
+		document.getElementById("comments-close").addEventListener("click", () => commentsDialog.close());
+		commentsDialog.addEventListener("click", event => {
+			if (event.target === commentsDialog) commentsDialog.close();
+		});
+		commentForm.addEventListener("submit", event => {
+			event.preventDefault();
+			if (!supabaseClient || !currentUser) {
+				setCommentsStatus("Ingia au jiunge bure ili utoe maoni.");
+				return;
+			}
+			if (!pendingCommentPost?.dataset.postId) {
+				setCommentsStatus("Video hii haipo kwenye feed ya pamoja, kwa hiyo maoni hayawezi kuhifadhiwa.");
+				return;
+			}
+			const commentText = commentInput.value.trim();
+			if (!commentText) return;
+
+			const targetPost = pendingCommentPost;
+			commentSubmit.disabled = true;
+			setCommentsStatus("Inatuma maoni...");
+			supabaseClient
+				.from("dlink_comments")
+				.insert({
+					post_id: targetPost.dataset.postId,
+					user_id: currentUser.id,
+					body: commentText
+				})
+				.select("id, body, user_id, created_at, author:dlink_profiles(display_name)")
+				.single()
+				.then(({ data: record, error }) => {
+					if (error) {
+						console.error("Imeshindikana kutuma comment ya D-link.", error);
+						setCommentsStatus("Comment haikutumwa. Hakiki kuwa SQL ya comments imetekelezwa na email imethibitishwa.");
+						return;
+					}
+					renderComment(record);
+					commentInput.value = "";
+					setCommentsStatus("");
+					return refreshCommentCount(targetPost);
+				})
+				.catch(error => {
+					console.error("Hitilafu ya mtandao wakati wa kutuma comment.", error);
+					setCommentsStatus("Comment haikutumwa kwa hitilafu ya mtandao. Jaribu tena.");
+				})
+				.finally(() => {
+					commentSubmit.disabled = !currentUser;
+				});
+		});
+
+		let installPromptEvent = null;
+		const installButton = document.getElementById("install-trigger");
+
+		window.addEventListener("beforeinstallprompt", event => {
+			event.preventDefault();
+			installPromptEvent = event;
+			installButton.hidden = false;
+		});
+
+		window.addEventListener("appinstalled", () => {
+			installPromptEvent = null;
+			installButton.hidden = true;
+		});
+
+		installButton.addEventListener("click", async () => {
+			if (!installPromptEvent) return;
+			await installPromptEvent.prompt();
+			installPromptEvent = null;
+			installButton.hidden = true;
+		});
+
+		if ("serviceWorker" in navigator) {
+			navigator.serviceWorker.register("./service-worker.js").catch(error => {
+				console.error("Imeshindikana kusajili service worker ya D-link.", error);
+			});
+		}
+
+		const localFeedReady = initializeLocalFeed().catch(error => {
+				console.error("Imeshindikana kupakia maktaba ya video ya ndani.", error);
+				showStatus("Maktaba ya video haikupatikana. Fungua D-link kupitia server ya ndani.");
+			});
+		const sharedFeedReady = initializeSharedFeed().catch(error => {
+			console.error("D-link haikuweza kuunganisha Supabase.", error);
+			showStatus("D-link haikuweza kuunganisha Supabase. Hakiki usanidi wa project.");
+		});
+		Promise.all([localFeedReady, sharedFeedReady]).then(openLinkedVideo);
+	</script>
+    <script src="deami-context.js" defer></script>
+</body>
+</html>

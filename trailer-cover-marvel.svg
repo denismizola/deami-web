@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Shujaa wa kubuni chini ya anga la nyota</title>
+  <desc id="desc">Mchoro wa asili wa shujaa asiye na utambulisho maalum mbele ya mwanga wa anga.</desc>
+  <defs>
+    <linearGradient id="sky" x2=".8" y2="1"><stop stop-color="#101d43"/><stop offset=".55" stop-color="#6e304e"/><stop offset="1" stop-color="#e5764f"/></linearGradient>
+    <radialGradient id="burst"><stop stop-color="#ffe79b" stop-opacity=".95"/><stop offset=".18" stop-color="#ffb267" stop-opacity=".72"/><stop offset="1" stop-color="#f26e59" stop-opacity="0"/></radialGradient>
+    <linearGradient id="cape" x2="1"><stop stop-color="#942a4e"/><stop offset="1" stop-color="#381e46"/></linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h640v420H0z"/>
+  <circle cx="370" cy="180" r="182" fill="url(#burst)"/>
+  <g fill="#fff2c5"><circle cx="93" cy="78" r="3"/><circle cx="173" cy="124" r="2"/><circle cx="535" cy="73" r="3"/><circle cx="570" cy="174" r="2"/><circle cx="448" cy="43" r="2"/></g>
+  <path fill="url(#cape)" d="m287 198-80 176 101-42 61 64 27-172z"/>
+  <circle cx="342" cy="141" r="35" fill="#171c31"/>
+  <path fill="#1a2037" d="m309 175-28 88 26 28 63-4 31-68-31-43z"/>
+  <path fill="#f6c875" d="m300 207-63 42 9 15 79-31zm82 3 63 30-8 17-75-23z"/>
+  <path fill="#d8e8df" opacity=".88" d="m328 185 15 28 16-28-8 61h-16z"/>
+  <path fill="#20203a" d="M0 355q121-39 212 0t181-12q115-44 247 9v68H0z"/>
+  <path fill="#111a2f" d="M0 391q156-36 286 3t201-2q91-22 153 2v26H0z"/>
+</svg>

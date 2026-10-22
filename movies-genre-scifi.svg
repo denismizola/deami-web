@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Sayansi bunifu</title>
+  <desc id="desc">Mchoro wa asili wa sayari ya mbali na chombo cha anga.</desc>
+  <defs>
+    <linearGradient id="space" x2=".8" y2="1"><stop stop-color="#081c3e"/><stop offset=".52" stop-color="#304690"/><stop offset="1" stop-color="#b65e8b"/></linearGradient>
+    <radialGradient id="world"><stop stop-color="#ffe9a4"/><stop offset=".52" stop-color="#eea266"/><stop offset="1" stop-color="#9b4e82"/></radialGradient>
+    <linearGradient id="beam" x2="0" y2="1"><stop stop-color="#95f6ff" stop-opacity=".75"/><stop offset="1" stop-color="#95f6ff" stop-opacity="0"/></linearGradient>
+  </defs>
+  <path fill="url(#space)" d="M0 0h640v420H0z"/>
+  <circle cx="425" cy="176" r="112" fill="url(#world)"/>
+  <ellipse cx="425" cy="176" rx="194" ry="38" fill="none" stroke="#f8d49d" stroke-width="13" transform="rotate(-14 425 176)"/>
+  <path fill="url(#beam)" d="m178 128 93 14 59 138-177-4z"/>
+  <path fill="#d4f8f5" d="m177 102 28 45-36 44-28-45z"/>
+  <path fill="#f1ffff" d="m173 104 6-30 9 28zm-29 42-31 1 28 9zm49 7 27 16-30-2z"/>
+  <path fill="#202446" d="M0 335q120-48 226-8t195-6q110-45 219 6v93H0z"/>
+  <path fill="#151b39" d="M0 375q133-40 264 0t219-3q87-22 157 4v44H0z"/>
+  <g fill="#fff"><circle cx="74" cy="73" r="2"/><circle cx="288" cy="62" r="3"/><circle cx="537" cy="69" r="2"/><circle cx="570" cy="253" r="3"/><circle cx="84" cy="235" r="2"/></g>
+</svg>

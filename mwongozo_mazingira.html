@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Mwongozo wa vitendo wa kutunza mazingira, kupunguza taka, kuhifadhi maji na nishati, na kujifunza kutoka vyanzo rasmi.">
+	<title>Mwongozo wa Mazingira | DEAMi Web</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--forest: #163d32;
+			--green: #28715a;
+			--lime: #d9ed79;
+			--coral: #ee795c;
+			--ink: #1d2924;
+			--muted: #68736d;
+			--paper: #f4f5ef;
+			--line: #dce1d9;
+			--white: #fff;
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+		body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Trebuchet MS", "Segoe UI", sans-serif; line-height: 1.7; }
+		a { color: var(--green); text-underline-offset: 4px; }
+
+		.topbar { padding: 16px max(5vw, 20px); background: var(--forest); color: var(--white); }
+		.topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; width: min(1080px, 100%); margin: auto; }
+		.brand { color: var(--white); font-size: 0.86rem; font-weight: 800; letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase; }
+		.topbar a:last-child { color: var(--lime); font-size: 0.9rem; font-weight: 700; }
+
+		.hero { padding: clamp(55px, 9vw, 100px) max(7vw, 22px) 58px; background: var(--forest); color: var(--white); }
+		.hero-inner { width: min(1080px, 100%); margin: auto; }
+		.eyebrow { margin: 0 0 12px; color: var(--lime); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+		h1, h2, h3, p { margin-top: 0; }
+		h1 { max-width: 760px; margin-bottom: 18px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.7rem, 7vw, 5.8rem); font-weight: 500; letter-spacing: 0; line-height: 1; }
+		.hero-copy { max-width: 680px; margin-bottom: 0; color: #d5e4dc; font-size: 1.05rem; }
+
+		main { width: min(1080px, 88vw); margin: auto; }
+		.intro { max-width: 820px; padding: 34px 0 10px; color: var(--muted); font-size: 1.04rem; }
+		.contents { display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 0 34px; border-bottom: 1px solid var(--line); }
+		.contents a { padding: 8px 12px; border: 1px solid var(--line); background: var(--white); color: var(--forest); font-size: 0.84rem; font-weight: 700; text-decoration: none; }
+		.contents a:hover { border-color: var(--green); background: #e8f2e9; }
+
+		section { padding: 52px 0; border-bottom: 1px solid var(--line); }
+		h2 { margin-bottom: 14px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.9rem, 4vw, 2.7rem); font-weight: 500; letter-spacing: 0; line-height: 1.15; }
+		h3 { margin-bottom: 8px; font-size: 1.04rem; }
+		.section-intro { max-width: 800px; margin-bottom: 24px; color: var(--muted); }
+		.method { padding: 22px 0; border-top: 1px solid var(--line); }
+		.method p { max-width: 820px; margin-bottom: 9px; color: var(--muted); }
+		.try { padding: 14px 17px; border-left: 3px solid var(--coral); background: var(--white); color: var(--ink); }
+		.try strong { color: var(--forest); }
+
+		.priority-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+		.priority { padding: 20px; border-top: 3px solid var(--green); background: var(--white); }
+		.priority h3 { font-family: Georgia, "Times New Roman", serif; font-size: 1.24rem; font-weight: 500; }
+		.priority p { margin-bottom: 0; color: var(--muted); font-size: 0.92rem; }
+
+		.plan-wrap { overflow-x: auto; }
+		.plan { width: 100%; border-collapse: collapse; background: var(--white); font-size: 0.9rem; }
+		.plan th, .plan td { padding: 13px 15px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+		.plan thead th { background: var(--forest); color: var(--white); }
+		.plan tbody th { width: 140px; color: var(--green); }
+
+		.checklist { margin: 0; padding-left: 22px; }
+		.checklist li { margin: 0 0 10px; padding-left: 4px; }
+		.sources { display: grid; gap: 12px; }
+		.source { padding: 17px 19px; border-left: 3px solid var(--green); background: var(--white); }
+		.source strong { display: block; margin-bottom: 3px; }
+		.source p { margin-bottom: 6px; color: var(--muted); font-size: 0.9rem; }
+		.source a { font-size: 0.88rem; font-weight: 700; overflow-wrap: anywhere; }
+		.note { margin: 28px 0 46px; padding: 18px 20px; border-left: 4px solid var(--lime); background: #fff9e5; color: #55491f; font-size: 0.92rem; }
+		footer { padding: 24px 5%; background: #e7ebe4; color: var(--muted); font-size: 0.84rem; text-align: center; }
+		footer p { margin: 0; }
+
+		@media (max-width: 720px) {
+			.priority-list { grid-template-columns: 1fr; }
+			section { padding: 42px 0; }
+		}
+
+		@media (max-width: 480px) {
+			main { width: min(100% - 36px, 1080px); }
+			.topbar-inner { align-items: flex-start; flex-direction: column; }
+			.plan { min-width: 560px; }
+		}
+	</style>
+	<link rel="stylesheet" href="deami-layout.css">
+</head>
+<body>
+	<header class="topbar">
+		<div class="topbar-inner">
+			<a class="brand" href="q.html">DEAMi Web</a>
+			<a href="q.html#picha">Rudi kwenye matunzio</a>
+		</div>
+	</header>
+
+	<header class="hero">
+		<div class="hero-inner">
+			<p class="eyebrow">Mazingira · Mwongozo wa vitendo</p>
+			<h1>Linda mazingira kwa hatua unazoweza kuanza leo.</h1>
+			<p class="hero-copy">Jifunze kupunguza taka, kuhifadhi maji na nishati, kutunza mazingira ya karibu na kutafuta taarifa sahihi.</p>
+		</div>
+	</header>
+
+	<main>
+		<p class="intro">Afya ya watu, uchumi na mazingira ya asili vinaunganishwa. Hatua za mtu mmoja husaidia, lakini mabadiliko makubwa pia yanahitaji huduma bora, mipango ya jamii na maamuzi ya taasisi. Mwongozo huu unatoa mawazo ya vitendo yanayoweza kurekebishwa kulingana na eneo lako.</p>
+
+		<nav class="contents" aria-label="Yaliyomo">
+			<a href="#taka">Taka na matumizi</a>
+			<a href="#maji">Maji na nishati</a>
+			<a href="#bioanuwai">Asili na bioanuwai</a>
+			<a href="#mpango">Mpango wa mwezi</a>
+			<a href="#vyanzo">Vyanzo</a>
+		</nav>
+
+		<section id="taka">
+			<p class="eyebrow" style="color: var(--green);">01 / Taka na matumizi</p>
+			<h2>Anza kwa kuzuia taka</h2>
+			<p class="section-intro">Njia bora ya kushughulikia taka mara nyingi ni kuzuia isitokee. Panga ununuzi, tumia vitu tena inapowezekana, na fuata huduma za ukusanyaji taka zinazopatikana katika eneo lako.</p>
+
+			<article class="method">
+				<h3>Punguza vitu vya matumizi ya mara moja</h3>
+				<p>Tumia chupa, kikombe, mfuko au chombo kinachoweza kutumika tena pale kinapokuwa salama na kinapofaa. Kumbuka kwamba bidhaa inayoweza kutumika tena husaidia zaidi inapodumu na kutumiwa mara nyingi.</p>
+				<p class="try"><strong>Jaribu:</strong> Chagua bidhaa moja ya matumizi ya mara moja unayotumia mara kwa mara, kisha tafuta mbadala unaoweza kuutumia tena.</p>
+			</article>
+
+			<article class="method">
+				<h3>Tumia tena, rekebisha au toa kwa mwingine</h3>
+				<p>Kabla ya kutupa nguo, samani, vifaa au vyombo, fikiria kama vinaweza kurekebishwa, kutumiwa kwa kazi nyingine au kupewa mtu anayevihitaji. Vifaa vya kielektroniki na betri vinaweza kuhitaji sehemu maalum ya ukusanyaji.</p>
+				<p class="try"><strong>Jaribu:</strong> Tenga vitu vinavyoweza kutengenezwa au kutolewa, na uliza mamlaka ya eneo lako kuhusu ukusanyaji wa betri na taka za kielektroniki.</p>
+			</article>
+
+			<article class="method">
+				<h3>Tenganisha taka kulingana na huduma zilizopo</h3>
+				<p>Vikaratasi, metali, glasi, plastiki na mabaki ya chakula havikubaliwi kwa namna moja kila mahali. Fuata maelekezo ya kampuni au mamlaka ya eneo lako; usidhani kila aina ya plastiki inarejelewa.</p>
+				<p class="try"><strong>Epuka:</strong> Kuchoma taka au kumwaga mafuta, dawa na kemikali kwenye mifereji, mito au udongo. Tafuta utaratibu salama wa kuzitupa.</p>
+			</article>
+		</section>
+
+		<section id="maji">
+			<p class="eyebrow" style="color: var(--green);">02 / Rasilimali</p>
+			<h2>Hifadhi maji na nishati</h2>
+			<div class="priority-list">
+				<article class="priority">
+					<h3>Maji</h3>
+					<p>Rekebisha uvujaji, funga bomba wakati halitumiki na tumia maji kwa uangalifu. Hifadhi maji ya mvua tu pale inapofaa, na usitumie maji yasiyotibiwa kwa kunywa bila kufuata ushauri wa afya.</p>
+				</article>
+				<article class="priority">
+					<h3>Nishati</h3>
+					<p>Zima taa na vifaa visivyotumika, tumia mwanga wa asili inapowezekana na chagua vifaa vinavyotumia nishati kwa ufanisi kulingana na uwezo wako.</p>
+				</article>
+				<article class="priority">
+					<h3>Usafiri</h3>
+					<p>Kwa safari fupi na salama, fikiria kutembea au kutumia baiskeli. Pale inapowezekana, panga safari kadhaa pamoja au tumia usafiri wa umma unaopatikana.</p>
+				</article>
+				<article class="priority">
+					<h3>Chakula</h3>
+					<p>Panga milo na hifadhi chakula vizuri ili kupunguza kinachoharibika. Tumia mabaki kwa usalama na chagua vyakula vinavyopatikana katika eneo lako.</p>
+				</article>
+			</div>
+		</section>
+
+		<section id="bioanuwai">
+			<p class="eyebrow" style="color: var(--green);">03 / Asili</p>
+			<h2>Tunza mazingira ya karibu</h2>
+			<p class="section-intro">Mifumo ya asili kama misitu, ardhi oevu, mito na maeneo ya pwani hutoa makazi kwa viumbe na huchangia maisha ya watu. Chagua hatua zinazolingana na mazingira na sheria za eneo lako.</p>
+			<ul class="checklist">
+				<li>Usitupe taka, mafuta au kemikali kwenye mito, mifereji na maeneo ya wazi.</li>
+				<li>Linda miti iliyopo; ukipanda, chagua aina zinazofaa eneo husika na ulinde miche mpaka iote.</li>
+				<li>Usinunue au kusafirisha wanyamapori na mimea inayolindwa; ripoti biashara haramu kwa mamlaka husika.</li>
+				<li>Shiriki usafi au shughuli za uhifadhi zinazoongozwa na jamii au taasisi inayoaminika.</li>
+				<li>Usikaribie wanyamapori wala kuharibu makazi yao kwa ajili ya picha au burudani.</li>
+			</ul>
+		</section>
+
+		<section id="mpango">
+			<p class="eyebrow" style="color: var(--green);">04 / Anza kidogo</p>
+			<h2>Mpango wa mwezi mmoja</h2>
+			<p class="section-intro">Chagua hatua zinazowezekana kwako. Rekodi hali ya mwanzo ili uweze kuona kama tabia mpya imeleta mabadiliko.</p>
+			<div class="plan-wrap">
+				<table class="plan">
+					<thead><tr><th scope="col">Wiki</th><th scope="col">Hatua ya kujaribu</th><th scope="col">Jinsi ya kufuatilia</th></tr></thead>
+					<tbody>
+						<tr><th scope="row">1</th><td>Angalia taka zinazozalishwa nyumbani au kazini.</td><td>Andika aina ya taka inayojirudia zaidi.</td></tr>
+						<tr><th scope="row">2</th><td>Chagua njia moja ya kupunguza au kutumia tena kitu.</td><td>Hesabu mara ulizotumia mbadala huo.</td></tr>
+						<tr><th scope="row">3</th><td>Chagua hatua moja ya kuhifadhi maji au nishati.</td><td>Andika tabia mpya na changamoto zake.</td></tr>
+						<tr><th scope="row">4</th><td>Shiriki hatua moja na familia au jamii.</td><td>Kagua kilichofanikiwa na chagua hatua inayofuata.</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+
+		<section id="vyanzo">
+			<p class="eyebrow" style="color: var(--green);">05 / Marejeo</p>
+			<h2>Vyanzo vya kusoma zaidi</h2>
+			<p class="section-intro">Vyanzo hivi vinatoa maelezo ya ziada kuhusu taka, matumizi ya rasilimali, tabianchi na afya.</p>
+			<div class="sources">
+				<article class="source">
+					<strong>UN Environment Programme (UNEP) - Usimamizi wa taka ngumu</strong>
+					<p>Maelezo kuhusu madhara ya usimamizi duni wa taka na umuhimu wa kuzuia taka, kurejesha rasilimali na kurejeleza.</p>
+					<a href="https://www.unep.org/explore-topics/resource-efficiency/what-we-do/cities/solid-waste-management" target="_blank" rel="noopener noreferrer">Soma mwongozo wa UNEP kuhusu taka</a>
+				</article>
+				<article class="source">
+					<strong>Shirika la Afya Duniani (WHO) - Tabianchi na afya</strong>
+					<p>Jinsi joto kali, mafuriko, ukame na mabadiliko ya mifumo ya chakula na maji vinavyoweza kuathiri afya.</p>
+					<a href="https://www.who.int/news-room/fact-sheets/detail/climate-change-and-health" target="_blank" rel="noopener noreferrer">Soma maelezo ya WHO</a>
+				</article>
+				<article class="source">
+					<strong>IPCC - Ripoti ya tathmini ya tabianchi</strong>
+					<p>Muhtasari wa kisayansi kuhusu mabadiliko ya tabianchi, athari, kukabiliana nayo na kupunguza uzalishaji.</p>
+					<a href="https://www.ipcc.ch/report/ar6/syr/" target="_blank" rel="noopener noreferrer">Fungua ripoti ya IPCC</a>
+				</article>
+				<article class="source">
+					<strong>Umoja wa Mataifa - Lengo la 12</strong>
+					<p>Matumizi na uzalishaji endelevu, matumizi bora ya rasilimali na kupunguza taka.</p>
+					<a href="https://sdgs.un.org/goals/goal12" target="_blank" rel="noopener noreferrer">Soma Lengo la Maendeleo Endelevu la 12</a>
+				</article>
+				<article class="source">
+					<strong>Umoja wa Mataifa - Lengo la 13</strong>
+					<p>Hatua za kukabiliana na mabadiliko ya tabianchi na athari zake.</p>
+					<a href="https://sdgs.un.org/goals/goal13" target="_blank" rel="noopener noreferrer">Soma Lengo la Maendeleo Endelevu la 13</a>
+				</article>
+			</div>
+		</section>
+
+		<div class="note"><strong>Kumbuka:</strong> Sheria, huduma za taka na hali ya maji hutofautiana kwa eneo. Fuata maelekezo ya mamlaka ya eneo lako; usichome taka au kutupa kemikali mahali pasipofaa.</div>
+	</main>
+
+	<footer><p>&copy; 2026 DEAMi Web · Mwongozo wa mazingira</p></footer>
+    <script src="deami-context.js" defer></script>
+</body>
+</html>

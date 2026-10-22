@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Historia, mafanikio, takwimu za ligi na taarifa za kikosi cha Azam Football Club ya Tanzania.">
+	<title>Azam FC | Historia na Kikosi</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--blue: #176b91;
+			--blue-deep: #123e55;
+			--sky: #bfe8ee;
+			--orange: #ef8051;
+			--ink: #1c2a30;
+			--muted: #627078;
+			--paper: #f3f6f4;
+			--line: #d8e1df;
+			--white: #fff;
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+		body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Trebuchet MS", "Segoe UI", sans-serif; line-height: 1.65; }
+		a { color: var(--blue-deep); text-underline-offset: 4px; }
+
+		.topbar { padding: 15px 5%; background: var(--blue-deep); color: var(--white); }
+		.nav-wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1120px, 100%); margin: auto; }
+		.brand { display: flex; align-items: center; gap: 11px; color: var(--white); font-size: 0.86rem; font-weight: 800; letter-spacing: 0.07em; text-decoration: none; text-transform: uppercase; }
+		.brand-mark { display: grid; width: 38px; aspect-ratio: 1; place-items: center; border: 1px solid var(--sky); color: var(--sky); font-family: Georgia, "Times New Roman", serif; font-size: 1.1rem; }
+		nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+		nav a { color: #e3f0f3; font-size: 0.88rem; text-decoration: none; }
+		nav a:hover, nav a:focus-visible { color: var(--sky); }
+
+		.hero { position: relative; overflow: hidden; background: var(--blue); color: var(--white); }
+		.hero::after { position: absolute; top: -170px; right: -100px; width: min(52vw, 620px); aspect-ratio: 1; border: 1px solid rgb(255 255 255 / 25%); border-radius: 50%; box-shadow: 0 0 0 48px rgb(255 255 255 / 5%), 0 0 0 100px rgb(255 255 255 / 4%); content: ""; pointer-events: none; }
+		.hero-inner { position: relative; z-index: 1; width: min(1120px, 90%); margin: auto; padding: clamp(72px, 10vw, 126px) 0 78px; }
+		.eyebrow { margin: 0 0 13px; color: var(--sky); font-size: 0.77rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+		h1, h2, h3, p { margin-top: 0; }
+		h1 { max-width: 820px; margin-bottom: 18px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3rem, 8vw, 6.7rem); font-weight: 500; letter-spacing: 0; line-height: 0.98; }
+		.hero-copy { max-width: 650px; margin-bottom: 0; color: #e5f2f4; font-size: 1.05rem; }
+		.hero-note { margin-top: 28px; color: var(--sky); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+
+		main { width: min(1120px, 88vw); margin: auto; }
+		section { padding: 68px 0; border-bottom: 1px solid var(--line); }
+		.section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(230px, 0.65fr); align-items: end; gap: 32px; margin-bottom: 28px; }
+		.section-kicker { margin-bottom: 8px; color: var(--blue); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+		h2 { margin-bottom: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 4vw, 3.3rem); font-weight: 500; letter-spacing: 0; line-height: 1.1; }
+		.section-intro { margin-bottom: 0; color: var(--muted); }
+
+		.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); background: var(--white); }
+		.fact { min-height: 126px; padding: 20px; border-right: 1px solid var(--line); }
+		.fact:last-child { border-right: 0; }
+		.fact strong { display: block; color: var(--blue); font-family: Georgia, "Times New Roman", serif; font-size: 1.5rem; font-weight: 500; }
+		.fact span { display: block; margin-top: 4px; color: var(--muted); font-size: 0.86rem; }
+
+		.timeline { display: grid; grid-template-columns: 130px minmax(0, 1fr); }
+		.year { padding: 21px 16px 21px 0; border-top: 1px solid var(--line); color: var(--blue); font-weight: 800; }
+		.event { padding: 21px 0; border-top: 1px solid var(--line); }
+		.event h3 { margin-bottom: 6px; font-size: 1.05rem; }
+		.event p { max-width: 800px; margin-bottom: 0; color: var(--muted); }
+
+		.honours { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 24px; }
+		.honour { min-height: 114px; padding: 17px; border-top: 3px solid var(--orange); background: var(--white); }
+		.honour strong { display: block; color: var(--blue-deep); font-family: Georgia, "Times New Roman", serif; font-size: 1.7rem; font-weight: 500; }
+		.honour span { color: var(--muted); font-size: 0.82rem; }
+
+		.league-table { width: 100%; border-collapse: collapse; background: var(--white); }
+		.league-table th, .league-table td { padding: 13px 15px; border-bottom: 1px solid var(--line); text-align: left; }
+		.league-table thead th { background: var(--blue-deep); color: var(--white); font-size: 0.78rem; letter-spacing: 0.04em; }
+		.league-table tbody th { color: var(--blue-deep); }
+		.league-table tbody tr:first-child { background: #edf5f5; }
+		.table-note { margin: 12px 0 0; color: var(--muted); font-size: 0.84rem; }
+
+		.squad-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+		.player { padding: 17px 18px; border-left: 3px solid var(--blue); background: var(--white); }
+		.player strong { display: block; color: var(--blue-deep); }
+		.player span { display: block; color: var(--muted); font-size: 0.84rem; }
+		.roster-note { margin: 20px 0 0; padding: 17px 19px; border-left: 4px solid var(--orange); background: #fff5ef; color: #67412e; font-size: 0.9rem; }
+		.source-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+		.source { padding: 17px 19px; border-left: 3px solid var(--blue); background: var(--white); }
+		.source strong { display: block; margin-bottom: 4px; }
+		.source p { margin-bottom: 8px; color: var(--muted); font-size: 0.88rem; }
+		.source a { font-size: 0.88rem; font-weight: 800; }
+
+		footer { padding: 25px 5%; background: #e7eeee; color: var(--muted); font-size: 0.84rem; text-align: center; }
+		footer p { margin: 0; }
+
+		@media (max-width: 760px) {
+			.nav-wrap { align-items: flex-start; flex-direction: column; gap: 12px; }
+			.section-head { grid-template-columns: 1fr; gap: 12px; }
+			.facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.fact:nth-child(2) { border-right: 0; }
+			.fact:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+			.honours { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.squad-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.source-grid { grid-template-columns: 1fr; }
+		}
+
+		@media (max-width: 480px) {
+			.nav-wrap, .hero-inner, main { width: min(100% - 36px, 1120px); }
+			.hero-inner { padding: 68px 0 58px; }
+			.timeline { grid-template-columns: 1fr; }
+			.year { padding-bottom: 0; }
+			.event { padding-top: 10px; border-top: 0; }
+			.squad-grid { grid-template-columns: 1fr; }
+			.table-wrap { overflow-x: auto; }
+			.league-table { min-width: 560px; }
+		}
+	</style>
+	<link rel="stylesheet" href="deami-layout.css">
+</head>
+<body>
+	<header class="topbar">
+		<div class="nav-wrap">
+			<a class="brand" href="q.html"><span class="brand-mark" aria-hidden="true">A</span>DEAMi Web · Azam FC</a>
+			<nav aria-label="Menyu ya Azam FC">
+				<a href="#historia">Historia</a>
+				<a href="#mafanikio">Mafanikio</a>
+				<a href="#ligi">Ligi</a>
+				<a href="#kikosi">Kikosi</a>
+				<a href="#vyanzo">Vyanzo</a>
+				<a href="yanga.html">Yanga SC</a>
+				<a href="simba.html">Simba SC</a>
+			</nav>
+		</div>
+	</header>
+
+	<header class="hero">
+		<div class="hero-inner">
+			<p class="eyebrow">Chamazi · Temeke · Dar es Salaam</p>
+			<h1>Azam<br>Football Club</h1>
+			<p class="hero-copy">Kutoka Mzizima FC hadi klabu ya ushindani wa juu Tanzania: historia, mataji na wachezaji waliotajwa kwenye taarifa rasmi za Azam FC.</p>
+			<p class="hero-note">Wana Lambalamba · Chamazi Millionaires · The Bakers</p>
+		</div>
+	</header>
+
+	<main>
+		<section id="historia">
+			<div class="section-head">
+				<div><p class="section-kicker">Klabu kwa ufupi</p><h2>Historia ya Azam FC</h2></div>
+				<p class="section-intro">Azam FC ni klabu ya soka yenye makao Chamazi, Temeke, Dar es Salaam. Ilianza kama timu ya Mzizima na baadaye ikawa klabu ya kitaalamu inayoshiriki Ligi Kuu Tanzania Bara.</p>
+			</div>
+			<div class="facts" aria-label="Taarifa za Azam FC">
+				<div class="fact"><strong>2004</strong><span>Ilianzishwa kama Mzizima FC</span></div>
+				<div class="fact"><strong>2006</strong><span>Jina la Azam Football Club lakubaliwa</span></div>
+				<div class="fact"><strong>Chamazi</strong><span>Makao na uwanja wa nyumbani</span></div>
+				<div class="fact"><strong>2010</strong><span>Ilihamia Azam Complex Chamazi</span></div>
+			</div>
+		</section>
+
+		<section id="mafanikio">
+			<div class="section-head">
+				<div><p class="section-kicker">Historia na mataji</p><h2>Hatua muhimu</h2></div>
+				<p class="section-intro">Mafanikio yaliyoorodheshwa hapa yametokana na maelezo rasmi ya klabu. Idadi ya vikombe inaweza kusasishwa kadri klabu inavyoshiriki mashindano mapya.</p>
+			</div>
+			<div class="timeline">
+				<div class="year">2004</div><div class="event"><h3>Mwanzo kama Mzizima FC</h3><p>Klabu ilianzishwa tarehe 23 Julai 2004 na wafanyakazi wa kiwanda cha kusaga unga cha Mzizima, kilichokuwa sehemu ya Kundi la Said Salim Bakhresa.</p></div>
+				<div class="year">2005</div><div class="event"><h3>Azam Sports Club</h3><p>Timu ilipangwa upya na kuwa mradi rasmi zaidi wa michezo chini ya jina la Azam Sports Club.</p></div>
+				<div class="year">2006</div><div class="event"><h3>Azam Football Club</h3><p>Klabu ilipitisha jina la Azam Football Club na kuanza kujijenga kama taasisi ya soka ya kitaalamu.</p></div>
+				<div class="year">2010</div><div class="event"><h3>Makao Chamazi</h3><p>Azam FC ilihamia Azam Complex Chamazi, eneo lililokuwa kituo cha kudumu cha klabu na mazingira ya mazoezi.</p></div>
+				<div class="year">2013/14</div><div class="event"><h3>Bingwa wa ligi bila kushindwa</h3><p>Azam FC ilitwaa Ligi Kuu Tanzania Bara bila kupoteza mchezo, ikiwa ni klabu ya pili katika historia ya soka la Tanzania kufanikisha hilo.</p></div>
+				<div class="year">2015</div><div class="event"><h3>Kagame Cup</h3><p>Klabu ikawa ya kwanza Tanzania kushinda Kagame Cup bila kuruhusu bao katika mashindano hayo.</p></div>
+			</div>
+			<div class="honours" aria-label="Mataifa makuu ya Azam FC">
+				<div class="honour"><strong>1</strong><span>Ligi Kuu Tanzania Bara</span></div>
+				<div class="honour"><strong>5</strong><span>Mapinduzi Cup</span></div>
+				<div class="honour"><strong>2</strong><span>Kagame Cup</span></div>
+				<div class="honour"><strong>1</strong><span>Tanzania FA Cup</span></div>
+				<div class="honour"><strong>1</strong><span>Community Shield</span></div>
+			</div>
+		</section>
+
+		<section id="ligi">
+			<div class="section-head">
+				<div><p class="section-kicker">Msimu uliokamilika</p><h2>Ligi Kuu 2025/26</h2></div>
+				<p class="section-intro">Azam ilimaliza nafasi ya tatu kwenye jedwali la mwisho la msimu wa 2025/26.</p>
+			</div>
+			<div class="table-wrap">
+				<table class="league-table">
+					<thead><tr><th scope="col">Nafasi</th><th scope="col">Timu</th><th scope="col">Mechi</th><th scope="col">Ushindi</th><th scope="col">Sare</th><th scope="col">Kufungwa</th><th scope="col">Mabao</th><th scope="col">Pointi</th></tr></thead>
+					<tbody><tr><td>3</td><th scope="row">Azam FC</th><td>30</td><td>18</td><td>10</td><td>2</td><td>46–12</td><td>64</td></tr></tbody>
+				</table>
+			</div>
+			<p class="table-note">Chanzo: RSSSF, jedwali la mwisho la Ligi Kuu Tanzania Bara 2025/26. Tofauti ya mabao ya Azam ilikuwa +34.</p>
+		</section>
+
+		<section id="kikosi">
+			<div class="section-head">
+				<div><p class="section-kicker">Majina yaliyothibitishwa</p><h2>Wachezaji wa Azam</h2></div>
+				<p class="section-intro">Majina hapa yametajwa kwenye orodha au taarifa rasmi za klabu za 2026. Hii si orodha kamili ya kikosi cha kwanza; tumia kiungo rasmi kukagua kikosi kilichosasishwa.</p>
+			</div>
+			<h3>Kikosi cha wakubwa na wito wa timu za taifa</h3>
+			<div class="squad-grid">
+				<article class="player"><strong>Aishi Manula</strong><span>Kipa · ameorodheshwa kwenye ukurasa rasmi wa kikosi</span></article>
+				<article class="player"><strong>Hamis Yassin Athumani</strong><span>Kipa · aliitwa timu ya Tanzania U-23</span></article>
+				<article class="player"><strong>Twalibu Nuru</strong><span>Beki · aliitwa Tanzania U-23 na Taifa Stars</span></article>
+				<article class="player"><strong>Abdulkarim Kiswanya</strong><span>Kati · aliitwa Tanzania U-23 na Taifa Stars</span></article>
+				<article class="player"><strong>Zidane Sereri</strong><span>Mshambuliaji · aliitwa timu ya Tanzania U-23</span></article>
+			</div>
+			<p class="roster-note">Taarifa za klabu pia zilitaja wachezaji saba wa akademi walioalikwa kufanya mazoezi na kikosi cha kwanza wakati wa mapumziko ya mechi za kimataifa: Juma Mbaruku, Athuman Shilla, Seleman Said, Ikram Mohamed, Goodluck Evarist, Idrissa Mustafa na Hussein Mohamed. Hawa wamewekwa kando kwa sababu taarifa hiyo iliwaeleza kama wachezaji wa akademi, si orodha rasmi ya kikosi cha kwanza.</p>
+			<p style="margin-top: 18px;"><a href="https://azamfc.com/viewteam" target="_blank" rel="noopener noreferrer">Angalia kikosi cha sasa kwenye tovuti rasmi ya Azam FC</a></p>
+		</section>
+
+		<section id="vyanzo">
+			<div class="section-head">
+				<div><p class="section-kicker">Marejeo</p><h2>Vyanzo vya taarifa</h2></div>
+				<p class="section-intro">Tumia vyanzo hivi kuthibitisha taarifa za sasa, kikosi na matokeo ya mashindano.</p>
+			</div>
+			<div class="source-grid">
+				<article class="source"><strong>Azam FC - Kuhusu klabu</strong><p>Mahali ilipo, utambulisho, mataji na taarifa za taasisi.</p><a href="https://azamfc.com/about" target="_blank" rel="noopener noreferrer">Soma kuhusu Azam FC</a></article>
+				<article class="source"><strong>Azam FC - Historia</strong><p>Mwanzo wa Mzizima FC, mabadiliko ya majina na mafanikio muhimu.</p><a href="https://azamfc.com/history" target="_blank" rel="noopener noreferrer">Soma historia rasmi</a></article>
+				<article class="source"><strong>Azam FC - Taarifa za klabu</strong><p>Habari za timu, wito wa timu za taifa na taarifa za wachezaji.</p><a href="https://azamfc.com/news" target="_blank" rel="noopener noreferrer">Soma habari rasmi</a></article>
+				<article class="source"><strong>Azam FC - Kikosi</strong><p>Orodha ya wachezaji na timu za akademi, inapopatikana.</p><a href="https://azamfc.com/viewteam" target="_blank" rel="noopener noreferrer">Fungua ukurasa wa kikosi</a></article>
+				<article class="source"><strong>RSSSF - Ligi Kuu Tanzania 2025/26</strong><p>Jedwali la mwisho la ligi na matokeo ya msimu.</p><a href="https://www.rsssf.org/tablest/tanz2026.html" target="_blank" rel="noopener noreferrer">Tazama jedwali la ligi</a></article>
+			</div>
+		</section>
+
+		<div class="roster-note"><strong>Uhakiki:</strong> Orodha ya kikosi hubadilika wakati wa usajili na dirisha la wachezaji. Hakiki ukurasa rasmi wa Azam FC kabla ya kuchapisha majina kama orodha kamili.</div>
+	</main>
+
+	<footer><p>&copy; 2026 DEAMi Web · Historia na taarifa za Azam FC</p></footer>
+    <script src="deami-context.js" defer></script>
+</body>
+</html>

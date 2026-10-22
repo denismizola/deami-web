@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ukurasa wa FawaSport kwenye DEAMi Web na taarifa kuhusu upatikanaji wa channel.">
+    <meta name="theme-color" content="#163d32">
+    <title>FawaSport | DEAMi Web</title>
+    <style>
+        :root { color-scheme: light; --forest: #163d32; --green: #28715a; --lime: #d9ed79; --ink: #1d2924; --muted: #68736d; --paper: #f4f5ef; --line: #dce1d9; --white: #fff; }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Trebuchet MS", "Segoe UI", sans-serif; line-height: 1.65; }
+        a { color: inherit; }
+        .topbar { background: var(--forest); color: var(--white); }
+        .topbar-inner { display: flex; width: min(1080px, 90%); min-height: 70px; align-items: center; justify-content: space-between; gap: 18px; margin: auto; }
+        .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; }
+        .brand-icon { display: grid; width: 38px; aspect-ratio: 1; place-items: center; border-radius: 12px; background: var(--lime); color: var(--forest); font-family: Georgia, serif; }
+        .topbar nav { display: flex; flex-wrap: wrap; gap: 8px; }
+        .topbar nav a { padding: 7px 11px; border-radius: 99px; color: #dce9e1; font-size: .88rem; text-decoration: none; }
+        .topbar nav a:hover, .topbar nav a:focus-visible { background: rgb(255 255 255 / 12%); color: var(--lime); }
+        .hero { position: relative; overflow: hidden; background: radial-gradient(ellipse at 86% 10%, rgb(217 237 121 / 23%), transparent 30%), linear-gradient(125deg, #142b31, #1e644c); color: var(--white); }
+        .hero-inner, main { width: min(1080px, 90%); margin: auto; }
+        .hero-inner { position: relative; z-index: 1; padding: clamp(58px, 9vw, 100px) 0 65px; }
+        .eyebrow { margin: 0 0 12px; color: var(--lime); font-size: .76rem; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 { max-width: 760px; margin-bottom: 14px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3rem, 8vw, 6rem); font-weight: 500; line-height: 1; }
+        .hero-copy { max-width: 640px; margin-bottom: 0; color: #d5e4dc; font-size: 1.06rem; }
+        .status-pill { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; padding: 8px 13px; border: 1px solid rgb(255 255 255 / 30%); border-radius: 999px; background: rgb(255 255 255 / 9%); color: #f8e7bb; font-size: .83rem; font-weight: 800; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #efbd5b; }
+        .stream-link { display: inline-flex; min-height: 46px; align-items: center; gap: 9px; margin-top: 16px; padding: 10px 15px; border-radius: 10px; background: var(--forest); color: var(--white); font-weight: 850; text-decoration: none; }
+        .stream-link[hidden] { display: none; }
+        .stream-link:hover { background: var(--green); }
+        .stream-status { margin: 10px 0 0; color: var(--muted); font-size: .86rem; }
+        main { padding: 48px 0 72px; }
+        .panel { padding: clamp(22px, 4vw, 36px); border: 1px solid var(--line); border-radius: 20px; background: var(--white); box-shadow: 0 14px 36px rgb(24 42 32 / 6%); }
+        .panel + .panel { margin-top: 22px; }
+        .kicker { margin-bottom: 8px; color: var(--green); font-size: .74rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+        h2 { margin-bottom: 10px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.8rem, 4vw, 2.7rem); font-weight: 500; line-height: 1.1; }
+        .muted { margin-bottom: 0; color: var(--muted); }
+        .platform-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
+        .platform-card { min-width: 0; padding: 18px; border: 1px solid var(--line); border-radius: 15px; background: #fbfcf9; }
+        .platform-card h3 { margin-bottom: 5px; font-size: 1.08rem; }
+        .platform-card p { min-height: 3.2em; margin-bottom: 14px; color: var(--muted); font-size: .85rem; }
+        .platform-state { display: inline-flex; padding: 5px 9px; border-radius: 999px; background: #fff1d6; color: #79520e; font-size: .74rem; font-weight: 850; }
+        .provider-link { display: block; margin-top: 12px; color: var(--green); font-size: .84rem; font-weight: 800; text-underline-offset: 3px; }
+        .notice { margin-top: 18px; padding: 16px 18px; border-left: 4px solid #d6a437; border-radius: 0 12px 12px 0; background: #fff8e9; color: #5e4a23; font-size: .9rem; }
+        .next-steps { margin: 14px 0 0; padding-left: 21px; color: var(--muted); }
+        .next-steps li + li { margin-top: 8px; }
+        .video-library-control { display: grid; gap: 7px; margin-top: 18px; color: var(--forest); font-size: .88rem; font-weight: 800; }
+        .video-library-control select, .video-library-control input { width: 100%; min-height: 44px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); color: var(--ink); font: inherit; }
+        .video-library-status { min-height: 1.5em; margin: 8px 0 0; color: var(--muted); font-size: .82rem; }
+        .episode-layout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: center; gap: 24px; margin-top: 20px; }
+        .episode-player { width: 100%; aspect-ratio: 16 / 9; background: #101715; }
+        .episode-player video { display: block; width: 100%; height: 100%; object-fit: contain; }
+        .sport-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
+        .sport-links a { display: flex; min-height: 54px; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; color: var(--green); font-size: .88rem; font-weight: 800; text-decoration: none; }
+        .sport-links a:hover { background: #e8f2e9; }
+        .ad-slot { display: grid; min-height: 100px; place-items: center; margin: 22px 0; overflow: hidden; }
+        .ad-slot[hidden] { display: none; }
+        .back-link { display: inline-flex; margin-top: 24px; color: var(--green); font-weight: 850; text-underline-offset: 4px; }
+        footer { padding: 19px 5%; background: var(--forest); color: #d5e4dc; font-size: .84rem; text-align: center; }
+        @media (max-width: 680px) {
+            .topbar-inner { align-items: flex-start; flex-direction: column; justify-content: center; padding: 12px 0; }
+            .platform-grid { grid-template-columns: 1fr; }
+            .platform-card p { min-height: 0; }
+            .episode-layout, .sport-links { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    </style>
+    <link rel="stylesheet" href="deami-layout.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="q.html"><span class="brand-icon" aria-hidden="true">D</span><span>DEAMi Web</span></a>
+            <nav aria-label="Menyu ya FawaSport">
+                <a href="q.html">Mwanzo</a>
+                <a href="#stream">Fungua Stream</a>
+                <a href="michezo.html">Ligi za dunia</a>
+                <a href="michezo.html#sports-media-heading">Vyanzo vya michezo</a>
+            </nav>
+        </div>
+    </header>
+    <header class="hero">
+        <div class="hero-inner">
+            <p class="eyebrow">DEAMi Web · Channel ya michezo</p>
+            <h1>FawaSport</h1>
+            <p class="hero-copy">Habari za michezo kutoka vyanzo rasmi, viungo vya mashindano na maktaba ya video inayochezwa kwenye kifaa hiki.</p>
+            <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Viungo rasmi na maktaba ya ndani · hakuna live stream iliyounganishwa</span>
+        </div>
+    </header>
+    <main>
+        <aside class="ad-slot" data-ad-placement="fawasport" aria-label="Tangazo" hidden></aside>
+        <section class="panel" id="stream" aria-labelledby="stream-heading">
+            <p class="kicker">FawaSport · Live</p>
+            <h2 id="stream-heading">Tazama FawaSport</h2>
+            <p class="muted">Kiungo rasmi cha stream kitaonekana hapa kitakapowekwa. Tumia tu chanzo unachomiliki au umeidhinishwa kusambaza.</p>
+            <a class="stream-link" id="fawasport-stream-link" href="#stream" target="_blank" rel="noopener noreferrer" hidden>
+                <span id="fawasport-stream-label">Fungua FawaSport Stream</span><span aria-hidden="true">↗</span>
+            </a>
+            <p class="stream-status" id="fawasport-stream-status" role="status" aria-live="polite">Kiungo rasmi cha stream bado hakijawekwa.</p>
+        </section>
+        <section class="panel" aria-labelledby="episodes-heading">
+            <p class="kicker">Maktaba ya ndani</p>
+            <h2 id="episodes-heading">Video na vipindi</h2>
+            <p class="muted">Chagua video kwenye orodha au faili kutoka kifaa hiki. Faili unayochagua haipakiiwi Supabase wala kutumwa kwenye mtandao.</p>
+            <div class="episode-layout" data-internal-video>
+                <div class="video-library-control">
+                    <label for="fawa-video-picker">Maktaba ya video
+                        <select id="fawa-video-picker" data-video-library aria-describedby="fawa-video-status">
+                            <option value="">Inapakia video...</option>
+                        </select>
+                    </label>
+                    <label for="fawa-video-upload">Pakia kutoka kifaa
+                        <input id="fawa-video-upload" data-video-upload type="file" accept="video/*">
+                    </label>
+                    <p class="video-library-status" id="fawa-video-status" data-video-status role="status" aria-live="polite"></p>
+                </div>
+                <div class="episode-player">
+                    <video data-internal-video-player controls preload="metadata" playsinline aria-label="Video ya maktaba ya ndani"></video>
+                </div>
+            </div>
+        </section>
+        <section class="panel" aria-labelledby="sports-links-heading">
+            <p class="kicker">Vyanzo rasmi</p>
+            <h2 id="sports-links-heading">Viungo vya michezo</h2>
+            <p class="muted">Fungua taarifa, mashindano na mashirikisho kutoka kwenye tovuti zao rasmi.</p>
+            <div class="sport-links">
+                <a href="michezo.html">Ligi na mashindano yote <span aria-hidden="true">→</span></a>
+                <a href="https://www.cafonline.com/" target="_blank" rel="noopener noreferrer">CAF · Soka la Afrika <span aria-hidden="true">↗</span></a>
+                <a href="https://www.tff.or.tz/" target="_blank" rel="noopener noreferrer">TFF · Soka Tanzania <span aria-hidden="true">↗</span></a>
+                <a href="https://www.fifa.com/" target="_blank" rel="noopener noreferrer">FIFA · Soka duniani <span aria-hidden="true">↗</span></a>
+            </div>
+        </section>
+        <section class="panel" aria-labelledby="platform-heading">
+            <p class="kicker">Upatikanaji wa channel</p>
+            <h2 id="platform-heading">DStv, StarTimes na Zuku</h2>
+            <p class="muted">Kwa sasa DEAMi haina uthibitisho wa namba ya channel au makubaliano ya FawaSport na huduma hizi. Hali imeandikwa wazi ili kuepuka kumpa mtazamaji taarifa isiyo sahihi.</p>
+            <div class="platform-grid">
+                <article class="platform-card">
+                    <h3>DStv</h3><p>Channel number na upatikanaji wa FawaSport havijathibitishwa.</p>
+                    <span class="platform-state">Bado haijaunganishwa</span>
+                    <a class="provider-link" href="https://www.dstv.com/en-tz/" target="_blank" rel="noopener noreferrer">Tovuti rasmi ya DStv Tanzania ↗</a>
+                </article>
+                <article class="platform-card">
+                    <h3>StarTimes</h3><p>Channel number na upatikanaji wa FawaSport havijathibitishwa.</p>
+                    <span class="platform-state">Bado haijaunganishwa</span>
+                    <a class="provider-link" href="https://www.startimestv.com/" target="_blank" rel="noopener noreferrer">Tovuti rasmi ya StarTimes ↗</a>
+                </article>
+                <article class="platform-card">
+                    <h3>Zuku</h3><p>Channel number na upatikanaji wa FawaSport havijathibitishwa.</p>
+                    <span class="platform-state">Bado haijaunganishwa</span>
+                    <a class="provider-link" href="https://zuku.co.tz/" target="_blank" rel="noopener noreferrer">Tovuti rasmi ya Zuku Tanzania ↗</a>
+                </article>
+            </div>
+            <p class="notice"><strong>Kumbuka:</strong> kuweka jina la channel kwenye tovuti hakuiingizi moja kwa moja kwenye DStv, StarTimes au Zuku. Kila mtoa huduma anahitaji maombi, makubaliano ya usambazaji, leseni na haki za matangazo.</p>
+        </section>
+        <section class="panel" aria-labelledby="next-heading">
+            <p class="kicker">Hatua zinazofuata</p>
+            <h2 id="next-heading">Ili FawaSport ianze kuonekana hapa</h2>
+            <ol class="next-steps">
+                <li>Weka kiungo rasmi cha FawaSport au akaunti zake za kijamii ili watazamaji wapate taarifa zilizothibitishwa.</li>
+                <li>Shiriki ratiba, taarifa za vipindi, nembo na maudhui unayomiliki au kuruhusiwa kusambaza.</li>
+                <li>Wasiliana na DStv, StarTimes na Zuku kuhusu maombi ya kuingiza channel; ongeza namba tu baada ya kuidhinishwa.</li>
+            </ol>
+        </section>
+        <a class="back-link" href="michezo.html">← Rudi kwenye michezo ya dunia</a>
+    </main>
+    <footer>© DEAMi Web · FawaSport</footer>
+    <script src="internal-video-player.js" defer></script>
+    <script src="ads.js" defer></script>
+    <script>
+        const fawaStreamLink = document.getElementById("fawasport-stream-link");
+        const fawaStreamLabel = document.getElementById("fawasport-stream-label");
+        const fawaStreamStatus = document.getElementById("fawasport-stream-status");
+
+        fetch("fawasport-stream.json")
+            .then(response => {
+                if (!response.ok) throw new Error("Stream config unavailable");
+                return response.json();
+            })
+            .then(config => {
+                const streamUrl = new URL(config.streamUrl || "", location.href);
+                const isSecureStream = streamUrl.protocol === "https:" ||
+                    (streamUrl.protocol === "http:" && ["localhost", "127.0.0.1"].includes(streamUrl.hostname));
+                if (!config.streamUrl || !isSecureStream) return;
+
+                fawaStreamLink.href = streamUrl.href;
+                fawaStreamLink.hidden = false;
+                fawaStreamLabel.textContent = config.linkLabel || "Fungua FawaSport Stream";
+                fawaStreamStatus.textContent = "Stream rasmi iko tayari kufunguliwa.";
+            })
+            .catch(() => {
+                fawaStreamStatus.textContent = "Mipangilio ya stream haikupatikana. Hakiki fawasport-stream.json.";
+            });
+    </script>
+    <script src="deami-context.js" defer></script>
+</body>
+</html>

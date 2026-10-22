@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Filamu za Kiswahili</title>
+  <desc id="desc">Mchoro wa asili wa mashua ya dhow ikisafiri katika bahari ya bluu ya Pwani ya Afrika Mashariki.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#60c2d3"/><stop offset=".55" stop-color="#f1bc86"/><stop offset="1" stop-color="#e48267"/></linearGradient>
+    <linearGradient id="sea" x2="0" y2="1"><stop stop-color="#198f9b"/><stop offset="1" stop-color="#124765"/></linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h640v420H0z"/>
+  <circle cx="493" cy="112" r="50" fill="#ffe19b"/>
+  <path fill="#f4e5c5" d="M0 240q87-32 174 0t174 0q87-32 174 0t118 1v39H0z"/>
+  <path fill="url(#sea)" d="M0 261q104-22 208 0t208 0q112-22 224 0v159H0z"/>
+  <path fill="#7bd0c1" opacity=".7" d="M0 304q108-18 216 0t216 0q104-18 208 0v13q-104-18-208 0t-216 0q-108-18-216 0z"/>
+  <path fill="#173a4b" d="M148 294h303l-48 45H203z"/>
+  <path fill="#f8ebd2" d="M296 131v160h-8V131z"/>
+  <path fill="#fff1d7" d="m282 157-99 116h103zm25-13 101 129H307z"/>
+  <path fill="#a4514e" d="m283 198-74 76h74zm26-25 72 100h-72z"/>
+  <path stroke="#fff0cf" stroke-width="4" d="M154 347h295m-250 18h206m-158 17h108"/>
+  <path fill="#b26a52" d="M32 246q26-33 52 0zm16-31v31m-6-15h20m-8-8 9 8-9 7"/>
+</svg>

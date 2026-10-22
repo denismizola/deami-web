@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tembelea DEAMi Web kupata taarifa, michezo, video, picha na nyaraka za elimu na burudani.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://denismizola.github.io/deami-web/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="sw_TZ">
+    <meta property="og:site_name" content="DEAMi Web">
+    <meta property="og:url" content="https://denismizola.github.io/deami-web/">
+    <meta property="og:title" content="DEAMi Web | Taarifa, michezo na burudani">
+    <meta property="og:description" content="Taarifa, michezo, video, picha na nyaraka za elimu na burudani katika DEAMi Web.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="DEAMi Web | Taarifa, michezo na burudani">
+    <meta name="twitter:description" content="Taarifa, michezo, video, picha na nyaraka za elimu na burudani katika DEAMi Web.">
+    <title>DEAMi Web | Taarifa, michezo na burudani</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --forest: #163d32;
+            --green: #28715a;
+            --lime: #d9ed79;
+            --coral: #ee795c;
+            --ink: #1d2924;
+            --muted: #68736d;
+            --paper: #f4f5ef;
+            --line: #dce1d9;
+            --white: #fff;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Trebuchet MS", "Segoe UI", sans-serif; line-height: 1.65; transition: background-color 700ms ease; }
+        a { color: inherit; }
+
+        body[data-theme="sunset"] {
+            --forest: #56313a;
+            --green: #963f50;
+            --lime: #f0c76b;
+            --coral: #287f79;
+            --paper: #f7eeeb;
+            --line: #e6d9d5;
+        }
+
+        body[data-theme="meadow"] {
+            --forest: #34483d;
+            --green: #52765c;
+            --lime: #e5c76a;
+            --coral: #b85f48;
+            --paper: #edf2e9;
+            --line: #d7e0d4;
+        }
+
+        .site-header, .hero, .brand-mark, .button, .download-band, .gallery-image {
+            transition: background-color 700ms ease, color 700ms ease, border-color 700ms ease;
+        }
+
+        .site-header { position: relative; z-index: 2; background: var(--forest); color: var(--white); box-shadow: 0 8px 24px rgb(15 31 24 / 12%); }
+        .nav-wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1160px, 90%); min-height: 74px; margin: auto; }
+        .brand { display: flex; align-items: center; gap: 12px; font-size: 0.88rem; font-weight: 800; letter-spacing: 0.04em; text-decoration: none; }
+        .brand-mark { display: grid; width: 40px; aspect-ratio: 1; place-items: center; border-radius: 13px; background: var(--lime); color: var(--forest); font-family: Georgia, "Times New Roman", serif; font-size: 1.2rem; }
+        nav { display: flex; flex-wrap: wrap; gap: 6px; }
+        nav a { padding: 7px 10px; border-radius: 999px; color: #dce9e1; font-size: 0.84rem; text-decoration: none; transition: background-color 160ms ease, color 160ms ease; }
+        nav a:hover, nav a:focus-visible { background: rgb(255 255 255 / 12%); color: var(--lime); }
+
+        .site-search { width: min(1160px, 90%); margin: 0 auto; padding: 0 0 16px; }
+        .site-search label { display: block; margin-bottom: 5px; color: #dce9e1; font-size: 0.78rem; font-weight: 700; }
+        .search-control { display: flex; max-width: 650px; gap: 8px; }
+        .search-control input { flex: 1; min-width: 0; min-height: 44px; padding: 9px 14px; border: 1px solid #a9beb3; border-radius: 12px; background: var(--white); color: var(--ink); font: inherit; }
+        .search-control input:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+        .search-control button { min-width: 86px; min-height: 44px; padding: 9px 14px; border: 0; border-radius: 12px; background: var(--lime); color: var(--forest); font: inherit; font-weight: 800; cursor: pointer; }
+        .search-control button:hover { background: #c7df5f; transform: translateY(-1px); }
+        .search-results { display: grid; max-width: 650px; max-height: 390px; gap: 1px; margin-top: 8px; overflow-y: auto; background: var(--line); }
+        .search-results[hidden] { display: none; }
+        .search-section-label { margin: 0; padding: 8px 12px; background: #e8f2e9; color: var(--forest); font-size: 0.73rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+        .search-results a, .search-empty { padding: 11px 13px; background: var(--white); color: var(--ink); text-decoration: none; }
+        .search-results a:hover, .search-results a:focus-visible { background: #e8f2e9; }
+        .search-results a strong, .search-results a span { display: block; }
+        .search-results a span, .search-empty { color: var(--muted); font-size: 0.84rem; }
+        .search-results a .search-snippet { margin-top: 4px; line-height: 1.45; }
+        .site-search-help { max-width: 650px; margin: 6px 0 0; color: #dce9e1; font-size: 0.76rem; }
+
+        .hero { position: relative; overflow: hidden; background: radial-gradient(ellipse at 85% 18%, rgb(217 237 121 / 13%), transparent 34%), linear-gradient(125deg, var(--forest), #205b48); color: var(--white); }
+        .hero::before { position: absolute; inset: 0 0 0 55%; background: repeating-linear-gradient(135deg, transparent 0 28px, rgb(255 255 255 / 5%) 29px 30px); content: ""; }
+        .hero-inner { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 250px; align-items: end; gap: 60px; width: min(1160px, 90%); margin: auto; padding: clamp(76px, 10vw, 132px) 0 84px; }
+        .eyebrow { margin: 0 0 14px; color: var(--lime); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 { max-width: 780px; margin-bottom: 18px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3rem, 7vw, 6.4rem); font-weight: 500; letter-spacing: 0; line-height: 0.98; }
+        .hero-copy { max-width: 580px; margin-bottom: 0; color: #d5e4dc; font-size: 1.05rem; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+        .hero .button { background: var(--lime); color: var(--forest); }
+        .hero .button.secondary { border: 1px solid rgb(255 255 255 / 55%); background: transparent; color: var(--white); }
+        .hero .button, .button { border-radius: 12px; transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease; }
+        .button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgb(20 40 30 / 15%); }
+        .hero-index { padding: 19px 0 0 20px; border-left: 1px solid rgb(255 255 255 / 30%); color: #d5e4dc; font-size: 0.88rem; }
+        .hero-index strong { display: block; margin-bottom: 4px; color: var(--lime); font-family: Georgia, "Times New Roman", serif; font-size: 2.1rem; font-weight: 500; }
+
+        main { width: min(1160px, 90%); margin: auto; }
+        .section { padding: 76px 0; border-bottom: 1px solid var(--line); }
+        .section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 0.6fr); align-items: end; gap: 35px; margin-bottom: 28px; }
+        .section-kicker { margin-bottom: 8px; color: var(--green); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+        h2 { margin-bottom: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 4vw, 3.3rem); font-weight: 500; letter-spacing: 0; line-height: 1.08; }
+        .section-intro { margin-bottom: 0; color: var(--muted); }
+        .story { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 20px; padding: 25px 28px; border-left: 4px solid var(--coral); border-radius: 0 18px 18px 0; background: var(--white); box-shadow: 0 12px 34px rgb(24 42 32 / 6%); }
+        .story-content { max-width: 780px; }
+        .story-kicker { margin-bottom: 7px; color: var(--green); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+        .story h3 { margin-bottom: 8px; font-family: Georgia, "Times New Roman", serif; font-size: 1.55rem; font-weight: 500; line-height: 1.2; }
+        .story-copy { margin-bottom: 14px; color: var(--muted); }
+        .story-source { color: var(--green); font-size: 0.88rem; font-weight: 800; text-underline-offset: 4px; }
+        .story-controls { display: flex; align-items: center; gap: 8px; }
+        .story-count { min-width: 42px; color: var(--muted); font-size: 0.82rem; font-weight: 800; text-align: center; }
+        .story-controls button { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid var(--line); background: var(--paper); color: var(--forest); font: inherit; font-weight: 800; cursor: pointer; }
+        .story-controls .story-toggle { width: auto; min-width: 84px; padding: 0 10px; }
+        .story-controls button:hover { border-color: var(--green); background: #e8f2e9; }
+        .story-controls button:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
+
+        .news-sources { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+        .news-source-card { display: flex; min-width: 0; min-height: 128px; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); color: var(--ink); text-decoration: none; box-shadow: 0 8px 24px rgb(24 42 32 / 4%); transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
+        .news-source-card:hover, .news-source-card:focus-visible { transform: translateY(-3px); border-color: var(--green); box-shadow: 0 14px 28px rgb(24 42 32 / 10%); }
+        .news-source-heading { display: flex; align-items: center; gap: 11px; }
+        .news-source-mark { display: grid; width: 40px; height: 40px; flex: 0 0 40px; place-items: center; border-radius: 12px; background: var(--forest); color: var(--lime); font-family: Georgia, "Times New Roman", serif; font-size: 1rem; font-weight: 800; }
+        .news-source-card:nth-child(2) .news-source-mark { background: #a20d18; color: #fff; }
+        .news-source-card:nth-child(3) .news-source-mark { background: #c90d26; color: #fff; }
+        .news-source-card:nth-child(4) .news-source-mark { background: #075a9c; color: #fff; }
+        .news-source-card:nth-child(5) .news-source-mark { background: #1269a8; color: #fff; }
+        .news-source-card:nth-child(6) .news-source-mark { background: #098b56; color: #fff; }
+        .news-source-card strong { display: block; font-size: 1rem; }
+        .news-source-card small { display: block; margin-top: 2px; color: var(--muted); font-size: .78rem; }
+        .news-source-visit { color: var(--green); font-size: .8rem; font-weight: 800; }
+        .news-source-note { margin: 14px 0 0; color: var(--muted); font-size: .8rem; }
+        .upcoming-news-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+        .upcoming-news-card { position: relative; display: flex; min-height: 190px; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 18px; overflow: hidden; padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, var(--white), #e9f2eb); box-shadow: 0 12px 28px rgb(24 42 32 / 6%); text-decoration: none; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+        .upcoming-news-card::after { position: absolute; right: -28px; bottom: -46px; width: 140px; aspect-ratio: 1; border: 1px solid rgb(40 113 90 / 17%); border-radius: 50%; box-shadow: 0 0 0 18px rgb(40 113 90 / 5%), 0 0 0 38px rgb(40 113 90 / 4%); content: ""; pointer-events: none; }
+        .upcoming-news-card:hover { transform: translateY(-4px); border-color: var(--green); box-shadow: 0 18px 34px rgb(24 42 32 / 11%); }
+        .upcoming-news-card > * { position: relative; z-index: 1; }
+        .upcoming-news-tag { color: var(--green); font-size: .72rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+        .upcoming-news-card strong { max-width: 18em; font-family: Georgia, "Times New Roman", serif; font-size: 1.35rem; font-weight: 600; line-height: 1.2; }
+        .upcoming-news-card span:last-child { color: var(--muted); font-size: .84rem; font-weight: 700; }
+        .upcoming-news-note { margin: 14px 0 0; color: var(--muted); font-size: .82rem; }
+        .decoder-promo { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 24px; margin-top: 22px; padding: 22px 24px; border: 1px dashed #aab9ac; border-radius: 18px; background: rgb(255 255 255 / 68%); }
+        .decoder-promo-label { display: block; margin-bottom: 5px; color: var(--green); font-size: .72rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+        .decoder-promo h3 { margin-bottom: 5px; font-family: Georgia, "Times New Roman", serif; font-size: 1.3rem; font-weight: 600; }
+        .decoder-promo p { margin-bottom: 0; color: var(--muted); font-size: .87rem; }
+        .decoder-promo-badge { padding: 8px 12px; border-radius: 999px; background: #eef1e8; color: #53634e; font-size: .76rem; font-weight: 800; white-space: nowrap; }
+
+        .sports-feature { position: relative; display: grid; min-height: 250px; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 30px; overflow: hidden; padding: clamp(24px, 5vw, 46px); border-radius: 22px; background: radial-gradient(ellipse at 88% 12%, rgb(217 237 121 / 28%), transparent 32%), linear-gradient(125deg, #153c32, #286f54); color: var(--white); box-shadow: 0 18px 42px rgb(22 61 50 / 18%); }
+        .sports-feature::after { position: absolute; top: -110px; right: 9%; width: 270px; aspect-ratio: 1; border: 1px solid rgb(255 255 255 / 22%); border-radius: 50%; box-shadow: 0 0 0 32px rgb(255 255 255 / 5%), 0 0 0 66px rgb(255 255 255 / 4%); content: ""; pointer-events: none; }
+        .sports-feature-copy, .sports-feature-links { position: relative; z-index: 1; }
+        .sports-feature-links { display: grid; gap: 10px; justify-items: end; }
+        .sports-feature .section-kicker { color: var(--lime); }
+        .sports-feature h2 { max-width: 680px; margin-bottom: 12px; }
+        .sports-feature p:not(.section-kicker) { max-width: 640px; margin-bottom: 0; color: #d5e4dc; }
+        .sports-feature-link { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 12px 17px; border-radius: 12px; background: var(--lime); color: var(--forest); font-weight: 850; text-decoration: none; white-space: nowrap; transition: transform 160ms ease, box-shadow 160ms ease; }
+        .sports-feature-link:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgb(0 0 0 / 16%); }
+        .sports-feature-stream { color: var(--white); font-size: .88rem; font-weight: 800; text-underline-offset: 4px; }
+        .game-platform-feature { position: relative; display: grid; min-height: 220px; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 28px; margin-top: 18px; padding: clamp(24px, 5vw, 40px); overflow: hidden; border: 1px solid rgb(117 89 198 / 18%); border-radius: 22px; background: radial-gradient(ellipse at 88% 18%, rgb(213 255 73 / 18%), transparent 30%), linear-gradient(125deg, #19182d, #302550); color: var(--white); box-shadow: 0 18px 42px rgb(27 23 55 / 16%); }
+        .game-platform-feature::after { position: absolute; top: -115px; right: 14%; width: 270px; aspect-ratio: 1; border: 1px solid rgb(255 255 255 / 18%); border-radius: 50%; box-shadow: 0 0 0 34px rgb(255 255 255 / 4%), 0 0 0 70px rgb(255 255 255 / 3%); content: ""; pointer-events: none; }
+        .game-platform-copy, .game-platform-actions { position: relative; z-index: 1; }
+        .game-platform-feature .section-kicker { color: #d5ff49; }
+        .game-platform-feature h2 { max-width: 680px; margin-bottom: 10px; }
+        .game-platform-feature p:not(.section-kicker) { max-width: 650px; margin-bottom: 0; color: #d8d4e8; }
+        .game-platform-actions { display: grid; gap: 10px; justify-items: end; }
+        .game-platform-button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 9px; padding: 12px 18px; border-radius: 12px; background: #d5ff49; color: #17180d; font-weight: 900; text-decoration: none; white-space: nowrap; transition: transform 160ms ease, box-shadow 160ms ease; }
+        .game-platform-button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgb(0 0 0 / 18%); }
+        .game-platform-secondary { color: #e1d9ff; font-size: .87rem; font-weight: 800; text-underline-offset: 4px; }
+
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+        .gallery-item { display: flex; min-width: 0; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-bottom: 3px solid var(--coral); border-radius: 18px; background: var(--white); box-shadow: 0 12px 32px rgb(24 42 32 / 5%); }
+        .gallery-image { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #dfe7dc; }
+        .gallery-content { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 20px; }
+        .gallery-kicker { margin-bottom: 6px; color: var(--green); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+        .gallery-content h3 { margin-bottom: 8px; font-family: Georgia, "Times New Roman", serif; font-size: 1.35rem; font-weight: 500; line-height: 1.2; }
+        .gallery-content p:not(.gallery-kicker) { flex: 1; margin-bottom: 18px; color: var(--muted); font-size: 0.92rem; }
+        .gallery-details { width: 100%; margin: 0 0 18px; border-top: 1px solid var(--line); }
+        .gallery-details summary { padding: 11px 0; color: var(--green); font-size: 0.88rem; font-weight: 800; cursor: pointer; }
+        .gallery-details p { margin: 0 0 10px; color: var(--muted); font-size: 0.88rem; }
+        .gallery-details ul { margin: 0 0 14px; padding-left: 19px; color: var(--muted); font-size: 0.86rem; }
+        .gallery-details li + li { margin-top: 5px; }
+        .gallery-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: auto; }
+        .gallery-actions .button { margin-top: 0; }
+        .gallery-text-link { color: var(--green); font-size: 0.87rem; font-weight: 800; text-underline-offset: 4px; }
+        .image-credit { margin: 14px 0 0; color: var(--muted); font-size: 0.78rem; }
+        .image-credit a { color: var(--green); }
+
+        .shorts-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 390px); align-items: center; gap: 48px; }
+        .shorts-copy { max-width: 560px; }
+        .shorts-copy > p:not(.section-kicker) { color: var(--muted); }
+        .shorts-frame { display: block; width: 100%; height: min(76dvh, 780px); min-height: 580px; border: 0; border-radius: 24px; background: #101715; box-shadow: 0 20px 45px rgb(17 35 28 / 18%); }
+        .shorts-link { margin-top: 10px; }
+
+        .video-section { display: grid; grid-template-columns: minmax(220px, 0.65fr) minmax(0, 1.35fr); gap: 42px; align-items: center; padding: clamp(22px, 4vw, 42px); border: 1px solid rgb(18 58 48 / 12%); border-radius: 24px; background: radial-gradient(ellipse at 90% 10%, rgb(220 237 107 / 28%), transparent 38%), linear-gradient(135deg, #e1f1e8, #f4f7e9); box-shadow: 0 18px 42px rgb(17 35 28 / 9%); }
+        .video-copy p { color: var(--muted); }
+        .video-library-control { display: grid; gap: 7px; margin-top: 18px; padding: 16px; border: 1px solid rgb(18 58 48 / 10%); border-radius: 16px; background: rgb(255 255 255 / 78%); color: var(--forest); font-size: 0.88rem; font-weight: 800; }
+        .video-library-control select, .video-library-control input { width: 100%; min-height: 46px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); color: var(--ink); font: inherit; }
+        .video-library-status { min-height: 1.5em; margin: 8px 0 0; color: var(--muted); font-size: 0.82rem; }
+        .ad-slot { display: grid; min-height: 100px; place-items: center; margin: 22px 0; overflow: hidden; }
+        .ad-slot[hidden] { display: none; }
+        .video-frame { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid rgb(255 255 255 / 75%); border-radius: 18px; background: #101c17; box-shadow: 0 14px 32px rgb(17 35 28 / 20%); }
+        .video-frame video { display: block; width: 100%; height: 100%; object-fit: contain; }
+        .youtube-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.65fr); gap: 28px; align-items: stretch; }
+        .youtube-frame { width: 100%; aspect-ratio: 16 / 9; border: 0; background: #101c17; }
+        .youtube-links { display: grid; align-content: start; gap: 10px; }
+        .youtube-links a { display: block; padding: 16px 18px; border-left: 3px solid var(--coral); background: var(--white); font-weight: 800; text-decoration: none; }
+        .youtube-links a span { display: block; margin-top: 3px; color: var(--muted); font-size: 0.82rem; font-weight: 500; }
+        .youtube-links a:hover { border-left-color: var(--green); background: #e8f2e9; }
+        .trailers-intro { max-width: 760px; margin: 0 0 22px; color: var(--muted); }
+        .movies-app { overflow: hidden; padding: clamp(18px, 3.5vw, 38px); border: 1px solid #28312f; border-radius: 28px; background: radial-gradient(ellipse at 4% 0%, rgb(111 153 107 / 13%), transparent 34%), #111514; color: #f4f7f5; box-shadow: 0 28px 65px rgb(10 24 19 / 20%); }
+        .movies-topbar { display: flex; align-items: center; justify-content: space-between; gap: 22px; padding-bottom: 22px; border-bottom: 1px solid rgb(255 255 255 / 9%); }
+        .movies-brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 11px; color: #f8faf9; font-size: 1.35rem; font-weight: 900; letter-spacing: -.04em; }
+        .movies-brand-mark { display: grid; width: 46px; height: 46px; place-items: center; border: 1px solid rgb(215 239 121 / 42%); border-radius: 15px; background: linear-gradient(140deg, #d7ef79, #8fd9a1); color: #10231d; font-size: 1rem; box-shadow: 0 8px 25px rgb(143 217 161 / 14%); }
+        .movies-brand small { display: block; margin-top: 3px; color: #a7b4ae; font-size: .68rem; font-weight: 600; letter-spacing: .02em; }
+        .movies-search { display: flex; width: min(100%, 430px); min-height: 44px; align-items: center; gap: 10px; padding: 0 14px; border: 1px solid #36413d; border-radius: 999px; background: #1a201e; color: #a7b4ae; }
+        .movies-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: #f4f7f5; font: inherit; font-size: .88rem; }
+        .movies-search input::placeholder { color: #a7b4ae; }
+        .movies-search:focus-within { border-color: #b8d96e; box-shadow: 0 0 0 3px rgb(184 217 110 / 16%); }
+        .movies-featured { position: relative; display: grid; min-height: 360px; grid-template-columns: minmax(0, 1.12fr) minmax(220px, .88fr); align-items: center; gap: 24px; overflow: hidden; margin-top: 24px; padding: clamp(24px, 5vw, 54px); border: 1px solid rgb(255 255 255 / 12%); border-radius: 22px; background: #1a2422; isolation: isolate; }
+        .movies-featured::after { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, #101715 0%, rgb(16 23 21 / 96%) 36%, rgb(16 23 21 / 65%) 65%, rgb(16 23 21 / 28%) 100%), linear-gradient(0deg, rgb(16 23 21 / 42%), transparent 60%); content: ""; }
+        .movies-featured-cover { position: absolute; z-index: -2; inset: 0 0 0 26%; width: 74%; height: 100%; object-fit: cover; object-position: center 44%; opacity: .9; animation: trailer-cover-drift 32s ease-in-out infinite alternate; }
+        .movies-featured-copy { max-width: 570px; }
+        .movies-featured-kicker { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #d7ef79; font-size: .72rem; font-weight: 900; letter-spacing: .15em; text-transform: uppercase; }
+        .movies-featured-kicker::before { width: 22px; height: 2px; background: currentColor; content: ""; }
+        .movies-featured h3 { max-width: 9em; margin-bottom: 12px; color: #fff; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.25rem, 5vw, 4.25rem); font-weight: 500; letter-spacing: -.045em; line-height: .98; }
+        .movies-featured-copy p { max-width: 460px; margin-bottom: 20px; color: #c0cbc5; font-size: .95rem; line-height: 1.65; }
+        .movies-featured-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+        .movies-featured-link { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; gap: 9px; padding: 11px 16px; border: 1px solid #d7ef79; border-radius: 999px; background: #d7ef79; color: #10231d; font-size: .83rem; font-weight: 850; text-decoration: none; transition: transform 160ms ease, background 160ms ease; }
+        .movies-featured-link:hover { transform: translateY(-2px); background: #e4f79c; }
+        .movies-featured-link.secondary { border-color: rgb(255 255 255 / 42%); background: rgb(13 20 18 / 38%); color: #fff; backdrop-filter: blur(8px); }
+        .movies-featured-link.secondary:hover { background: rgb(255 255 255 / 15%); }
+        .movies-featured-note { align-self: end; justify-self: end; max-width: 180px; padding: 10px 12px; border: 1px solid rgb(255 255 255 / 26%); border-radius: 12px; background: rgb(11 17 15 / 55%); color: #e7eee9; font-size: .7rem; line-height: 1.5; backdrop-filter: blur(10px); }
+        .movies-shelf-heading { display: flex; align-items: end; justify-content: space-between; gap: 14px; margin: 34px 0 16px; }
+        .movies-shelf-heading h3 { margin: 0; color: #f7faf8; font-size: 1.24rem; font-weight: 850; letter-spacing: -.02em; }
+        .movies-shelf-heading p { margin: 4px 0 0; color: #a7b4ae; font-size: .8rem; }
+        .movies-filters { display: flex; overflow-x: auto; gap: 9px; margin: 0 0 20px; padding: 0 0 4px; scrollbar-width: thin; }
+        .movies-filter { flex: 0 0 auto; min-height: 36px; padding: 8px 14px; border: 1px solid #303a36; border-radius: 999px; background: #222927; color: #e5ebe7; font: inherit; font-size: .78rem; font-weight: 750; cursor: pointer; transition: background 150ms ease, color 150ms ease, border-color 150ms ease; }
+        .movies-filter:hover { border-color: #b8d96e; }
+        .movies-filter[aria-pressed="true"] { border-color: #d7ef79; background: #d7ef79; color: #10231d; }
+        .trailers-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 16px; }
+        .trailer-card { --cover-speed: 24s; min-width: 0; color: #f4f7f5; }
+        .trailer-card:nth-child(2) { --cover-speed: 29s; }
+        .trailer-card:nth-child(3) { --cover-speed: 26s; }
+        .trailer-card:nth-child(4) { --cover-speed: 32s; }
+        .trailer-visual { position: relative; display: flex; min-height: 0; aspect-ratio: 16 / 10; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 12px; overflow: hidden; padding: 14px; border: 1px solid rgb(255 255 255 / 14%); border-radius: 15px; background: #172620; isolation: isolate; }
+        .trailer-visual::before { position: absolute; z-index: 2; top: -45%; bottom: -45%; left: -65%; width: 38%; background: linear-gradient(90deg, transparent, rgb(255 255 255 / 24%), transparent); content: ""; pointer-events: none; transform: skewX(-18deg); animation: trailer-light-sweep var(--cover-speed) ease-in-out infinite; animation-delay: -7s; }
+        .trailer-visual::after { position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, rgb(9 17 20 / 38%) 0%, transparent 44%, rgb(9 17 20 / 76%) 100%); content: ""; pointer-events: none; }
+        .trailer-cover { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: center; animation: trailer-cover-drift var(--cover-speed) ease-in-out infinite alternate; }
+        .trailer-card:hover .trailer-visual { border-color: #95b46b; }
+        .trailer-card:hover .trailer-cover { animation-play-state: paused; filter: saturate(1.18) brightness(1.08); }
+        .trailer-card > *:not(.trailer-visual) { margin-left: 3px; }
+        .trailer-studio { position: relative; z-index: 3; padding: 6px 9px; border: 1px solid rgb(255 255 255 / 30%); border-radius: 999px; background: rgb(9 17 20 / 48%); color: var(--white); font-size: .65rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; backdrop-filter: blur(8px); }
+        .trailer-card strong { display: block; margin-top: 12px; font-size: .94rem; font-weight: 800; line-height: 1.35; }
+        .trailer-meta { display: flex; align-items: center; gap: 8px; margin-top: 6px; color: #a7b4ae; font-size: .76rem; }
+        .trailer-meta-logo { display: grid; width: 48px; height: 32px; flex: 0 0 48px; place-items: center; overflow: hidden; padding: 4px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 7px; background: #f6f7f5; }
+        .trailer-meta-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+        .trailer-meta-logo-universal img, .trailer-meta-logo-sony img { filter: brightness(0); }
+        .trailer-meta-logo-warner img { width: 29px; height: 29px; }
+        .trailer-meta-logo-marvel { background: #ed1d24; }
+        .trailer-cta { position: absolute; z-index: 3; right: 10px; bottom: 10px; display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border: 1px solid rgb(255 255 255 / 45%); border-radius: 999px; background: rgb(9 17 20 / 68%); color: var(--white); font-size: .7rem; font-weight: 800; text-decoration: none; backdrop-filter: blur(8px); transition: background 160ms ease, color 160ms ease; }
+        .trailer-cta:hover { background: #d7ef79; color: #10231d; }
+        .movies-empty { grid-column: 1 / -1; padding: 32px 16px; border: 1px dashed #46524c; border-radius: 16px; color: #c3cdc7; text-align: center; }
+        .movies-video-shelf { margin-top: 34px; padding-top: 26px; border-top: 1px solid rgb(255 255 255 / 10%); }
+        .movies-video-shelf-heading { margin-bottom: 16px; }
+        .movies-video-shelf-heading h3 { margin: 0; color: #f7faf8; font-size: 1.2rem; font-weight: 850; }
+        .movies-video-shelf-heading p { margin: 5px 0 0; color: #a7b4ae; font-size: .8rem; }
+        .movies-video-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+        .movies-video-card { min-width: 0; overflow: hidden; border: 1px solid #303b36; border-radius: 16px; background: #19201e; transition: border-color 180ms ease, transform 180ms ease; }
+        .movies-video-card:hover { transform: translateY(-3px); border-color: #819a62; }
+        .movies-video-frame { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #090d0c; }
+        .movies-video-copy { padding: 14px 16px 16px; }
+        .movies-video-category { display: inline-block; margin-bottom: 7px; color: #d7ef79; font-size: .66rem; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+        .movies-video-copy h4 { margin: 0; color: #f4f7f5; font-size: .95rem; font-weight: 800; line-height: 1.4; }
+        .movies-video-source { display: inline-block; margin-top: 8px; color: #a7b4ae; font-size: .76rem; text-decoration: underline; text-underline-offset: 3px; }
+        .movies-video-source:hover { color: #d7ef79; }
+        .movies-genres { margin-top: 34px; padding-top: 26px; border-top: 1px solid rgb(255 255 255 / 10%); }
+        .movies-genres-heading { margin-bottom: 15px; }
+        .movies-genres-heading h3 { margin: 0; color: #f7faf8; font-size: 1.12rem; font-weight: 850; }
+        .movies-genres-heading p { margin: 5px 0 0; color: #a7b4ae; font-size: .8rem; }
+        .movies-genre-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+        .movies-genre-link { position: relative; display: flex; min-height: 150px; flex-direction: column; justify-content: flex-end; gap: 6px; overflow: hidden; padding: 14px; border: 1px solid #313b37; border-radius: 14px; background: #202b28; color: #f3f6f4; text-decoration: none; isolation: isolate; transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+        .movies-genre-cover { position: absolute; z-index: -3; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 500ms cubic-bezier(.2, .7, .2, 1), filter 200ms ease; }
+        .movies-genre-live-cover { z-index: -2; }
+        .movies-genre-link::after { position: absolute; z-index: -1; inset: 0; background: linear-gradient(180deg, rgb(7 15 18 / 3%) 5%, rgb(7 15 18 / 10%) 30%, rgb(7 15 18 / 88%) 100%); content: ""; }
+        .movies-genre-link:hover { transform: translateY(-3px); border-color: #b8d96e; box-shadow: 0 12px 24px rgb(0 0 0 / 24%); }
+        .movies-genre-link:hover .movies-genre-cover { transform: scale(1.07); filter: saturate(1.12); }
+        .movies-genre-link strong, .movies-genre-link span { position: relative; z-index: 1; }
+        .movies-genre-link strong { font-size: .9rem; text-shadow: 0 2px 12px rgb(0 0 0 / 55%); }
+        .movies-genre-link span { color: #e0e7e2; font-size: .72rem; text-shadow: 0 1px 8px rgb(0 0 0 / 75%); }
+        .movies-genre-link span::after { margin-left: 5px; color: #d7ef79; content: "↗"; }
+        .trailers-note { margin: 18px 0 0; color: #a7b4ae; font-size: .78rem; line-height: 1.6; }
+        @keyframes trailer-cover-drift { 0% { transform: scale(1.08) translate3d(-1.2%, 0, 0); } 100% { transform: scale(1.18) translate3d(1.2%, -1%, 0); } }
+        @keyframes trailer-light-sweep { 0%, 62% { left: -65%; opacity: 0; } 68% { opacity: 1; } 82%, 100% { left: 130%; opacity: 0; } }
+        @media (max-width: 720px) {
+            .movies-topbar { align-items: stretch; flex-direction: column; gap: 16px; }
+            .movies-search { width: 100%; }
+            .trailers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; }
+            .movies-featured { min-height: 390px; grid-template-columns: 1fr; align-content: end; gap: 16px; }
+            .movies-featured::after { background: linear-gradient(0deg, #101715 0%, rgb(16 23 21 / 88%) 38%, rgb(16 23 21 / 18%) 100%); }
+            .movies-featured-cover { inset: 0; width: 100%; height: 100%; object-position: center 35%; }
+            .movies-featured-note { justify-self: start; }
+            .movies-genre-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .movies-video-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 420px) {
+            .movies-app { padding: 16px 12px; border-radius: 18px; }
+            .trailers-grid { grid-template-columns: 1fr; gap: 22px; }
+            .trailer-visual { aspect-ratio: 16 / 9; }
+            .movies-featured { min-height: 430px; padding: 23px 18px; }
+            .movies-featured-actions { align-items: stretch; flex-direction: column; }
+            .movies-featured-link { width: 100%; }
+            .movies-shelf-heading { align-items: flex-start; flex-direction: column; }
+            .movies-genre-link { min-height: 140px; padding: 12px; }
+        }
+        .hero::before { animation: hero-drift 18s ease-in-out infinite alternate; }
+        @keyframes hero-drift { from { opacity: .45; transform: translateX(-2%) scale(1); } to { opacity: 1; transform: translateX(2%) scale(1.04); } }
+        body.motion-ready [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 550ms ease, transform 550ms cubic-bezier(.2, .7, .2, 1); }
+        body.motion-ready [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+        .social-heading { margin: 28px 0 12px; font-size: 0.85rem; font-weight: 800; }
+        .social-channels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+        .social-channel { display: flex; min-height: 76px; flex-direction: column; justify-content: center; padding: 12px 15px; border: 1px solid var(--line); border-top: 3px solid var(--coral); border-radius: 12px; background: var(--white); text-decoration: none; transition: transform 160ms ease, border-color 160ms ease; }
+        .social-title { display: flex; align-items: center; gap: 9px; }
+        .social-title img { width: 23px; height: 23px; flex: 0 0 23px; object-fit: contain; }
+        .social-mark { display: grid; width: 23px; height: 23px; flex: 0 0 23px; place-items: center; background: var(--forest); color: var(--white); font-size: 0.72rem; font-weight: 900; }
+        .social-mark-tiktok, .social-mark-x { background: #111; }
+        .social-mark-youtube { background: #f00; }
+        .social-mark-facebook, .social-mark-linkedin { background: #1877f2; }
+        .social-mark-instagram { background: #c13584; }
+        .social-mark-pinterest { background: #bd081c; }
+        .social-mark-youtube { width: 26px; height: 18px; flex-basis: 26px; border-radius: 5px; font-size: 0; }
+        .social-mark-youtube::after { width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 8px solid var(--white); content: ""; }
+        .social-mark-instagram { border-radius: 6px; font-size: 1.05rem; line-height: 1; }
+        .verified-badge { display: inline-grid; width: 17px; height: 17px; place-items: center; border-radius: 50%; background: #1877f2; color: var(--white); font-size: 0.68rem; line-height: 1; }
+        .social-channel strong { color: var(--forest); }
+        .social-channel span { color: var(--muted); font-size: 0.79rem; }
+        .social-channel:hover { border-top-color: var(--green); background: #e8f2e9; }
+
+        .download-band { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 28px; padding: 30px; border-radius: 18px; background: var(--lime); }
+        .download-list { display: grid; gap: 12px; }
+        .download-band h3 { margin-bottom: 5px; font-family: Georgia, "Times New Roman", serif; font-size: 1.65rem; font-weight: 500; }
+        .download-band p { margin-bottom: 0; color: #4c5940; }
+        .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px 18px; background: var(--forest); color: var(--white); font-size: 0.92rem; font-weight: 800; text-decoration: none; transition: background 160ms ease, transform 160ms ease; }
+        .button:hover { transform: translateY(-2px); background: var(--green); }
+        .button:focus-visible, a:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+
+        footer { margin-top: 0; padding: 28px 5%; background: #e7ebe4; color: var(--muted); font-size: 0.88rem; text-align: center; }
+        footer p { margin: 0; }
+
+        @media (max-width: 720px) {
+            .nav-wrap { align-items: flex-start; flex-direction: column; justify-content: center; padding: 15px 0; }
+            nav { gap: 8px 18px; }
+            .site-search { width: min(100% - 36px, 1160px); }
+            .hero-inner { grid-template-columns: 1fr; gap: 30px; padding: 78px 0 62px; }
+            .hero::before { left: 25%; }
+            .hero-index { max-width: 250px; }
+            .section { padding: 58px 0; }
+            .section-head { grid-template-columns: 1fr; gap: 13px; }
+            .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .shorts-layout { grid-template-columns: minmax(0, 1fr) minmax(250px, 340px); gap: 24px; }
+            .shorts-frame { height: 72dvh; min-height: 540px; }
+            .video-section { grid-template-columns: 1fr; gap: 20px; }
+            .youtube-layout { grid-template-columns: 1fr; }
+            .news-sources { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .upcoming-news-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .trailers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .decoder-promo { grid-template-columns: 1fr; }
+            .decoder-promo-badge { justify-self: start; }
+            .social-channels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .story { grid-template-columns: 1fr; }
+            .story-controls { justify-self: end; }
+            .sports-feature { grid-template-columns: 1fr; align-items: start; gap: 20px; }
+            .sports-feature-links { justify-items: start; }
+            .game-platform-feature { grid-template-columns: 1fr; align-items: start; gap: 20px; }
+            .game-platform-actions { justify-items: start; }
+            .video-copy { max-width: 540px; }
+        }
+
+        @media (max-width: 480px) {
+            .nav-wrap, .hero-inner, main { width: min(100% - 36px, 1160px); }
+            h1 { font-size: clamp(2.8rem, 14vw, 4rem); }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .news-sources { grid-template-columns: 1fr; }
+            .upcoming-news-grid, .trailers-grid { grid-template-columns: 1fr; }
+            .trailer-card { min-height: 300px; }
+            .shorts-layout { grid-template-columns: 1fr; gap: 16px; }
+            .shorts-frame { width: min(100%, 390px); height: min(76dvh, 740px); min-height: 500px; justify-self: center; }
+            .download-band { grid-template-columns: 1fr; padding: 24px; }
+            .download-band .button { justify-self: start; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+            body.motion-ready [data-reveal] { opacity: 1; transform: none; }
+        }
+    </style>
+    <link rel="stylesheet" href="deami-layout.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="nav-wrap">
+            <a class="brand" href="#mwanzo"><span class="brand-mark" aria-hidden="true">D</span><span>DEAMi Web</span></a>
+            <nav aria-label="Menyu kuu">
+                <a href="#taarifa">Taarifa</a>
+                <a href="#vyanzo">Vyanzo</a>
+                <a href="#habari-zijazo">Habari zijazo</a>
+                <a href="#michezo">Michezo</a>
+                <a href="D-gamegape.html">D-gamegape</a>
+                <a href="#trela">DEAMi Movies</a>
+                <a href="fawasport.html#stream">FawaSport Stream</a>
+                <a href="#picha">Picha</a>
+                <a href="#shorts">Shorts</a>
+                <a href="Ai.html">DEAMi Ai</a>
+                <a href="#video">Video</a>
+                <a href="#youtube">YouTube</a>
+                <a href="#nyaraka">Nyaraka</a>
+                <a href="yanga.html">Yanga SC</a>
+                <a href="simba.html">Simba SC</a>
+                <a href="azam.html">Azam FC</a>
+            </nav>
+        </div>
+        <div class="site-search">
+            <form id="site-search-form" role="search">
+                <label for="site-search-input">Tafuta kurasa na taarifa kwenye tovuti</label>
+                <div class="search-control">
+                    <input id="site-search-input" type="search" placeholder="Mfano: Yanga, Simba, elimu..." autocomplete="off">
+                    <button type="submit">Tafuta</button>
+                </div>
+            </form>
+            <p class="site-search-help">Makala za Wikipedia ya Kiswahili huonekana hapa; tafuta Google, Bing au YouTube kwa matokeo mengine. Intaneti inahitajika.</p>
+            <div class="search-results" id="site-search-results" aria-live="polite" hidden></div>
+        </div>
+    </header>
+
+    <header class="hero" id="mwanzo">
+        <div class="hero-inner">
+            <div>
+                <p class="eyebrow">Karibu kwenye tovuti</p>
+                <h1>Taarifa muhimu.<br>Mahali pamoja.</h1>
+                <p class="hero-copy">Makala, picha, video na nyaraka zilizokusanywa kwa urahisi wa kusoma na kutazama.</p>
+                <div class="hero-actions">
+                    <a class="button" href="Ai.html">Uliza DEAMi Ai</a>
+                    <a class="button secondary" href="#shorts">Tazama Shorts</a>
+                    <a class="button secondary" href="#trela">DEAMi Movies</a>
+                </div>
+            </div>
+            <div class="hero-index"><strong>01—10</strong>Habari · Vyanzo · Habari zijazo · Michezo · Picha · Shorts · Video · Trela · YouTube · Nyaraka</div>
+        </div>
+    </header>
+
+    <main>
+        <section id="taarifa" class="section">
+            <div class="section-head">
+                <div><p class="section-kicker">01 / Habari na vyanzo</p><h2>Habari, maarifa na vyanzo</h2></div>
+                <p class="section-intro">Soma kidokezo cha maarifa, kisha fungua tovuti rasmi za habari au uulize DEAMi Ai.</p>
+            </div>
+            <div class="story" aria-live="polite" aria-atomic="true">
+                <div class="story-content">
+                    <p class="story-kicker" id="info-category">Elimu</p>
+                    <h3 id="info-title">Jifunze kwa vipindi vifupi</h3>
+                    <p class="story-copy" id="info-copy">Gawa mada kubwa katika vipande vidogo, kisha jaribu kukumbuka ulichojifunza bila kuangalia majibu. Kurudia baada ya muda husaidia kuimarisha kumbukumbu.</p>
+                    <a class="story-source" id="info-source" href="https://www.learningscientists.org/downloadable-materials" target="_blank" rel="noopener noreferrer">Soma zaidi kuhusu mbinu za kujifunza</a>
+                </div>
+                <div class="story-controls" aria-label="Vidhibiti vya taarifa zinazobadilika">
+                    <span class="story-count" id="info-count">1 / 3</span>
+                    <button id="info-previous" type="button" aria-label="Taarifa iliyotangulia">&larr;</button>
+                    <button class="story-toggle" id="info-toggle" type="button" aria-pressed="false">Sitisha</button>
+                    <button id="info-next" type="button" aria-label="Taarifa inayofuata">&rarr;</button>
+                </div>
+            </div>
+            <p class="social-heading" id="vyanzo">Vyanzo vya habari na huduma za kuaminika</p>
+            <div class="news-sources" aria-label="Viungo vya habari na AI">
+                <a class="news-source-card" href="https://www.bbc.com/news/world/africa" target="_blank" rel="noopener noreferrer">
+                    <span class="news-source-heading"><span class="news-source-mark" aria-hidden="true">BBC</span><span><strong>BBC News</strong><small>Habari za Afrika</small></span></span>
+                    <span class="news-source-visit">Fungua tovuti rasmi ↗</span>
+                </a>
+                <a class="news-source-card" href="https://www.aljazeera.com/africa/" target="_blank" rel="noopener noreferrer">
+                    <span class="news-source-heading"><span class="news-source-mark" aria-hidden="true">AJ</span><span><strong>Al Jazeera</strong><small>Habari za Afrika na dunia</small></span></span>
+                    <span class="news-source-visit">Fungua tovuti rasmi ↗</span>
+                </a>
+                <a class="news-source-card" href="https://wasafimedia.co.tz/" target="_blank" rel="noopener noreferrer">
+                    <span class="news-source-heading"><span class="news-source-mark" aria-hidden="true">W</span><span><strong>Wasafi Media</strong><small>Habari na burudani Tanzania</small></span></span>
+                    <span class="news-source-visit">Fungua tovuti rasmi ↗</span>
+                </a>
+                <a class="news-source-card" href="https://www.dw.com/sw/idhaa-ya-kiswahili/s-11588" target="_blank" rel="noopener noreferrer">
+                    <span class="news-source-heading"><span class="news-source-mark" aria-hidden="true">DW</span><span><strong>DW Kiswahili</strong><small>Habari kwa Kiswahili</small></span></span>
+                    <span class="news-source-visit">Fungua tovuti rasmi ↗</span>
+                </a>
+                <a class="news-source-card" href="https://www.voaswahili.com/" target="_blank" rel="noopener noreferrer">
+                    <span class="news-source-heading"><span class="news-source-mark" aria-hidden="true">VOA</span><span><strong>VOA Kiswahili</strong><small>Habari za Afrika na dunia</small></span></span>
+                    <span class="news-source-visit">Fungua tovuti rasmi ↗</span>
+                </a>
+                <a class="news-source-card" href="https://www.thecitizen.co.tz/tanzania" target="_blank" rel="noopener noreferrer">
+                    <span class="news-source-heading"><span class="news-source-mark" aria-hidden="true">TC</span><span><strong>The Citizen</strong><small>Habari za Tanzania</small></span></span>
+                    <span class="news-source-visit">Fungua tovuti rasmi ↗</span>
+                </a>
+                <a class="news-source-card" href="Ai.html">
+                    <span class="news-source-heading"><span class="news-source-mark" aria-hidden="true">✦</span><span><strong>DEAMi Ai</strong><small>Msaidizi wako wa maswali na maarifa</small></span></span>
+                    <span class="news-source-visit">Fungua DEAMi Ai →</span>
+                </a>
+            </div>
+            <p class="news-source-note">Viungo vya habari vinafungua tovuti rasmi za wachapishaji. DEAMi haiwakilishi vyombo hivyo wala kunakili makala zao.</p>
+        </section>
+
+        <section id="habari-zijazo" class="section">
+            <div class="section-head">
+                <div><p class="section-kicker">02 / Vinavyofuata</p><h2>Habari zijazo na matangazo</h2></div>
+                <p class="section-intro">Fuatilia matangazo mapya moja kwa moja kutoka kwa wachapishaji na huduma husika; DEAMi haibuni ratiba au habari ambazo hazijathibitishwa.</p>
+            </div>
+            <div class="upcoming-news-grid">
+                <a class="upcoming-news-card" href="https://www.thecitizen.co.tz/tanzania" target="_blank" rel="noopener noreferrer">
+                    <span class="upcoming-news-tag">Tanzania</span>
+                    <strong>Habari na matangazo mapya</strong>
+                    <span>Fuatilia The Citizen ↗</span>
+                </a>
+                <a class="upcoming-news-card" href="https://www.bbc.com/news/world/africa" target="_blank" rel="noopener noreferrer">
+                    <span class="upcoming-news-tag">Afrika na dunia</span>
+                    <strong>Taarifa zinapochapishwa</strong>
+                    <span>Fuatilia BBC News ↗</span>
+                </a>
+                <a class="upcoming-news-card" href="michezo.html#deami-livescore">
+                    <span class="upcoming-news-tag">Michezo</span>
+                    <strong>Ratiba na msimamo wa ligi</strong>
+                    <span>Fungua DEAMi LiveScore ↗</span>
+                </a>
+            </div>
+            <p class="upcoming-news-note">Viungo hufungua kurasa za vyanzo; habari mpya na tarehe za matukio hutegemea matangazo yao rasmi.</p>
+            <aside class="decoder-promo" aria-label="Nafasi ya matangazo ya ving'amuzi">
+                <div>
+                    <span class="decoder-promo-label">Nafasi ya tangazo</span>
+                    <h3>Matangazo ya ving’amuzi</h3>
+                    <p>Nafasi imetengwa kwa taarifa rasmi za DStv, StarTimes, Zuku au ving’amuzi vingine. Hakuna ofa wala bei iliyowekwa kwa sasa.</p>
+                </div>
+                <span class="decoder-promo-badge">Inasubiri taarifa rasmi</span>
+            </aside>
+        </section>
+
+        <section id="michezo" class="section">
+            <div class="sports-feature">
+                <div class="sports-feature-copy">
+                    <p class="section-kicker">02 / Michezo ya dunia</p>
+                    <h2>Ulimwengu wa michezo, ukurasa mmoja</h2>
+                    <p>Fuatilia soka, mpira wa kikapu, kriketi, rugby, riadha na mashindano ya kimataifa kupitia tovuti rasmi za mashirikisho.</p>
+                </div>
+                <div class="sports-feature-links">
+                    <a class="sports-feature-link" href="michezo.html">Gundua michezo duniani <span aria-hidden="true">→</span></a>
+                    <a class="sports-feature-stream" href="fawasport.html#stream">Fungua FawaSport Stream ↗</a>
+                </div>
+            </div>
+            <div class="game-platform-feature">
+                <div class="game-platform-copy">
+                    <p class="section-kicker">D-gamegape / Jukwaa la gaming</p>
+                    <h2>Michezo ya browser na maktaba yako ya consoles</h2>
+                    <p>Fungua jukwaa tofauti la D-gamegape kucheza michezo ya browser, kuunganisha gamepad, au kuongeza game files zako kwenye maktaba ya kifaa chako. Michezo ya PS1 na PSP inaweza kufunguliwa kwenye player za browser; consoles nyingine zinahitaji emulator za PC.</p>
+                </div>
+                <div class="game-platform-actions">
+                    <a class="game-platform-button" href="D-gamegape.html">🎮 Fungua D-gamegape <span aria-hidden="true">→</span></a>
+                    <a class="game-platform-secondary" href="D-gamegape-consoles.html">Angalia consoles na maktaba ↗</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="picha" class="section">
+            <div class="section-head">
+                <div><p class="section-kicker">02 / Matunzio</p><h2>Picha zilizowekwa</h2></div>
+                <p class="section-intro">Chagua mada unayotaka kuchunguza, kisha pakua mwongozo mfupi wenye maelezo na vyanzo vya kusoma zaidi.</p>
+            </div>
+            <div class="gallery-grid">
+                <article class="gallery-item">
+                    <img class="gallery-image" src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Vitabu na daftari mezani kwa ajili ya kujifunza" loading="lazy">
+                    <div class="gallery-content">
+                        <p class="gallery-kicker">Elimu</p>
+                        <h3>Mbinu za kujifunza kwa ufanisi</h3>
+                        <p>Jinsi ya kupanga muda, kurudia maarifa na kuchagua vyanzo vya kuaminika unapojifunza.</p>
+                        <details class="gallery-details">
+                            <summary>Maelezo zaidi kuhusu mada</summary>
+                            <p>Kujifunza kwa ufanisi kunahitaji zaidi ya kusoma maandishi mara nyingi. Changanya kuelewa wazo jipya na kulikumbuka bila kuangalia chanzo, kisha rudi kwenye mada kwa vipindi tofauti.</p>
+                            <ul>
+                                <li>Weka lengo dogo, kama kueleza dhana moja kwa maneno yako.</li>
+                                <li>Baada ya kusoma, funga kitabu na ujibu maswali machache kutoka kumbukumbu.</li>
+                                <li>Andika makosa na uyatumie kupanga marudio yanayofuata.</li>
+                            </ul>
+                        </details>
+                        <div class="gallery-actions">
+                            <a href="mwongozo_kujifunza.html" class="button">Soma mwongozo kamili</a>
+                            <a href="mwongozo_kujifunza.txt" class="gallery-text-link" download>Pakua TXT</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="gallery-item">
+                    <img class="gallery-image" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Watu wakitumia kompyuta pamoja" loading="lazy">
+                    <div class="gallery-content">
+                        <p class="gallery-kicker">Teknolojia</p>
+                        <h3>Usalama wa mtandaoni</h3>
+                        <p>Hatua rahisi za kulinda akaunti, kutambua ujumbe wa kitapeli na kuhifadhi taarifa zako.</p>
+                        <details class="gallery-details">
+                            <summary>Maelezo zaidi kuhusu mada</summary>
+                            <p>Usalama wa kidijitali ni mazoea ya kulinda akaunti, kifaa na taarifa binafsi. Hakuna hatua moja inayozuia kila hatari, kwa hiyo tumia tabaka kadhaa za ulinzi.</p>
+                            <ul>
+                                <li>Tumia nenosiri refu na tofauti kwa kila akaunti; tumia kidhibiti cha nenosiri kinachoaminika ukihitaji.</li>
+                                <li>Washa uthibitishaji wa hatua mbili na usishiriki misimbo ya uthibitishaji.</li>
+                                <li>Kagua mtumaji na anwani ya tovuti kabla ya kubofya viungo au kufungua viambatisho.</li>
+                            </ul>
+                        </details>
+                        <div class="gallery-actions">
+                            <a href="mwongozo_usalama_dijitali.html" class="button">Soma mwongozo kamili</a>
+                            <a href="mwongozo_usalama_dijitali.txt" class="gallery-text-link" download>Pakua TXT</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="gallery-item">
+                    <img class="gallery-image" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Milima yenye misitu na mazingira ya asili" loading="lazy">
+                    <div class="gallery-content">
+                        <p class="gallery-kicker">Mazingira</p>
+                        <h3>Matendo madogo ya kutunza mazingira</h3>
+                        <p>Mawazo ya kupunguza taka, kutumia rasilimali kwa uangalifu na kushiriki katika eneo lako.</p>
+                        <details class="gallery-details">
+                            <summary>Maelezo zaidi kuhusu mada</summary>
+                            <p>Matumizi ya rasilimali kwa uangalifu huanza na maamuzi ya kila siku. Punguza taka zinazoingia nyumbani, tumia vitu tena vinapofaa na fuata utaratibu wa taka wa eneo lako.</p>
+                            <ul>
+                                <li>Panga ununuzi na hifadhi chakula vizuri ili kupunguza kinachoharibika.</li>
+                                <li>Tenganisha taka zinazoweza kurejelewa kulingana na huduma zinazopatikana karibu nawe.</li>
+                                <li>Hifadhi maji na nishati kwa kuzima visivyotumika na kurekebisha uvujaji.</li>
+                            </ul>
+                        </details>
+                        <div class="gallery-actions">
+                            <a href="mwongozo_mazingira.html" class="button">Soma mwongozo kamili</a>
+                            <a href="mwongozo_mazingira.txt" class="gallery-text-link" download>Pakua TXT</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <p class="image-credit">Picha: <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer">Unsplash</a></p>
+        </section>
+
+        <section id="shorts" class="section">
+            <div class="section-head">
+                <div><p class="section-kicker">03 / D-link Shorts</p><h2>Tazama na shiriki video fupi</h2></div>
+                <p class="section-intro">Gundua video moja baada ya nyingine: swipe au sogeza juu/chini, kisha tumia vidhibiti vya sauti na pause/play.</p>
+            </div>
+            <div class="shorts-layout">
+                <div class="shorts-copy">
+                    <p>Sehemu hii inafungua feed ileile ya D-link ndani ya ukurasa huu. Unaweza kutazama video zilizoshirikiwa, kusoma maelezo, kutoa maoni na kupakia video mpya bila kuondoka kwenye DEAMi Web. Video ni za umma; tafadhali weka maudhui yanayofaa familia na ambayo una ruhusa ya kushiriki.</p>
+                    <a class="button shorts-link" href="D-link.html">Fungua D-link Shorts ukurasa mzima</a>
+                </div>
+                <iframe class="shorts-frame" src="D-link.html" title="D-link Shorts - video fupi" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section id="video" class="section">
+            <div class="video-section" data-internal-video>
+                <div class="video-copy">
+                    <p class="section-kicker">04 / Video ya ndani</p>
+                    <h2>Video ya mafunzo au burudani</h2>
+                    <p>Chagua video kwenye maktaba au fungua faili kutoka kifaa hiki.</p>
+                    <div class="video-library-control">
+                        <label for="internal-video-picker">Maktaba ya video
+                            <select id="internal-video-picker" data-video-library data-default-video="Contamination.2025 2.mp4" aria-describedby="internal-video-status">
+                            <option value="">Inapakia video...</option>
+                            </select>
+                        </label>
+                        <label for="internal-video-upload">Pakia kutoka kifaa
+                            <input id="internal-video-upload" data-video-upload type="file" accept="video/*">
+                        </label>
+                        <p class="video-library-status" id="internal-video-status" data-video-status role="status" aria-live="polite"></p>
+                    </div>
+                </div>
+                <div class="video-frame">
+                    <video id="internal-video-player" data-internal-video-player controls preload="metadata" aria-label="Video ya mafunzo au burudani">
+                        Kivinjari chako hakiauni kucheza video hii.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <aside class="ad-slot" data-ad-placement="home" aria-label="Tangazo" hidden></aside>
+
+        <section id="trela" class="section">
+            <div class="section-head">
+                <div><p class="section-kicker">05 / Filamu</p><h2>DEAMi Movies</h2></div>
+                <p class="section-intro">Gundua trela za filamu kwenye sehemu yenye chapa ya DEAMi. Chagua studio au tafuta, kisha fungua trela kutoka chanzo rasmi.</p>
+            </div>
+            <div class="movies-app" aria-label="DEAMi Movies">
+                <div class="movies-topbar">
+                    <div class="movies-brand"><span class="movies-brand-mark" aria-hidden="true">DM</span><span>DEAMi Movies<small>Trela na filamu zinazoangaziwa</small></span></div>
+                    <label class="movies-search"><span aria-hidden="true">⌕</span><input id="movies-search" type="search" placeholder="Tafuta studio au trela..." autocomplete="off" aria-label="Tafuta trela za DEAMi Movies"></label>
+                </div>
+                <div class="movies-featured">
+                    <img class="movies-featured-cover" src="trailer-cover-universal.svg" alt="" aria-hidden="true">
+                    <div class="movies-featured-copy">
+                        <span class="movies-featured-kicker">DEAMi Movies · Filamu kwa mtazamo mpya</span>
+                        <h3>Hadithi inaanza hapa.</h3>
+                        <p>Gundua ulimwengu wa filamu kupitia trela zilizochaguliwa kutoka kwenye chaneli rasmi za studio.</p>
+                        <div class="movies-featured-actions">
+                            <a class="movies-featured-link" href="https://www.youtube.com/@UniversalPictures" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">▶</span> Tazama trela</a>
+                            <a class="movies-featured-link secondary" href="#movies-grid">Gundua studio <span aria-hidden="true">↓</span></a>
+                        </div>
+                    </div>
+                    <span class="movies-featured-note">Kava la kisanii la DEAMi · Si bango rasmi la filamu</span>
+                </div>
+                <div class="movies-shelf-heading">
+                    <div><h3>Gundua trela</h3><p>Chagua studio unayotaka kufuatilia</p></div>
+                </div>
+                <div class="movies-filters" role="group" aria-label="Chuja kwa studio">
+                    <button class="movies-filter" type="button" data-movie-filter="all" aria-pressed="true">Zote</button>
+                    <button class="movies-filter" type="button" data-movie-filter="universal" aria-pressed="false">Universal</button>
+                    <button class="movies-filter" type="button" data-movie-filter="warner" aria-pressed="false">Warner Bros.</button>
+                    <button class="movies-filter" type="button" data-movie-filter="sony" aria-pressed="false">Sony Pictures</button>
+                    <button class="movies-filter" type="button" data-movie-filter="marvel" aria-pressed="false">Marvel</button>
+                </div>
+                <div class="trailers-grid" id="movies-grid" aria-live="polite">
+                    <article class="trailer-card" data-studio="universal">
+                        <div class="trailer-visual">
+                            <img class="trailer-cover" src="trailer-cover-universal.svg" alt="Mchoro wa asili wa sayari yenye pete na anga la sinema" loading="lazy">
+                            <span class="trailer-studio">Universal Pictures</span>
+                            <a class="trailer-cta" href="https://www.youtube.com/@UniversalPictures" target="_blank" rel="noopener noreferrer">Tazama trela ↗</a>
+                        </div>
+                        <strong>Trela mpya za filamu</strong>
+                        <span class="trailer-meta"><span class="trailer-meta-logo trailer-meta-logo-universal"><img src="https://www.universalpictures.com/assets/static/logo.svg" alt="" loading="lazy"></span>Universal Pictures · Chaneli rasmi</span>
+                    </article>
+                    <article class="trailer-card" data-studio="warner">
+                        <div class="trailer-visual">
+                            <img class="trailer-cover" src="trailer-cover-warner.svg" alt="Mchoro wa asili wa jiji chini ya mwanga wa sinema" loading="lazy">
+                            <span class="trailer-studio">Warner Bros. Pictures</span>
+                            <a class="trailer-cta" href="https://www.youtube.com/@WarnerBrosPictures" target="_blank" rel="noopener noreferrer">Tazama trela ↗</a>
+                        </div>
+                        <strong>Filamu na trela</strong>
+                        <span class="trailer-meta"><span class="trailer-meta-logo trailer-meta-logo-warner"><img src="https://www.warnerbros.com/assets/images/home/wb/logo.png" alt="" loading="lazy"></span>Warner Bros. Pictures · Chaneli rasmi</span>
+                    </article>
+                    <article class="trailer-card" data-studio="sony">
+                        <div class="trailer-visual">
+                            <img class="trailer-cover" src="trailer-cover-sony.svg" alt="Mchoro wa asili wa jiji la usiku lenye mwanga wa neon" loading="lazy">
+                            <span class="trailer-studio">Sony Pictures</span>
+                            <a class="trailer-cta" href="https://www.youtube.com/@SonyPictures" target="_blank" rel="noopener noreferrer">Tazama trela ↗</a>
+                        </div>
+                        <strong>Trela za Sony Pictures</strong>
+                        <span class="trailer-meta"><span class="trailer-meta-logo trailer-meta-logo-sony"><img src="https://www.sonypictures.com/themes/custom/sonypictures/logo.svg" alt="" loading="lazy"></span>Sony Pictures · Chaneli rasmi</span>
+                    </article>
+                    <article class="trailer-card" data-studio="marvel">
+                        <div class="trailer-visual">
+                            <img class="trailer-cover" src="trailer-cover-marvel.svg" alt="Mchoro wa asili wa shujaa wa kubuni mbele ya mwanga wa anga" loading="lazy">
+                            <span class="trailer-studio">Marvel Entertainment</span>
+                            <a class="trailer-cta" href="https://www.youtube.com/@Marvel" target="_blank" rel="noopener noreferrer">Tazama trela ↗</a>
+                        </div>
+                        <strong>Trela za mashujaa</strong>
+                        <span class="trailer-meta"><span class="trailer-meta-logo trailer-meta-logo-marvel"><img src="https://cdn.marvel.com/content/1x/marvel-logo.png" alt="" loading="lazy"></span>Marvel Entertainment · Chaneli rasmi</span>
+                    </article>
+                    <p class="movies-empty" id="movies-empty" hidden>Hakuna trela zinazolingana na utafutaji wako.</p>
+                </div>
+                <div class="movies-video-shelf">
+                    <div class="movies-video-shelf-heading">
+                        <h3>Tazama trela kutoka aina tofauti</h3>
+                        <p>Bonyeza play kutazama trela zilizochaguliwa kutoka chaneli za studio na wasambazaji wa filamu.</p>
+                    </div>
+                    <div class="movies-video-grid">
+                        <article class="movies-video-card" id="movie-trailer-animation">
+                            <iframe class="movies-video-frame" src="https://www.youtube-nocookie.com/embed/a8RHqN93qfo?rel=0" title="Forgotten Island - trela rasmi ya filamu ya uhuishaji kutoka Universal Pictures" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                            <div class="movies-video-copy">
+                                <span class="movies-video-category">Uhuishaji · Adventure</span>
+                                <h4>Forgotten Island | Official Trailer</h4>
+                                <a class="movies-video-source" href="https://www.youtube.com/watch?v=a8RHqN93qfo" target="_blank" rel="noopener noreferrer">Universal Pictures · Fungua chanzo rasmi</a>
+                            </div>
+                        </article>
+                        <article class="movies-video-card" id="movie-trailer-comedy">
+                            <iframe class="movies-video-frame" src="https://www.youtube-nocookie.com/embed/-5xzjw_0d_0?rel=0" title="One of Them Days - trela rasmi ya vichekesho kutoka Sony Pictures Entertainment" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                            <div class="movies-video-copy">
+                                <span class="movies-video-category">Vichekesho</span>
+                                <h4>ONE OF THEM DAYS | Official Trailer</h4>
+                                <a class="movies-video-source" href="https://www.youtube.com/watch?v=-5xzjw_0d_0" target="_blank" rel="noopener noreferrer">Sony Pictures Entertainment · Fungua chanzo rasmi</a>
+                            </div>
+                        </article>
+                        <article class="movies-video-card" id="movie-trailer-action">
+                            <iframe class="movies-video-frame" src="https://www.youtube-nocookie.com/embed/fiGytCAGIQY?rel=0" title="Onslaught - trela rasmi ya action kutoka Universal Pictures UK" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                            <div class="movies-video-copy">
+                                <span class="movies-video-category">Action</span>
+                                <h4>Onslaught | Official Trailer</h4>
+                                <a class="movies-video-source" href="https://www.youtube.com/watch?v=fiGytCAGIQY" target="_blank" rel="noopener noreferrer">Universal Pictures UK · Fungua chanzo rasmi</a>
+                            </div>
+                        </article>
+                        <article class="movies-video-card" id="movie-trailer-scifi">
+                            <iframe class="movies-video-frame" src="https://www.youtube-nocookie.com/embed/6ZfuNTqbHE8?rel=0" title="Avengers Infinity War - trela rasmi kutoka Marvel Entertainment" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                            <div class="movies-video-copy">
+                                <span class="movies-video-category">Mashujaa · Sci-fi</span>
+                                <h4>Marvel Studios’ Avengers: Infinity War | Official Trailer</h4>
+                                <a class="movies-video-source" href="https://www.youtube.com/watch?v=6ZfuNTqbHE8" target="_blank" rel="noopener noreferrer">Marvel Entertainment · Fungua chanzo rasmi</a>
+                            </div>
+                        </article>
+                        <article class="movies-video-card" id="movie-trailer-drama">
+                            <iframe class="movies-video-frame" src="https://www.youtube-nocookie.com/embed/fdkwGvMB5zQ?rel=0" title="Bunker - official US trailer kutoka Sony Pictures Classics" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                            <div class="movies-video-copy">
+                                <span class="movies-video-category">Drama</span>
+                                <h4>BUNKER | Official US Trailer</h4>
+                                <a class="movies-video-source" href="https://www.youtube.com/watch?v=fdkwGvMB5zQ" target="_blank" rel="noopener noreferrer">Sony Pictures Classics · Fungua chanzo rasmi</a>
+                            </div>
+                        </article>
+                        <article class="movies-video-card" id="movie-trailer-adventure">
+                            <iframe class="movies-video-frame" src="https://www.youtube-nocookie.com/embed/NdvqHc56lE0?rel=0" title="Dune: Part Three - official trailer kutoka Warner Bros." loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                            <div class="movies-video-copy">
+                                <span class="movies-video-category">Matukio na safari</span>
+                                <h4>Dune: Part Three | Official Trailer</h4>
+                                <a class="movies-video-source" href="https://www.youtube.com/watch?v=NdvqHc56lE0" target="_blank" rel="noopener noreferrer">Warner Bros. · Fungua chanzo rasmi</a>
+                            </div>
+                        </article>
+                        <article class="movies-video-card" id="movie-trailer-africa">
+                            <iframe class="movies-video-frame" src="https://www.youtube-nocookie.com/embed/qRASROoxDzw?rel=0" title="On Different Grounds - trela kutoka Cinemax Distribution Limited" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                            <div class="movies-video-copy">
+                                <span class="movies-video-category">Filamu za Afrika</span>
+                                <h4>ON DIFFERENT GROUNDS | Official Trailer</h4>
+                                <a class="movies-video-source" href="https://www.youtube.com/watch?v=qRASROoxDzw" target="_blank" rel="noopener noreferrer">Cinemax Distribution Limited · Fungua chanzo</a>
+                            </div>
+                        </article>
+                        <article class="movies-video-card" id="movie-trailer-swahili">
+                            <iframe class="movies-video-frame" src="https://www.youtube-nocookie.com/embed/UgfXXFZgXbI?rel=0" title="Baba Pilot - trela ya filamu ya Kiswahili kutoka PigiFlix African Stories" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                            <div class="movies-video-copy">
+                                <span class="movies-video-category">Filamu za Kiswahili</span>
+                                <h4>BABA PILOT | Official Trailer</h4>
+                                <a class="movies-video-source" href="https://www.youtube.com/watch?v=UgfXXFZgXbI" target="_blank" rel="noopener noreferrer">PigiFlix – African Stories · Fungua chanzo</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="movies-genres">
+                    <div class="movies-genres-heading">
+                        <h3>Tafuta kwa aina ya filamu</h3>
+                        <p>Chagua kava ili kuruka moja kwa moja kwenye trela husika hapa chini.</p>
+                    </div>
+                    <div class="movies-genre-grid" aria-label="Viungo vya trela kulingana na aina ya filamu">
+                        <a class="movies-genre-link" href="#movie-trailer-action"><img class="movies-genre-cover" src="movies-genre-action.svg" alt="" loading="lazy"><img class="movies-genre-cover movies-genre-live-cover" src="https://img.youtube.com/vi/fiGytCAGIQY/hqdefault.jpg" alt="" loading="lazy"><strong>Action</strong><span>Tazama trela</span></a>
+                        <a class="movies-genre-link" href="#movie-trailer-comedy"><img class="movies-genre-cover" src="movies-genre-comedy.svg" alt="" loading="lazy"><img class="movies-genre-cover movies-genre-live-cover" src="https://img.youtube.com/vi/-5xzjw_0d_0/hqdefault.jpg" alt="" loading="lazy"><strong>Vichekesho</strong><span>Tazama trela</span></a>
+                        <a class="movies-genre-link" href="#movie-trailer-scifi"><img class="movies-genre-cover" src="movies-genre-scifi.svg" alt="" loading="lazy"><img class="movies-genre-cover movies-genre-live-cover" src="https://img.youtube.com/vi/6ZfuNTqbHE8/hqdefault.jpg" alt="" loading="lazy"><strong>Sayansi bunifu</strong><span>Tazama trela</span></a>
+                        <a class="movies-genre-link" href="#movie-trailer-animation"><img class="movies-genre-cover" src="movies-genre-animation.svg" alt="" loading="lazy"><img class="movies-genre-cover movies-genre-live-cover" src="https://img.youtube.com/vi/a8RHqN93qfo/hqdefault.jpg" alt="" loading="lazy"><strong>Uhuishaji</strong><span>Tazama trela</span></a>
+                        <a class="movies-genre-link" href="#movie-trailer-drama"><img class="movies-genre-cover" src="movies-genre-drama.svg" alt="" loading="lazy"><img class="movies-genre-cover movies-genre-live-cover" src="https://img.youtube.com/vi/fdkwGvMB5zQ/hqdefault.jpg" alt="" loading="lazy"><strong>Drama</strong><span>Tazama trela</span></a>
+                        <a class="movies-genre-link" href="#movie-trailer-adventure"><img class="movies-genre-cover" src="movies-genre-adventure.svg" alt="" loading="lazy"><img class="movies-genre-cover movies-genre-live-cover" src="https://img.youtube.com/vi/NdvqHc56lE0/hqdefault.jpg" alt="" loading="lazy"><strong>Matukio na safari</strong><span>Tazama trela</span></a>
+                        <a class="movies-genre-link" href="#movie-trailer-africa"><img class="movies-genre-cover" src="movies-genre-africa.svg" alt="" loading="lazy"><img class="movies-genre-cover movies-genre-live-cover" src="https://img.youtube.com/vi/qRASROoxDzw/hqdefault.jpg" alt="" loading="lazy"><strong>Filamu za Afrika</strong><span>Tazama trela</span></a>
+                        <a class="movies-genre-link" href="#movie-trailer-swahili"><img class="movies-genre-cover" src="movies-genre-swahili.svg" alt="" loading="lazy"><img class="movies-genre-cover movies-genre-live-cover" src="https://img.youtube.com/vi/UgfXXFZgXbI/hqdefault.jpg" alt="" loading="lazy"><strong>Filamu za Kiswahili</strong><span>Tazama trela</span></a>
+                    </div>
+                </div>
+            </div>
+            <p class="trailers-note">Kava za aina huonyesha picha za video kutoka YouTube; michoro ya asili ya DEAMi hubaki kama msingi iwapo picha ya mtandaoni haipatikani. Bonyeza kava kuruka kwenye trela husika na kagua chanzo kabla ya kutazama. Logo za studio huunganishwa kutoka tovuti rasmi za wamiliki wake. DEAMi Movies ni sehemu ya kugundua trela, si huduma ya kuhifadhi au kuonyesha filamu. Upatikanaji wa video hutegemea chaneli na nchi yako.</p>
+        </section>
+
+        <section id="youtube" class="section">
+            <div class="section-head">
+                <div><p class="section-kicker">05 / YouTube</p><h2>Jifunze kwa kutazama</h2></div>
+                <p class="section-intro">Video iliyoangaziwa inahusu namna ya kujifunza ujuzi mpya. Tumia viungo vya pembeni kutafuta video zaidi za mada nyingine.</p>
+            </div>
+            <div class="youtube-layout">
+                <div>
+                    <iframe class="youtube-frame" src="https://www.youtube-nocookie.com/embed/5MgBikgcWnY" title="The First 20 Hours: How to Learn Anything, mazungumzo ya Josh Kaufman kwenye TEDxCSU" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <p class="source-note">Video hii iko kwa Kiingereza; washa manukuu kwenye YouTube ikiwa yanapatikana.</p>
+                </div>
+                <div class="youtube-links" aria-label="Tafuta video zaidi za YouTube">
+                    <a href="https://www.youtube.com/results?search_query=online+safety+digital+security+education" target="_blank" rel="noopener noreferrer">Usalama wa mtandaoni<span>Tafuta video za usalama wa kidijitali</span></a>
+                    <a href="https://www.youtube.com/results?search_query=environment+protection+reduce+waste+education" target="_blank" rel="noopener noreferrer">Kutunza mazingira<span>Tafuta video kuhusu kupunguza taka na mazingira</span></a>
+                </div>
+            </div>
+            <h3 class="social-heading">Tafuta video za elimu kwenye mitandao mingine</h3>
+            <div class="social-channels" aria-label="Vyanzo vya video za mitandao ya kijamii">
+                <a class="social-channel" href="https://www.tiktok.com/@deami23fast2007" target="_blank" rel="noopener noreferrer"><div class="social-title"><span class="social-mark social-mark-tiktok" aria-hidden="true">&#9835;</span><strong>TikTok</strong></div><span>@deami23fast2007</span></a>
+                <a class="social-channel" href="https://www.youtube.com/@deami23fast" target="_blank" rel="noopener noreferrer"><div class="social-title"><span class="social-mark social-mark-youtube" aria-hidden="true"></span><strong>YouTube</strong></div><span>@deami23fast</span></a>
+                <a class="social-channel" href="https://www.facebook.com/deami" target="_blank" rel="noopener noreferrer"><div class="social-title"><span class="social-mark social-mark-facebook" aria-hidden="true">f</span><strong>Facebook</strong><span class="verified-badge" role="img" aria-label="Akaunti iliyothibitishwa">&#10003;</span></div><span>Denis Mizola · Akaunti iliyothibitishwa</span></a>
+                <a class="social-channel" href="https://www.instagram.com/deami23fast/" target="_blank" rel="noopener noreferrer"><div class="social-title"><span class="social-mark social-mark-instagram" aria-hidden="true">&#9678;</span><strong>Instagram</strong></div><span>@deami23fast</span></a>
+                <a class="social-channel" href="https://www.linkedin.com/in/deami23fast/" target="_blank" rel="noopener noreferrer"><div class="social-title"><span class="social-mark social-mark-linkedin" aria-hidden="true">in</span><strong>LinkedIn</strong></div><span>deami23fast</span></a>
+                <a class="social-channel" href="https://x.com/deami23fast" target="_blank" rel="noopener noreferrer"><div class="social-title"><span class="social-mark social-mark-x" aria-hidden="true">X</span><strong>X</strong></div><span>@deami23fast</span></a>
+                <a class="social-channel" href="https://www.pinterest.com/deami23fast/" target="_blank" rel="noopener noreferrer"><div class="social-title"><span class="social-mark social-mark-pinterest" aria-hidden="true">P</span><strong>Pinterest</strong></div><span>deami23fast</span></a>
+            </div>
+            <p class="source-note">Viungo hivi hufungua matokeo ya utafutaji ya kila jukwaa. Baadhi ya majukwaa yanaweza kuhitaji kuingia ili kuona maudhui yote; usitoe nywila yako kupitia kiungo usichokiamini.</p>
+        </section>
+
+        <section id="nyaraka" class="section">
+            <div class="section-head">
+                <div><p class="section-kicker">06 / Pakua</p><h2>Miongozo ya kupakua</h2></div>
+                <p class="section-intro">Hifadhi nakala za maandishi kwenye kifaa chako na uzisome baadaye.</p>
+            </div>
+            <div class="download-list">
+                <article class="download-band">
+                    <div><h3>Mbinu za kujifunza</h3><p>Mwongozo wa maandishi · Elimu</p></div>
+                    <a href="mwongozo_kujifunza.txt" class="button" download><span aria-hidden="true">↓</span> Pakua TXT</a>
+                </article>
+                <article class="download-band">
+                    <div><h3>Usalama wa mtandaoni</h3><p>Mwongozo wa maandishi · Teknolojia</p></div>
+                    <div class="gallery-actions">
+                        <a href="mwongozo_usalama_dijitali.html" class="gallery-text-link">Soma mwongozo</a>
+                        <a href="mwongozo_usalama_dijitali.txt" class="button" download><span aria-hidden="true">↓</span> Pakua TXT</a>
+                    </div>
+                </article>
+                <article class="download-band">
+                    <div><h3>Kutunza mazingira</h3><p>Mwongozo wa maandishi · Mazingira</p></div>
+                    <div class="gallery-actions">
+                        <a href="mwongozo_mazingira.html" class="gallery-text-link">Soma mwongozo</a>
+                        <a href="mwongozo_mazingira.txt" class="button" download><span aria-hidden="true">↓</span> Pakua TXT</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer><p>&copy; 2026 DEAMi Web. Haki zote zimehifadhiwa.</p></footer>
+    <script src="internal-video-player.js" defer></script>
+    <script src="ads.js" defer></script>
+    <script>
+        const backgroundThemes = ["sunset", "meadow", "default"];
+        let backgroundThemeIndex = 0;
+
+        window.setInterval(() => {
+            const nextTheme = backgroundThemes[backgroundThemeIndex];
+            if (nextTheme === "default") {
+                document.body.removeAttribute("data-theme");
+            } else {
+                document.body.dataset.theme = nextTheme;
+            }
+            backgroundThemeIndex = (backgroundThemeIndex + 1) % backgroundThemes.length;
+        }, 60_000);
+
+        const informationItems = [
+            {
+                category: "Elimu",
+                title: "Jifunze kwa vipindi vifupi",
+                copy: "Gawa mada kubwa katika vipande vidogo, kisha jaribu kukumbuka ulichojifunza bila kuangalia majibu. Kurudia baada ya muda husaidia kuimarisha kumbukumbu.",
+                link: "https://www.learningscientists.org/downloadable-materials",
+                linkText: "Soma zaidi kuhusu mbinu za kujifunza"
+            },
+            {
+                category: "Usalama wa kidijitali",
+                title: "Tumia nenosiri tofauti kwa kila akaunti",
+                copy: "Nenosiri refu na la kipekee hupunguza madhara ya akaunti moja ikivamiwa. Washa uthibitishaji wa hatua mbili pale unapopatikana, na usimpe mtu mwingine misimbo yako.",
+                link: "https://www.cisa.gov/secure-our-world",
+                linkText: "Soma ushauri wa CISA kuhusu usalama"
+            },
+            {
+                category: "Mazingira",
+                title: "Punguza taka kabla hazijazalishwa",
+                copy: "Tumia tena vitu vinavyofaa, panga ununuzi na tenganisha taka kulingana na huduma za eneo lako. Hatua ndogo zinazofanywa mara kwa mara huleta tofauti.",
+                link: "https://www.unep.org/explore-topics/resource-efficiency",
+                linkText: "Soma zaidi kuhusu matumizi endelevu"
+            }
+        ];
+        let informationIndex = 0;
+        let informationPaused = false;
+
+        const informationCategory = document.getElementById("info-category");
+        const informationTitle = document.getElementById("info-title");
+        const informationCopy = document.getElementById("info-copy");
+        const informationSource = document.getElementById("info-source");
+        const informationCount = document.getElementById("info-count");
+        const informationToggle = document.getElementById("info-toggle");
+
+        function showInformation(index) {
+            informationIndex = (index + informationItems.length) % informationItems.length;
+            const information = informationItems[informationIndex];
+
+            informationCategory.textContent = information.category;
+            informationTitle.textContent = information.title;
+            informationCopy.textContent = information.copy;
+            informationSource.href = information.link;
+            informationSource.textContent = information.linkText;
+            informationCount.textContent = `${informationIndex + 1} / ${informationItems.length}`;
+        }
+
+        document.getElementById("info-previous").addEventListener("click", () => {
+            showInformation(informationIndex - 1);
+        });
+        document.getElementById("info-next").addEventListener("click", () => {
+            showInformation(informationIndex + 1);
+        });
+        informationToggle.addEventListener("click", () => {
+            informationPaused = !informationPaused;
+            informationToggle.textContent = informationPaused ? "Endeleza" : "Sitisha";
+            informationToggle.setAttribute("aria-pressed", String(informationPaused));
+        });
+
+        window.setInterval(() => {
+            if (!informationPaused && !document.hidden) {
+                showInformation(informationIndex + 1);
+            }
+        }, 10_000);
+
+        const siteSearchItems = [
+            { title: "Taarifa na habari", description: "Vidokezo vya elimu, usalama wa kidijitali na mazingira.", href: "q.html#taarifa", keywords: "habari elimu usalama kidijitali mazingira taarifa" },
+            { title: "Vyanzo vya habari na DEAMi Ai", description: "BBC, Al Jazeera, Wasafi Media, DW, VOA, The Citizen na DEAMi Ai.", href: "q.html#vyanzo", keywords: "bbc al jazeera aljazeera wasafi media habari news dw kiswahili voa the citizen gemini ai deami" },
+            { title: "Timu, vikosi na matokeo ya ligi", description: "Tanzania, Kenya, Uganda na England: klabu, vikosi, ratiba na matokeo.", href: "michezo.html#klabu", keywords: "timu klabu teams clubs vikosi kikosi ratiba matokeo msimamo ligi kuu tanzania kenya uganda england premier league sportpesa" },
+            { title: "DEAMi LiveScore", description: "Angalia msimamo wa NBC Premier League Tanzania na timu inayoongoza.", href: "michezo.html#deami-livescore", keywords: "deami livescore live score msimamo jedwali ligi kuu tanzania kiongozi pointi" },
+            { title: "Michezo ya dunia", description: "Soka, basketball, cricket, rugby, riadha na viungo rasmi vya mashirikisho.", href: "michezo.html", keywords: "michezo sports soka mpira football fifa caf uefa basketball fiba cricket rugby riadha athletics olympics" },
+            { title: "FawaSport", description: "Ukurasa wa channel ya michezo DEAMi na taarifa za upatikanaji wake.", href: "fawasport.html", keywords: "fawasport fawa sport channel tv dstv startimes zuku" },
+            { title: "Matunzio ya picha", description: "Picha na miongozo ya mada mbalimbali.", href: "q.html#picha", keywords: "picha matunzio gallery elimu teknolojia mazingira" },
+            { title: "D-link Shorts", description: "Tazama, shiriki na pakia video fupi kwenye D-link.", href: "q.html#shorts", keywords: "shorts video fupi dlink pakia tazama" },
+            { title: "DEAMi Ai", description: "Uliza maswali na pata msaada wa kujifunza kwa Kiswahili.", href: "Ai.html", keywords: "deami ai akili bandia chat msaidizi maswali majibu gemini" },
+            { title: "Video za YouTube", description: "Video za kujifunza na viungo vya mada nyingine.", href: "q.html#youtube", keywords: "video youtube kujifunza masomo" },
+            { title: "DEAMi Movies", description: "Tafuta trela za filamu na chagua chaneli rasmi ya studio.", href: "q.html#trela", keywords: "deami movies filamu movie movies trela trailer trailers universal warner sony marvel" },
+            { title: "Habari zijazo", description: "Fuatilia habari mpya kupitia vyanzo na ratiba za michezo.", href: "q.html#habari-zijazo", keywords: "habari zijazo upcoming news tanzania africa taarifa ratiba" },
+            { title: "Miongozo ya kupakua", description: "Miongozo ya elimu, usalama mtandaoni na mazingira.", href: "q.html#nyaraka", keywords: "pakua mwongozo nyaraka elimu usalama mazingira" },
+            { title: "Mwongozo wa kujifunza", description: "Mbinu, mpango wa wiki na video za kujifunza.", href: "mwongozo_kujifunza.html", keywords: "kujifunza masomo shule ratiba mitihani kusoma" },
+            { title: "Historia ya Yanga SC", description: "Mataji ya ligi, historia na safari ya Yanga barani Afrika.", href: "yanga.html", keywords: "yanga yanga sc young africans ligi mataji mpira football" },
+            { title: "Historia ya Simba SC", description: "Historia ya Simba na mafanikio yake Tanzania na Afrika.", href: "simba.html", keywords: "simba simba sc ligi mataji mpira football caf" },
+            { title: "Azam FC", description: "Historia, mafanikio, takwimu za ligi na taarifa za kikosi cha Azam.", href: "azam.html", keywords: "azam azam fc wana lambalamba chamazi ligi kikosi wachezaji" }
+        ];
+
+        const externalSearchSites = [
+            { title: "Google", description: "Tafuta wavuti nzima", query: query => query, url: query => `https://www.google.com/search?q=${encodeURIComponent(query)}` },
+            { title: "Bing", description: "Tafuta taarifa kwenye wavuti", query: query => query, url: query => `https://www.bing.com/search?q=${encodeURIComponent(query)}` },
+            { title: "YouTube", description: "Tafuta video zinazohusiana", query: query => query, url: query => `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}` },
+            { title: "CAF", description: "Tafuta kwenye tovuti ya soka la Afrika", query: query => `site:cafonline.com ${query}`, url: query => `https://www.google.com/search?q=${encodeURIComponent(query)}` },
+            { title: "TFF", description: "Tafuta taarifa za soka Tanzania", query: query => `site:tff.or.tz ${query}`, url: query => `https://www.google.com/search?q=${encodeURIComponent(query)}` },
+            { title: "UNESCO", description: "Tafuta nyenzo za elimu", query: query => `site:unesco.org ${query}`, url: query => `https://www.google.com/search?q=${encodeURIComponent(query)}` }
+        ];
+
+        const siteSearchForm = document.getElementById("site-search-form");
+        const siteSearchInput = document.getElementById("site-search-input");
+        const siteSearchResults = document.getElementById("site-search-results");
+        let wikipediaSearchTimer;
+        let wikipediaSearchController;
+        let wikipediaSearchSequence = 0;
+
+        function normalizeSearchText(value) {
+            return value.toLocaleLowerCase("sw").normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+        }
+
+        function renderSiteSearch(query) {
+            const searchTerms = normalizeSearchText(query).split(/\s+/).filter(Boolean);
+            siteSearchResults.replaceChildren();
+            window.clearTimeout(wikipediaSearchTimer);
+            if (wikipediaSearchController) wikipediaSearchController.abort();
+            wikipediaSearchSequence += 1;
+            const requestSequence = wikipediaSearchSequence;
+
+            if (!searchTerms.length) {
+                siteSearchResults.hidden = true;
+                return;
+            }
+
+            const matches = siteSearchItems.filter(item => {
+                const searchableText = normalizeSearchText(`${item.title} ${item.description} ${item.keywords}`);
+                return searchTerms.every(term => searchableText.includes(term));
+            }).slice(0, 7);
+
+            const localHeading = document.createElement("p");
+            localHeading.className = "search-section-label";
+            localHeading.textContent = "Kurasa za DEAMi Web";
+            siteSearchResults.append(localHeading);
+
+            if (!matches.length) {
+                const emptyMessage = document.createElement("p");
+                emptyMessage.className = "search-empty";
+                emptyMessage.textContent = "Hakuna ukurasa wa ndani uliopatikana kwa neno hili.";
+                siteSearchResults.append(emptyMessage);
+            } else {
+                for (const item of matches) {
+                    const resultLink = document.createElement("a");
+                    const resultTitle = document.createElement("strong");
+                    const resultDescription = document.createElement("span");
+
+                    resultLink.href = item.href;
+                    resultTitle.textContent = item.title;
+                    resultDescription.textContent = item.description;
+                    resultLink.append(resultTitle, resultDescription);
+                    siteSearchResults.append(resultLink);
+                }
+            }
+
+            const wikipediaHeading = document.createElement("p");
+            wikipediaHeading.className = "search-section-label";
+            wikipediaHeading.textContent = "Makala za Wikipedia ya Kiswahili";
+            siteSearchResults.append(wikipediaHeading);
+
+            const wikipediaStatus = document.createElement("p");
+            wikipediaStatus.className = "search-empty";
+            wikipediaStatus.textContent = "Inatafuta makala zinazohusiana...";
+            siteSearchResults.append(wikipediaStatus);
+
+            const webHeading = document.createElement("p");
+            webHeading.className = "search-section-label";
+            webHeading.textContent = "Tafuta taarifa zaidi kwenye wavuti";
+            siteSearchResults.append(webHeading);
+
+            for (const searchSite of externalSearchSites) {
+                const resultLink = document.createElement("a");
+                const resultTitle = document.createElement("strong");
+                const resultDescription = document.createElement("span");
+                const searchQuery = searchSite.query(query.trim());
+
+                resultLink.href = searchSite.url(searchQuery);
+                resultLink.target = "_blank";
+                resultLink.rel = "noopener noreferrer";
+                resultTitle.textContent = `${searchSite.title}: ${query.trim()}`;
+                resultDescription.textContent = searchSite.description;
+                resultLink.append(resultTitle, resultDescription);
+                siteSearchResults.append(resultLink);
+            }
+
+            siteSearchResults.hidden = false;
+
+            wikipediaSearchTimer = window.setTimeout(async () => {
+                const controller = new AbortController();
+                wikipediaSearchController = controller;
+                const endpoint = new URL("https://sw.wikipedia.org/w/api.php");
+                endpoint.search = new URLSearchParams({
+                    action: "query",
+                    list: "search",
+                    srsearch: query.trim(),
+                    format: "json",
+                    origin: "*",
+                    srlimit: "3"
+                });
+
+                try {
+                    const response = await fetch(endpoint, { signal: controller.signal });
+                    if (!response.ok) throw new Error("Wikipedia search unavailable");
+                    const data = await response.json();
+                    if (requestSequence !== wikipediaSearchSequence) return;
+
+                    wikipediaStatus.remove();
+                    const articles = data.query?.search ?? [];
+                    if (!articles.length) {
+                        wikipediaStatus.textContent = "Hakuna makala za Kiswahili zilizopatikana. Tumia viungo vya wavuti hapa chini.";
+                        siteSearchResults.insertBefore(wikipediaStatus, webHeading);
+                        return;
+                    }
+
+                    for (const article of articles) {
+                        const articleLink = document.createElement("a");
+                        const articleTitle = document.createElement("strong");
+                        const articleSnippet = document.createElement("span");
+                        const articleUrl = article.title.replace(/ /g, "_");
+                        const snippetText = new DOMParser().parseFromString(article.snippet, "text/html").body.textContent;
+
+                        articleLink.href = `https://sw.wikipedia.org/wiki/${encodeURIComponent(articleUrl)}`;
+                        articleLink.target = "_blank";
+                        articleLink.rel = "noopener noreferrer";
+                        articleTitle.textContent = article.title;
+                        articleSnippet.className = "search-snippet";
+                        articleSnippet.textContent = snippetText;
+                        articleLink.append(articleTitle, articleSnippet);
+                        siteSearchResults.insertBefore(articleLink, webHeading);
+                    }
+                } catch (error) {
+                    if (error.name === "AbortError" || requestSequence !== wikipediaSearchSequence) return;
+                    wikipediaStatus.textContent = "Makala za Wikipedia hazikupatikana kwa sasa. Tumia viungo vya wavuti hapa chini.";
+                    siteSearchResults.insertBefore(wikipediaStatus, webHeading);
+                }
+            }, 350);
+        }
+
+        siteSearchInput.addEventListener("input", () => renderSiteSearch(siteSearchInput.value));
+        siteSearchForm.addEventListener("submit", event => {
+            event.preventDefault();
+            renderSiteSearch(siteSearchInput.value);
+        });
+
+        const moviesSearchInput = document.getElementById("movies-search");
+        const moviesFilterButtons = [...document.querySelectorAll("[data-movie-filter]")];
+        const movieCards = [...document.querySelectorAll(".trailer-card[data-studio]")];
+        const moviesEmptyMessage = document.getElementById("movies-empty");
+        let selectedMovieStudio = "all";
+
+        function filterMovies() {
+            const searchTerms = normalizeSearchText(moviesSearchInput.value);
+            let visibleCards = 0;
+
+            for (const card of movieCards) {
+                const studioMatches = selectedMovieStudio === "all" || card.dataset.studio === selectedMovieStudio;
+                const textMatches = !searchTerms || normalizeSearchText(card.textContent).includes(searchTerms);
+                const isVisible = studioMatches && textMatches;
+                card.hidden = !isVisible;
+                if (isVisible) visibleCards += 1;
+            }
+
+            moviesEmptyMessage.hidden = visibleCards !== 0;
+        }
+
+        moviesSearchInput.addEventListener("input", filterMovies);
+        for (const filterButton of moviesFilterButtons) {
+            filterButton.addEventListener("click", () => {
+                selectedMovieStudio = filterButton.dataset.movieFilter;
+                for (const button of moviesFilterButtons) {
+                    button.setAttribute("aria-pressed", String(button === filterButton));
+                }
+                filterMovies();
+            });
+        }
+
+        const reducedMotionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+        if (!reducedMotionPreference.matches && "IntersectionObserver" in window) {
+            const revealElements = document.querySelectorAll(
+                ".section-head, .story, .news-sources, .upcoming-news-grid, .decoder-promo, .sports-feature, .game-platform-feature, .gallery-grid, .shorts-layout, .video-section, .trailers-grid, .youtube-layout, .download-band"
+            );
+            const revealObserver = new IntersectionObserver(entries => {
+                for (const entry of entries) {
+                    if (!entry.isIntersecting) continue;
+                    entry.target.classList.add("is-visible");
+                    revealObserver.unobserve(entry.target);
+                }
+            }, { threshold: 0.12 });
+
+            document.body.classList.add("motion-ready");
+            for (const element of revealElements) {
+                element.dataset.reveal = "";
+                revealObserver.observe(element);
+            }
+        }
+    </script>
+    <script src="deami-context.js" defer></script>
+</body>
+</html>

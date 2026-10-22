@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="D-gamegape ni jukwaa la michezo ya browser: chagua mchezo na anza kucheza.">
+	<meta name="theme-color" content="#090b12">
+	<title>D-gamegape | Cheza sasa</title>
+	<style>
+		:root {
+			color-scheme: dark;
+			--bg: #090b12;
+			--panel: #121622;
+			--panel-light: #1a2030;
+			--ink: #f5f7ff;
+			--muted: #9ca6bd;
+			--line: rgba(214, 225, 255, .12);
+			--lime: #d5ff49;
+			--violet: #a88cff;
+			--cyan: #6ce8fa;
+			--radius: 22px;
+		}
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body {
+			margin: 0;
+			min-height: 100vh;
+			background:
+				radial-gradient(ellipse at 75% 0%, rgba(103, 80, 192, .22), transparent 38rem),
+				radial-gradient(ellipse at 0% 45%, rgba(33, 151, 165, .10), transparent 34rem),
+				var(--bg);
+			color: var(--ink);
+			font-family: Inter, "Segoe UI", Arial, sans-serif;
+		}
+		button, input { font: inherit; }
+		a { color: inherit; }
+		button:focus-visible, a:focus-visible, input:focus-visible, [tabindex="0"]:focus-visible {
+			outline: 3px solid var(--lime);
+			outline-offset: 3px;
+		}
+		.shell { width: min(1240px, calc(100% - 40px)); margin: auto; }
+		.topbar {
+			position: sticky;
+			top: 0;
+			z-index: 5;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			min-height: 76px;
+			gap: 20px;
+			border-bottom: 1px solid var(--line);
+			background: rgba(9, 11, 18, .82);
+			backdrop-filter: blur(18px);
+		}
+		.brand { display: flex; align-items: center; gap: 11px; font-weight: 900; letter-spacing: -.04em; text-decoration: none; }
+		.brand-icon {
+			display: grid;
+			width: 40px;
+			aspect-ratio: 1;
+			place-items: center;
+			border-radius: 13px;
+			background: var(--lime);
+			color: #11150a;
+			font-size: 1.35rem;
+			box-shadow: 0 0 30px rgba(213, 255, 73, .24);
+		}
+		.brand-name { font-size: 1.15rem; }
+		.brand-name span { color: var(--lime); }
+		.header-actions { display: flex; align-items: center; gap: 12px; }
+		.back-link, .profile-chip {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 42px;
+			padding: 0 15px;
+			border: 1px solid var(--line);
+			border-radius: 999px;
+			background: rgba(255, 255, 255, .04);
+			color: var(--ink);
+			font-size: .9rem;
+			font-weight: 700;
+			text-decoration: none;
+		}
+		.profile-chip { width: 42px; padding: 0; border-color: rgba(213, 255, 73, .3); color: var(--lime); }
+		.hero {
+			position: relative;
+			display: grid;
+			min-height: 410px;
+			grid-template-columns: 1.1fr .9fr;
+			align-items: center;
+			gap: 30px;
+			margin: 36px 0 46px;
+			padding: clamp(26px, 5vw, 58px);
+			overflow: hidden;
+			border: 1px solid rgba(195, 183, 255, .2);
+			border-radius: 30px;
+			background:
+				radial-gradient(circle at 78% 52%, rgba(112, 76, 230, .38), transparent 27%),
+				linear-gradient(115deg, #171c2d 0%, #151a2b 48%, #20213c 100%);
+			box-shadow: 0 26px 80px rgba(0, 0, 0, .28);
+		}
+		.hero::after {
+			position: absolute;
+			right: 7%;
+			bottom: -46%;
+			width: 420px;
+			aspect-ratio: 1;
+			border: 1px solid rgba(213, 255, 73, .17);
+			border-radius: 50%;
+			box-shadow: 0 0 0 36px rgba(213, 255, 73, .025), 0 0 0 76px rgba(213, 255, 73, .02);
+			content: "";
+			pointer-events: none;
+		}
+		.hero-copy, .hero-art { position: relative; z-index: 1; }
+		.eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--lime); font-size: .77rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+		.live-dot { width: 8px; aspect-ratio: 1; border-radius: 50%; background: var(--lime); box-shadow: 0 0 14px var(--lime); }
+		h1 { max-width: 650px; margin: 15px 0 14px; font-size: clamp(2.55rem, 6vw, 5rem); line-height: .98; letter-spacing: -.07em; }
+		h1 span { color: var(--lime); }
+		.hero-copy p { max-width: 540px; margin: 0; color: #b9c1d4; font-size: 1.04rem; line-height: 1.7; }
+		.hero-buttons { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 28px; }
+		.primary-button, .secondary-button {
+			min-height: 49px;
+			padding: 0 20px;
+			border: 0;
+			border-radius: 12px;
+			font-weight: 900;
+			cursor: pointer;
+			transition: transform .18s ease, filter .18s ease;
+		}
+		.primary-button { background: var(--lime); color: #14180b; box-shadow: 0 8px 24px rgba(213, 255, 73, .16); }
+		.secondary-button { border: 1px solid var(--line); background: rgba(255, 255, 255, .05); color: var(--ink); }
+		.primary-button:hover, .secondary-button:hover { transform: translateY(-2px); filter: brightness(1.08); }
+		.hero-art { display: grid; min-height: 265px; place-items: center; }
+		.orbit {
+			position: relative;
+			display: grid;
+			width: min(300px, 75vw);
+			aspect-ratio: 1;
+			place-items: center;
+			border: 1px solid rgba(255, 255, 255, .14);
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(168, 140, 255, .19), transparent 67%);
+			box-shadow: inset 0 0 60px rgba(168, 140, 255, .08), 0 0 80px rgba(168, 140, 255, .12);
+		}
+		.orbit::before, .orbit::after { position: absolute; inset: 9%; border: 1px dashed rgba(255, 255, 255, .15); border-radius: 50%; content: ""; }
+		.orbit::after { inset: 21%; border-style: solid; border-color: rgba(213, 255, 73, .18); }
+		.hero-controller {
+			position: relative;
+			z-index: 1;
+			display: grid;
+			width: 150px;
+			height: 100px;
+			place-items: center;
+			border: 1px solid rgba(255, 255, 255, .28);
+			border-radius: 40px 40px 48px 48px;
+			background: linear-gradient(145deg, #d7d9e3, #737a94);
+			color: #171a27;
+			font-size: 2.4rem;
+			transform: rotate(-13deg);
+			box-shadow: 0 24px 45px rgba(0, 0, 0, .38);
+		}
+		.float-tag { position: absolute; padding: 8px 11px; border: 1px solid var(--line); border-radius: 10px; background: #20263a; color: #dce2f2; font-size: .72rem; font-weight: 800; }
+		.tag-one { top: 12%; right: 2%; transform: rotate(8deg); }
+		.tag-two { bottom: 13%; left: 2%; color: var(--lime); transform: rotate(-7deg); }
+		.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin: 0 0 20px; }
+		.section-heading h2 { margin: 0; font-size: clamp(1.55rem, 3vw, 2rem); letter-spacing: -.045em; }
+		.section-heading p { margin: 6px 0 0; color: var(--muted); }
+		.search-box { width: min(260px, 100%); }
+		.search-box input { width: 100%; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 12px; background: #111520; color: var(--ink); }
+		.filters { display: flex; flex-wrap: wrap; gap: 9px; margin: 0 0 21px; }
+		.filter-button { min-height: 37px; padding: 0 15px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font-size: .86rem; font-weight: 800; cursor: pointer; }
+		.filter-button[aria-pressed="true"] { border-color: rgba(213, 255, 73, .45); background: rgba(213, 255, 73, .11); color: var(--lime); }
+		.game-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 17px; }
+		.game-card {
+			position: relative;
+			display: flex;
+			min-height: 318px;
+			flex-direction: column;
+			padding: 13px;
+			overflow: hidden;
+			border: 1px solid var(--line);
+			border-radius: var(--radius);
+			background: linear-gradient(150deg, rgba(27, 33, 49, .97), rgba(17, 21, 32, .98));
+			transition: transform .2s ease, border-color .2s ease;
+		}
+		.game-card:hover { transform: translateY(-5px); border-color: rgba(213, 255, 73, .38); }
+		.game-card[hidden] { display: none; }
+		.game-art { position: relative; display: grid; min-height: 172px; place-items: center; overflow: hidden; border-radius: 15px; }
+		.game-art::before, .game-art::after { position: absolute; width: 160px; aspect-ratio: 1; border: 1px solid rgba(255, 255, 255, .12); border-radius: 50%; content: ""; }
+		.game-art::after { width: 220px; }
+		.art-snake { background: radial-gradient(circle at 50% 70%, rgba(76, 235, 142, .32), transparent 50%), linear-gradient(135deg, #173a3b, #172337); }
+		.art-memory { background: radial-gradient(circle at 50% 70%, rgba(245, 107, 195, .25), transparent 55%), linear-gradient(135deg, #392343, #22233b); }
+		.art-ttt { background: radial-gradient(circle at 50% 60%, rgba(103, 193, 255, .3), transparent 55%), linear-gradient(135deg, #18334a, #24243e); }
+		.art-duel { background: radial-gradient(circle at 50% 60%, rgba(255, 192, 74, .23), transparent 55%), linear-gradient(135deg, #44301c, #28213a); }
+		.art-platform { background: radial-gradient(circle at 50% 70%, rgba(213, 255, 73, .24), transparent 53%), linear-gradient(135deg, #265247, #193044); }
+		.art-arena { background: radial-gradient(circle at 50% 60%, rgba(255, 105, 123, .27), transparent 55%), linear-gradient(135deg, #4a243b, #262347); }
+		.game-symbol { position: relative; z-index: 1; font-size: 4.2rem; filter: drop-shadow(0 12px 18px rgba(0, 0, 0, .35)); }
+		.card-tag { position: absolute; top: 12px; left: 12px; z-index: 2; padding: 6px 9px; border-radius: 999px; background: rgba(7, 10, 16, .7); color: #e4e9f6; font-size: .68rem; font-weight: 900; letter-spacing: .05em; text-transform: uppercase; }
+		.card-content { display: flex; flex: 1; flex-direction: column; padding: 15px 4px 3px; }
+		.card-content h3 { margin: 0; font-size: 1.13rem; }
+		.card-content p { min-height: 42px; margin: 8px 0 15px; color: var(--muted); font-size: .88rem; line-height: 1.5; }
+		.card-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
+		.game-meta { color: #b8c1d5; font-size: .78rem; font-weight: 700; }
+		.play-button { min-height: 38px; padding: 0 13px; border: 1px solid rgba(213, 255, 73, .3); border-radius: 10px; background: rgba(213, 255, 73, .1); color: var(--lime); font-size: .82rem; font-weight: 900; cursor: pointer; }
+		.play-button:hover { background: var(--lime); color: #12160a; }
+		.no-results { grid-column: 1 / -1; padding: 40px 20px; border: 1px dashed var(--line); border-radius: 16px; color: var(--muted); text-align: center; }
+		.library-section { margin: 42px 0 0; padding: clamp(20px, 4vw, 32px); border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(145deg, rgba(25, 31, 47, .88), rgba(16, 20, 31, .94)); }
+		.library-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+		.library-head h2 { margin: 0; font-size: 1.5rem; letter-spacing: -.04em; }
+		.library-head p { margin: 6px 0 0; color: var(--muted); line-height: 1.5; }
+		.library-add { flex: 0 0 auto; }
+		.library-status { min-height: 24px; margin: 12px 0 0; color: var(--muted); font-size: .87rem; line-height: 1.5; }
+		.library-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 235px), 1fr)); gap: 11px; margin-top: 17px; }
+		.library-game { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; padding: 13px; border: 1px solid var(--line); border-radius: 13px; background: rgba(255, 255, 255, .025); }
+		.library-game-name { min-width: 0; overflow-wrap: anywhere; font-size: .91rem; font-weight: 800; }
+		.library-game-actions { display: flex; flex: 0 0 auto; gap: 7px; }
+		.library-game-actions button { min-height: 35px; padding: 0 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel-light); color: var(--ink); font-size: .78rem; font-weight: 800; cursor: pointer; }
+		.library-game-actions [data-library-play] { border-color: rgba(213, 255, 73, .35); color: var(--lime); }
+		.console-note { margin-top: 22px; padding: 17px; border: 1px solid rgba(255, 192, 74, .19); border-radius: 14px; background: rgba(255, 192, 74, .045); }
+		.console-note h3 { margin: 0 0 8px; font-size: 1rem; }
+		.console-note p { margin: 0; color: var(--muted); font-size: .86rem; line-height: 1.6; }
+		.console-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 13px; }
+		.console-chip { padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; color: #dce2f2; font-size: .78rem; font-weight: 800; }
+		.console-chip.available { border-color: rgba(213, 255, 73, .35); color: var(--lime); }
+		.emulator-panel { margin-top: 18px; padding: 17px; border: 1px solid rgba(108, 232, 250, .19); border-radius: 15px; background: rgba(108, 232, 250, .035); }
+		.emulator-panel h3 { margin: 0; font-size: 1rem; }
+		.emulator-panel > p { margin: 8px 0 15px; color: var(--muted); font-size: .85rem; line-height: 1.6; }
+		.emulator-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+		.emulator-field { display: grid; gap: 7px; min-width: 0; color: #e1e7f4; font-size: .82rem; font-weight: 800; }
+		.emulator-field input[type="file"] { width: 100%; min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 10px; background: #111520; color: var(--muted); font-size: .77rem; }
+		.emulator-consent { display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; color: #c1c9dc; font-size: .82rem; line-height: 1.5; }
+		.emulator-consent input { flex: 0 0 auto; width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--lime); }
+		.emulator-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+		.emulator-actions .primary-button { min-height: 43px; }
+		.emulator-status { min-height: 22px; margin: 13px 0 0 !important; color: var(--muted); font-size: .82rem; }
+		.emulator-status[data-error="true"] { color: #ff9aa7; }
+		.emulator-status[data-success="true"] { color: var(--lime); }
+		.game-frame { display: block; width: 100%; min-height: min(65vh, 620px); border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+		.feature-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 45px 0 64px; }
+		.feature { padding: 19px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255, 255, 255, .025); }
+		.feature strong { display: block; margin-bottom: 6px; font-size: .94rem; }
+		.feature span { color: var(--muted); font-size: .83rem; line-height: 1.5; }
+		footer { padding: 22px 0 30px; border-top: 1px solid var(--line); color: var(--muted); font-size: .83rem; }
+		footer .shell { display: flex; justify-content: space-between; gap: 18px; }
+		dialog {
+			width: min(620px, calc(100% - 24px));
+			max-height: min(88vh, 760px);
+			padding: 0;
+			overflow: auto;
+			border: 1px solid rgba(213, 255, 73, .23);
+			border-radius: 22px;
+			background: #10141f;
+			color: var(--ink);
+			box-shadow: 0 30px 100px rgba(0, 0, 0, .72);
+		}
+		dialog::backdrop { background: rgba(3, 5, 10, .78); backdrop-filter: blur(8px); }
+		.dialog-head { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 17px 20px; border-bottom: 1px solid var(--line); background: rgba(16, 20, 31, .96); }
+		.dialog-head h2 { margin: 0; font-size: 1.1rem; }
+		.close-button { width: 38px; aspect-ratio: 1; border: 1px solid var(--line); border-radius: 11px; background: var(--panel-light); color: var(--ink); font-size: 1.3rem; cursor: pointer; }
+		.game-stage { min-height: 280px; padding: 20px; }
+		.game-instructions { margin: 0 0 15px; color: var(--muted); font-size: .9rem; line-height: 1.55; }
+		.game-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+		.game-toolbar strong { color: var(--lime); }
+		.stage-button { min-height: 39px; padding: 0 13px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-light); color: var(--ink); font-weight: 800; cursor: pointer; }
+		.stage-button.primary { border-color: var(--lime); background: var(--lime); color: #11150a; }
+		.snake-wrap { display: grid; place-items: center; gap: 13px; }
+		#snake-canvas { width: min(100%, 360px); aspect-ratio: 1; border: 1px solid var(--line); border-radius: 14px; background: #0b1118; image-rendering: pixelated; }
+		#platform-canvas { display: block; width: 100%; border: 1px solid var(--line); border-radius: 14px; background: #101a2a; }
+		.platform-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px; touch-action: none; }
+		.platform-controls button { min-width: 54px; min-height: 44px; border: 1px solid var(--line); border-radius: 11px; background: var(--panel-light); color: var(--ink); font-size: 1rem; font-weight: 900; touch-action: none; }
+		.platform-controls [data-platform-control="jump"] { min-width: 104px; border-color: rgba(213, 255, 73, .4); color: var(--lime); }
+		.arena-fighters { display: flex; align-items: center; justify-content: space-around; min-height: 150px; margin: 14px 0; border: 1px solid var(--line); border-radius: 16px; background: radial-gradient(ellipse, rgba(168, 140, 255, .12), transparent 70%); }
+		.arena-fighter { display: grid; width: 92px; aspect-ratio: 1; place-items: center; border: 1px solid rgba(255, 255, 255, .14); border-radius: 28px; background: linear-gradient(145deg, #31364f, #1a2031); font-size: 2.8rem; transition: transform .15s ease, filter .15s ease; }
+		.arena-fighter.player-hit { transform: translateX(-10px); filter: brightness(1.8); }
+		.arena-fighter.cpu-hit { transform: translateX(10px); filter: brightness(1.8); }
+		.arena-vs { color: var(--lime); font-size: .8rem; font-weight: 900; letter-spacing: .12em; }
+		.health-track { height: 11px; margin: 5px 0 13px; overflow: hidden; border-radius: 99px; background: #34394a; }
+		.health-fill { width: 100%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #73e39c, #d5ff49); transition: width .2s ease; }
+		.health-fill.cpu { background: linear-gradient(90deg, #ffbd67, #ff7189); }
+		.arena-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; }
+		.arena-actions .stage-button { min-width: 100px; }
+		.gamepad-hint { margin: 0 0 14px; padding: 10px 12px; border: 1px solid rgba(108, 232, 250, .18); border-radius: 10px; background: rgba(108, 232, 250, .06); color: #c4dbe5; font-size: .8rem; line-height: 1.45; }
+		.gamepad-hint[data-connected="true"] { border-color: rgba(213, 255, 73, .35); color: var(--lime); }
+		.direction-pad { display: grid; grid-template-columns: repeat(3, 46px); grid-template-rows: repeat(2, 40px); gap: 5px; }
+		.direction-pad button { border: 1px solid var(--line); border-radius: 9px; background: var(--panel-light); color: var(--ink); font-size: 1rem; cursor: pointer; }
+		.direction-pad [data-dir="up"] { grid-column: 2; }
+		.direction-pad [data-dir="left"] { grid-column: 1; grid-row: 2; }
+		.direction-pad [data-dir="down"] { grid-column: 2; grid-row: 2; }
+		.direction-pad [data-dir="right"] { grid-column: 3; grid-row: 2; }
+		.ttt-board { display: grid; width: min(100%, 320px); grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 22px auto 12px; }
+		.ttt-cell { aspect-ratio: 1; border: 1px solid var(--line); border-radius: 14px; background: var(--panel-light); color: var(--cyan); font-size: clamp(2rem, 10vw, 3.3rem); font-weight: 900; cursor: pointer; }
+		.ttt-cell[data-mark="O"] { color: var(--violet); }
+		.ttt-cell.is-selected, .memory-card.is-selected { outline: 2px solid var(--lime); outline-offset: 2px; }
+		.memory-board { display: grid; grid-template-columns: repeat(4, minmax(48px, 78px)); justify-content: center; gap: 9px; margin: 20px 0; }
+		.memory-card { aspect-ratio: 1; border: 1px solid rgba(168, 140, 255, .25); border-radius: 12px; background: linear-gradient(145deg, #27253f, #191d2c); color: var(--violet); font-size: 1.65rem; cursor: pointer; }
+		.memory-card.is-open, .memory-card.is-matched { border-color: rgba(213, 255, 73, .42); background: rgba(213, 255, 73, .11); }
+		.memory-card.is-matched { color: var(--lime); }
+		.duel-choices { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 25px 0 15px; }
+		.duel-choice { display: grid; width: 90px; aspect-ratio: 1; place-items: center; border: 1px solid var(--line); border-radius: 18px; background: var(--panel-light); color: var(--ink); font-size: 2.4rem; cursor: pointer; }
+		.duel-choice:hover { border-color: var(--lime); transform: translateY(-2px); }
+		.game-message { min-height: 26px; color: #dfe5f3; text-align: center; }
+		@media (max-width: 820px) {
+			.hero { grid-template-columns: 1fr .7fr; }
+			.game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+		}
+		@media (max-width: 600px) {
+			.shell { width: min(100% - 26px, 1240px); }
+			.topbar { min-height: 66px; }
+			.back-link { min-height: 38px; padding: 0 11px; font-size: .8rem; }
+			.hero { min-height: auto; grid-template-columns: 1fr; gap: 5px; margin: 20px 0 36px; padding: 27px 22px; }
+			.hero-art { min-height: 220px; }
+			.orbit { width: 205px; }
+			.hero-controller { width: 115px; height: 77px; font-size: 1.9rem; }
+			.section-heading { align-items: stretch; flex-direction: column; }
+			.search-box { width: 100%; }
+			.game-grid { grid-template-columns: 1fr; }
+			.game-card { min-height: 300px; }
+			.feature-strip { grid-template-columns: 1fr; margin-top: 34px; }
+			.library-head { align-items: stretch; flex-direction: column; }
+			.library-add { width: 100%; }
+			.emulator-fields { grid-template-columns: 1fr; }
+			footer .shell { flex-direction: column; }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+		}
+	</style>
+</head>
+<body>
+	<header class="topbar">
+		<div class="shell" style="display:flex;align-items:center;justify-content:space-between;gap:18px">
+			<a class="brand" href="D-gamegape.html" aria-label="D-gamegape mwanzo">
+				<span class="brand-icon" aria-hidden="true">▶</span>
+				<span class="brand-name">D-<span>gamegape</span></span>
+			</a>
+			<div class="header-actions">
+				<a class="back-link" href="D-link.html">← Rudi D-link</a>
+				<span class="profile-chip" title="Mchezaji" aria-label="Mchezaji">DG</span>
+			</div>
+		</div>
+	</header>
+	<main class="shell">
+		<section class="hero" aria-labelledby="hero-title">
+			<div class="hero-copy">
+				<span class="eyebrow"><span class="live-dot" aria-hidden="true"></span> Uwanja wako wa michezo</span>
+				<h1 id="hero-title">Cheza kwa <span>mtindo wako.</span></h1>
+				<p>Karibu D-gamegape — chagua mchezo, shindana na alama yako, na furahia michezo ya browser kwenye simu au kompyuta.</p>
+				<div class="hero-buttons">
+					<button class="primary-button" type="button" data-launch="snake">▶ Anza kucheza</button>
+					<a class="secondary-button" href="#michezo" style="display:inline-flex;align-items:center;text-decoration:none">Gundua michezo</a>
+				</div>
+			</div>
+			<div class="hero-art" aria-hidden="true">
+				<div class="orbit">
+					<span class="hero-controller">✣</span>
+					<span class="float-tag tag-one">PLAY · REPEAT</span>
+					<span class="float-tag tag-two">D-GAMEGAPE</span>
+				</div>
+			</div>
+		</section>
+
+		<section class="console-note" aria-labelledby="console-platform-title" style="margin:0 0 42px">
+			<h2 id="console-platform-title">Zaidi ya browser gaming</h2>
+			<p>Fungua mwongozo wa consoles na emulator rasmi za PC. PS2, PS3, Vita na Xbox zinahitaji programu tofauti kwenye kompyuta.</p>
+			<p style="margin-top:14px"><a class="secondary-button" href="D-gamegape-consoles.html" style="display:inline-flex;align-items:center;text-decoration:none">Gundua PS, Xbox na emulator ↗</a></p>
+		</section>
+
+		<section id="michezo" aria-labelledby="games-title">
+			<div class="section-heading">
+				<div>
+					<h2 id="games-title">Chagua mchezo</h2>
+					<p>Michezo ya bure inayochezeka moja kwa moja hapa.</p>
+				</div>
+				<label class="search-box">
+					<input id="game-search" type="search" placeholder="Tafuta mchezo..." aria-label="Tafuta mchezo">
+				</label>
+			</div>
+			<div class="filters" role="group" aria-label="Chuja michezo">
+				<button class="filter-button" type="button" data-filter="all" aria-pressed="true">Yote</button>
+				<button class="filter-button" type="button" data-filter="arcade" aria-pressed="false">Arcade</button>
+				<button class="filter-button" type="button" data-filter="puzzle" aria-pressed="false">Fikra</button>
+				<button class="filter-button" type="button" data-filter="classic" aria-pressed="false">Classic</button>
+			</div>
+			<div class="game-grid" id="game-grid">
+				<article class="game-card" data-game-card data-category="arcade" data-name="neon snake nyoka">
+					<div class="game-art art-snake"><span class="card-tag">Arcade</span><span class="game-symbol" aria-hidden="true">🐍</span></div>
+					<div class="card-content"><h3>Neon Snake</h3><p>Dhibiti nyoka, kusanya nukta na usigonge ukuta au mkia wako.</p><div class="card-footer"><span class="game-meta">⌨ Mishale · Touch</span><button class="play-button" type="button" data-launch="snake">Cheza sasa ↗</button></div></div>
+				</article>
+				<article class="game-card" data-game-card data-category="puzzle" data-name="memory match kumbukumbu">
+					<div class="game-art art-memory"><span class="card-tag">Fikra</span><span class="game-symbol" aria-hidden="true">🧠</span></div>
+					<div class="card-content"><h3>Memory Match</h3><p>Fungua kadi mbili kwa zamu na utafute alama zinazofanana.</p><div class="card-footer"><span class="game-meta">Mchezaji 1 · Kumbukumbu</span><button class="play-button" type="button" data-launch="memory">Cheza sasa ↗</button></div></div>
+				</article>
+				<article class="game-card" data-game-card data-category="classic" data-name="tic tac toe xo">
+					<div class="game-art art-ttt"><span class="card-tag">Classic</span><span class="game-symbol" aria-hidden="true">⭕</span></div>
+					<div class="card-content"><h3>Tic-Tac-Toe</h3><p>Panga alama tatu mfululizo dhidi ya kompyuta.</p><div class="card-footer"><span class="game-meta">Wewe dhidi ya CPU</span><button class="play-button" type="button" data-launch="ttt">Cheza sasa ↗</button></div></div>
+				</article>
+				<article class="game-card" data-game-card data-category="classic" data-name="rock paper scissors jiwe karatasi mkasi">
+					<div class="game-art art-duel"><span class="card-tag">Classic</span><span class="game-symbol" aria-hidden="true">✊</span></div>
+					<div class="card-content"><h3>Jiwe, Karatasi, Mkasi</h3><p>Chagua yako na ujaribu kumshinda mpinzani wa kompyuta.</p><div class="card-footer"><span class="game-meta">Wewe dhidi ya CPU</span><button class="play-button" type="button" data-launch="duel">Cheza sasa ↗</button></div></div>
+				</article>
+				<article class="game-card" data-game-card data-category="arcade" data-name="sky hopper platformer adventure kuruka">
+					<div class="game-art art-platform"><span class="card-tag">Platformer</span><span class="game-symbol" aria-hidden="true">🏃</span></div>
+					<div class="card-content"><h3>Sky Hopper</h3><p>Ruka kwenye majukwaa, kusanya nyota na ufike kwenye lango la mwisho.</p><div class="card-footer"><span class="game-meta">⌨ Mishale · Touch</span><button class="play-button" type="button" data-launch="platform">Cheza sasa ↗</button></div></div>
+				</article>
+				<article class="game-card" data-game-card data-category="arcade" data-name="neon arena fighter mapigano">
+					<div class="game-art art-arena"><span class="card-tag">Fighter</span><span class="game-symbol" aria-hidden="true">🥊</span></div>
+					<div class="card-content"><h3>Neon Arena</h3><p>Pigana kwenye pambano la arcade lisilo na damu na tumia mashambulizi ya nishati.</p><div class="card-footer"><span class="game-meta">Wewe dhidi ya CPU</span><button class="play-button" type="button" data-launch="arena">Cheza sasa ↗</button></div></div>
+				</article>
+			</div>
+		</section>
+
+		<section class="library-section" aria-labelledby="library-title">
+			<div class="library-head">
+				<div>
+					<h2 id="library-title">Maktaba Yangu</h2>
+					<p>Ongeza mchezo wa HTML unaomilikiwa na wewe. Faili huhifadhiwa kwenye browser ya kifaa hiki, si kupakiwa kwenye seva.</p>
+				</div>
+				<div>
+					<input id="library-file" type="file" accept=".html,.htm,text/html" hidden>
+					<button class="primary-button library-add" id="library-add-button" type="button">＋ Ongeza mchezo wa HTML</button>
+				</div>
+			</div>
+			<p class="library-status" id="library-status" role="status" aria-live="polite">Michezo uliyoongeza itaonekana hapa. HTML moja hadi MB 20; michezo inayotumia mafaili mengine ya nje haiwezi kuunganishwa kiotomatiki.</p>
+			<div class="library-list" id="library-list" aria-label="Michezo yangu"></div>
+			<aside class="console-note" aria-labelledby="console-note-title">
+				<h3 id="console-note-title">Kuhusu michezo ya PlayStation</h3>
+				<p>EmulatorJS ina cores za PS1 na PSP. PS2, PS3, PS Vita na Xbox hazina core inayotumika na integration hii. ISO/ROM haiwezi kubandikwa kama code—chagua faili lako kutoka kifaa. Emulator huhitaji faili ambazo una haki ya kutumia. Siwezi kutoa ROM, BIOS, firmware au nakala za game zenye hakimiliki.</p>
+				<div class="console-list" aria-label="Hali ya consoles">
+					<span class="console-chip available">PS1 · Inapatikana hapa chini</span>
+					<span class="console-chip">PS2 · Haijaunganishwa</span>
+					<span class="console-chip">PS3 · Haijaunganishwa</span>
+					<a class="console-chip available" href="D-gamegape-psp.html">PSP · Fungua emulator ↗</a>
+					<span class="console-chip">PS Vita · Haijaunganishwa</span>
+					<span class="console-chip">Xbox · Haijaunganishwa</span>
+					<span class="console-chip">Xbox 360/One · Haijaunganishwa</span>
+				</div>
+				<div class="emulator-panel" id="ps1-emulator" aria-labelledby="ps1-title">
+					<h3 id="ps1-title">Jaribu PlayStation 1</h3>
+					<p>Chagua faili lako la PS1 na, kama mchezo wako unahitaji, BIOS uliyoitoa kihalali kwenye kifaa chako. Faili hazihifadhiwi kwenye D-gamegape wala kutumwa kwa seva; zinabaki kwenye browser. Inahitaji intaneti kupakia EmulatorJS ya chanzo chake rasmi mara utakapoanza. Save states za emulator hazihifadhiwi kudumu na D-gamegape.</p>
+					<div class="emulator-fields">
+						<label class="emulator-field">Faili la mchezo (BIN, ISO, CHD au PBP)
+							<input id="ps1-game-file" type="file" accept=".bin,.iso,.chd,.pbp,application/octet-stream">
+						</label>
+						<label class="emulator-field">BIOS ya PS1 (si lazima kwa baadhi ya michezo)
+							<input id="ps1-bios-file" type="file" accept=".bin,application/octet-stream">
+						</label>
+					</div>
+					<label class="emulator-consent">
+						<input id="emulator-consent" type="checkbox">
+						<span>Ninakubali kupakia EmulatorJS kutoka <strong>cdn.emulatorjs.org</strong>. CDN inaweza kupokea ombi la mtandao na anwani ya IP yangu; faili langu la mchezo/BIOS halitumwi kwa CDN.</span>
+					</label>
+					<div class="emulator-actions">
+						<button class="primary-button" id="ps1-start" type="button">▶ Anza PS1</button>
+						<span class="game-meta">Inahitaji browser ya kisasa na muunganisho wa intaneti.</span>
+					</div>
+					<p class="emulator-status" id="emulator-status" role="status" aria-live="polite">Tumia faili za michezo na BIOS ambazo una haki ya kutumia.</p>
+				</div>
+			</aside>
+		</section>
+
+		<section class="feature-strip" aria-label="Sifa za D-gamegape">
+			<div class="feature"><strong>🎮 Rahisi kuanza</strong><span>Hakuna kusakinisha app; fungua mchezo na ucheze kwenye browser.</span></div>
+			<div class="feature"><strong>📱 Simu na kompyuta</strong><span>Muonekano na vidhibiti vimeandaliwa kwa skrini ndogo na kubwa.</span></div>
+			<div class="feature"><strong>🏆 Rekodi yako</strong><span>Alama bora ya Snake inahifadhiwa kwenye kifaa chako pekee.</span></div>
+		</section>
+	</main>
+	<footer><div class="shell"><span>D-gamegape · Michezo ya browser</span><span>Michezo ya asili, bila nembo au maudhui rasmi ya console.</span></div></footer>
+
+	<dialog id="game-dialog" aria-labelledby="dialog-title">
+		<div class="dialog-head"><h2 id="dialog-title">Mchezo</h2><button class="close-button" type="button" aria-label="Funga mchezo">×</button></div>
+		<div class="game-stage" id="game-stage"></div>
+	</dialog>
+	<script>
+		(() => {
+			const dialog = document.getElementById("game-dialog");
+			const stage = document.getElementById("game-stage");
+			const title = document.getElementById("dialog-title");
+			const search = document.getElementById("game-search");
+			const libraryFile = document.getElementById("library-file");
+			const libraryList = document.getElementById("library-list");
+			const libraryStatus = document.getElementById("library-status");
+			const ps1GameFile = document.getElementById("ps1-game-file");
+			const ps1BiosFile = document.getElementById("ps1-bios-file");
+			const emulatorConsent = document.getElementById("emulator-consent");
+			const emulatorStatus = document.getElementById("emulator-status");
+			const cards = [...document.querySelectorAll("[data-game-card]")];
+			let activeFilter = "all";
+			let stopCurrentGame = () => {};
+			let gamepadHandler = null;
+			let gamepadFrame = 0;
+			const previousGamepadButtons = new Map();
+			const previousGamepadDirections = new Map();
+			let libraryDatabasePromise;
+
+			const gameTitles = {
+				snake: "Neon Snake",
+				memory: "Memory Match",
+				ttt: "Tic-Tac-Toe",
+				duel: "Jiwe, Karatasi, Mkasi",
+				platform: "Sky Hopper",
+				arena: "Neon Arena"
+			};
+
+			function showCards() {
+				const query = search.value.trim().toLocaleLowerCase();
+				let visibleCount = 0;
+				for (const card of cards) {
+					const visible = (activeFilter === "all" || card.dataset.category === activeFilter)
+						&& card.dataset.name.includes(query);
+					card.hidden = !visible;
+					if (visible) visibleCount++;
+				}
+				let empty = document.getElementById("no-games");
+				if (!visibleCount && !empty) {
+					empty = document.createElement("p");
+					empty.id = "no-games";
+					empty.className = "no-results";
+					empty.textContent = "Hakuna mchezo unaolingana na utafutaji huo.";
+					document.getElementById("game-grid").append(empty);
+				} else if (visibleCount && empty) {
+					empty.remove();
+				}
+			}
+
+			document.querySelector(".filters").addEventListener("click", (event) => {
+				const button = event.target.closest("[data-filter]");
+				if (!button) return;
+				activeFilter = button.dataset.filter;
+				document.querySelectorAll("[data-filter]").forEach((item) => {
+					item.setAttribute("aria-pressed", String(item === button));
+				});
+				showCards();
+			});
+			search.addEventListener("input", showCards);
+
+			function launch(id) {
+				stopCurrentGame();
+				stopGamepad();
+				stopCurrentGame = () => {};
+				title.textContent = gameTitles[id] || "Mchezo";
+				if (id === "snake") startSnake();
+				else if (id === "memory") startMemory();
+				else if (id === "ttt") startTicTacToe();
+				else if (id === "duel") startDuel();
+				else if (id === "platform") startPlatformer();
+				else if (id === "arena") startArena();
+				const hint = document.createElement("p");
+				hint.className = "gamepad-hint";
+				hint.id = "gamepad-hint";
+				hint.setAttribute("aria-live", "polite");
+				hint.textContent = "🎮 Gamepad ya USB/Bluetooth inayooana: D-pad/analog pamoja na vitufe vya kawaida vinafanya kazi kwenye michezo yote.";
+				stage.prepend(hint);
+				if (!dialog.open) dialog.showModal();
+				startGamepad();
+			}
+			document.addEventListener("click", (event) => {
+				const button = event.target.closest("[data-launch]");
+				if (button) launch(button.dataset.launch);
+			});
+			document.getElementById("library-add-button").addEventListener("click", () => libraryFile.click());
+			libraryFile.addEventListener("change", addLibraryGame);
+			libraryList.addEventListener("click", handleLibraryAction);
+			document.getElementById("ps1-start").addEventListener("click", startPs1Game);
+			void refreshLibrary();
+			void restoreConsoleGame();
+			dialog.querySelector(".close-button").addEventListener("click", () => dialog.close());
+			dialog.addEventListener("close", () => {
+				stopCurrentGame();
+				stopCurrentGame = () => {};
+				stopGamepad();
+			});
+
+			function openLibraryDatabase() {
+				if (libraryDatabasePromise) return libraryDatabasePromise;
+				libraryDatabasePromise = new Promise((resolve, reject) => {
+					if (!("indexedDB" in window)) {
+						reject(new Error("Browser hii haitoi IndexedDB kwa kuhifadhi michezo."));
+						return;
+					}
+					const request = indexedDB.open("d-gamegape-library", 1);
+					request.onupgradeneeded = () => {
+						const database = request.result;
+						if (!database.objectStoreNames.contains("games")) {
+							database.createObjectStore("games", { keyPath: "id" });
+						}
+					};
+					request.onsuccess = () => resolve(request.result);
+					request.onerror = () => reject(request.error || new Error("Hifadhi ya browser haikufunguka."));
+					request.onblocked = () => reject(new Error("Funga tab nyingine ya D-gamegape kisha ujaribu tena."));
+				});
+				return libraryDatabasePromise;
+			}
+
+			async function listLibraryGames() {
+				const database = await openLibraryDatabase();
+				return new Promise((resolve, reject) => {
+					const transaction = database.transaction("games", "readonly");
+					const request = transaction.objectStore("games").getAll();
+					request.onsuccess = () => resolve(request.result.sort((a, b) => a.name.localeCompare(b.name)));
+					request.onerror = () => reject(request.error || new Error("Michezo iliyohifadhiwa haikusomeka."));
+					transaction.onabort = () => reject(transaction.error || new Error("Kusoma maktaba kumesitishwa."));
+				});
+			}
+
+			async function saveLibraryGame(game) {
+				const database = await openLibraryDatabase();
+				return new Promise((resolve, reject) => {
+					const transaction = database.transaction("games", "readwrite");
+					transaction.objectStore("games").put(game);
+					transaction.oncomplete = () => resolve();
+					transaction.onerror = () => reject(transaction.error || new Error("Mchezo haukuhifadhiwa."));
+					transaction.onabort = () => reject(transaction.error || new Error("Hifadhi imesitishwa; huenda nafasi ya kifaa haitoshi."));
+				});
+			}
+
+			async function deleteLibraryGame(id) {
+				const database = await openLibraryDatabase();
+				return new Promise((resolve, reject) => {
+					const transaction = database.transaction("games", "readwrite");
+					transaction.objectStore("games").delete(id);
+					transaction.oncomplete = () => resolve();
+					transaction.onerror = () => reject(transaction.error || new Error("Mchezo haukufutika."));
+					transaction.onabort = () => reject(transaction.error || new Error("Kufuta mchezo kumesitishwa."));
+				});
+			}
+
+			function reportLibraryError(error, message) {
+				console.error(message, error);
+				libraryStatus.textContent = `${message} ${error.message || "Jaribu tena kwenye browser inayounga mkono hifadhi ya ndani."}`;
+				libraryStatus.setAttribute("role", "alert");
+			}
+
+			async function refreshLibrary() {
+				try {
+					const games = await listLibraryGames();
+					libraryList.replaceChildren();
+					for (const game of games) {
+						const item = document.createElement("article");
+						item.className = "library-game";
+						const name = document.createElement("span");
+						name.className = "library-game-name";
+						name.textContent = game.name;
+						const actions = document.createElement("div");
+						actions.className = "library-game-actions";
+						const play = document.createElement("button");
+						play.type = "button";
+						play.dataset.libraryPlay = game.id;
+						play.textContent = "Cheza";
+						const remove = document.createElement("button");
+						remove.type = "button";
+						remove.dataset.libraryDelete = game.id;
+						remove.textContent = "Ondoa";
+						remove.setAttribute("aria-label", `Ondoa ${game.name}`);
+						actions.append(play, remove);
+						item.append(name, actions);
+						libraryList.append(item);
+					}
+					libraryStatus.removeAttribute("role");
+					libraryStatus.textContent = games.length
+						? `${games.length} ${games.length === 1 ? "mchezo umehifadhiwa" : "michezo imehifadhiwa"} kwenye browser hii pekee.`
+						: "Michezo uliyoongeza itaonekana hapa. HTML moja hadi MB 20; michezo inayotumia mafaili mengine ya nje haiwezi kuunganishwa kiotomatiki.";
+				} catch (error) {
+					reportLibraryError(error, "Maktaba ya ndani haikupatikana.");
+				}
+			}
+
+			async function addLibraryGame() {
+				const file = libraryFile.files && libraryFile.files[0];
+				libraryFile.value = "";
+				if (!file) return;
+				if (!/\.html?$/i.test(file.name)) {
+					libraryStatus.textContent = "Chagua faili la mchezo lenye mwisho .html au .htm.";
+					return;
+				}
+				if (!file.size || file.size > 20 * 1024 * 1024) {
+					libraryStatus.textContent = "Faili la HTML lazima liwe na maudhui na lisizidi MB 20.";
+					return;
+				}
+				libraryStatus.textContent = "Inasoma na kuhifadhi mchezo kwenye kifaa hiki...";
+				try {
+					const source = await file.text();
+					if (!source.trim()) throw new Error("Faili la mchezo halina maudhui.");
+					const id = typeof crypto.randomUUID === "function"
+						? crypto.randomUUID()
+						: `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+					await saveLibraryGame({ id, name: file.name.replace(/\.html?$/i, ""), source, addedAt: Date.now() });
+					await refreshLibrary();
+				} catch (error) {
+					reportLibraryError(error, "Mchezo haukuongezwa.");
+				}
+			}
+
+			async function handleLibraryAction(event) {
+				const playButton = event.target.closest("[data-library-play]");
+				const deleteButton = event.target.closest("[data-library-delete]");
+				try {
+					if (playButton) await playLibraryGame(playButton.dataset.libraryPlay);
+					if (deleteButton) {
+						if (!window.confirm("Una uhakika unataka kuondoa mchezo huu kwenye kifaa hiki?")) return;
+						await deleteLibraryGame(deleteButton.dataset.libraryDelete);
+						await refreshLibrary();
+					}
+				} catch (error) {
+					reportLibraryError(error, "Kitendo cha maktaba hakikukamilika.");
+				}
+			}
+
+			function addSandboxPolicy(source) {
+				const policy = `<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' blob:; style-src 'unsafe-inline'; img-src data: blob:; media-src data: blob:; font-src data:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">`;
+				if (/<head\b[^>]*>/i.test(source)) return source.replace(/<head\b[^>]*>/i, (head) => `${head}${policy}`);
+				if (/<html\b[^>]*>/i.test(source)) return source.replace(/<html\b[^>]*>/i, (html) => `${html}<head>${policy}</head>`);
+				return `<!doctype html><html><head>${policy}</head><body>${source}</body></html>`;
+			}
+
+			async function playLibraryGame(id) {
+				const games = await listLibraryGames();
+				const game = games.find((entry) => entry.id === id);
+				if (!game) throw new Error("Mchezo huu haupo tena kwenye maktaba.");
+				stopCurrentGame();
+				stopGamepad();
+				stopCurrentGame = () => {};
+				title.textContent = game.name;
+				stage.replaceChildren();
+				const notice = document.createElement("p");
+				notice.className = "gamepad-hint";
+				notice.textContent = "Mchezo unaendeshwa kwenye sandbox iliyotengwa; hawezi kufikia D-gamegape au mtandao. Vidhibiti vya gamepad hutegemea mchezo wenyewe.";
+				const frame = document.createElement("iframe");
+				frame.className = "game-frame";
+				frame.title = game.name;
+				frame.setAttribute("sandbox", "allow-scripts");
+				frame.referrerPolicy = "no-referrer";
+				frame.srcdoc = addSandboxPolicy(game.source);
+				stage.append(notice, frame);
+				if (!dialog.open) dialog.showModal();
+			}
+
+			function setEmulatorStatus(message, state) {
+				emulatorStatus.textContent = message;
+				delete emulatorStatus.dataset.error;
+				delete emulatorStatus.dataset.success;
+				if (state) emulatorStatus.dataset[state] = "true";
+			}
+
+			function ps1EmulatorDocument() {
+				const csp = "default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.emulatorjs.org blob:; style-src 'unsafe-inline' https://cdn.emulatorjs.org; img-src data: blob: https://cdn.emulatorjs.org; media-src blob:; connect-src https://cdn.emulatorjs.org blob:; worker-src blob: https://cdn.emulatorjs.org; font-src data: https://cdn.emulatorjs.org; object-src 'none'; base-uri 'none'; form-action 'none'";
+				return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="${csp}"><style>html,body,#game{width:100%;height:100%;min-height:460px;margin:0;background:#080a0e;color:#fff;font:16px system-ui,sans-serif}body{display:grid;place-items:center}#message{padding:24px;text-align:center;line-height:1.6}</style></head><body><div id="message">Loading emulator…</div><div id="game"></div><script>
+					(function(){
+						function report(type,message){parent.postMessage({source:"d-gamegape-emulator",type:type,message:String(message||"")},"*")}
+						function createMemoryStorage(){
+							var values=Object.create(null);
+							return {
+								get length(){return Object.keys(values).length},
+								key:function(index){return Object.keys(values)[index]||null},
+								getItem:function(key){key=String(key);return Object.prototype.hasOwnProperty.call(values,key)?values[key]:null},
+								setItem:function(key,value){values[String(key)]=String(value)},
+								removeItem:function(key){delete values[String(key)]},
+								clear:function(){values=Object.create(null)}
+							};
+						}
+						try{
+							Object.defineProperty(window,"localStorage",{configurable:true,value:createMemoryStorage()});
+							Object.defineProperty(window,"sessionStorage",{configurable:true,value:createMemoryStorage()});
+							Object.defineProperty(window,"indexedDB",{configurable:true,value:undefined});
+							if(navigator.wakeLock)Object.defineProperty(navigator,"wakeLock",{configurable:true,value:{request:function(){return Promise.resolve({released:false,release:function(){return Promise.resolve()},addEventListener:function(){},removeEventListener:function(){}})}}});
+						}catch(storageError){report("error","Browser imezuia hifadhi ya ndani ya emulator.")}
+						window.addEventListener("error",function(event){report("error",event.message||"Emulator error")});
+						window.addEventListener("unhandledrejection",function(event){report("error",event.reason&&event.reason.message||event.reason||"Emulator startup failed")});
+						window.addEventListener("message",function(event){
+							if(event.source!==parent||!event.data||event.data.type!=="d-gamegape-start-ps1")return;
+							try{
+								var gameBlob=new Blob([event.data.game],{type:"application/octet-stream"});
+								window.EJS_player="#game";
+								window.EJS_core="psx";
+								window.EJS_gameUrl=URL.createObjectURL(gameBlob);
+								window.EJS_gameName=event.data.gameName||"PS1 game";
+								window.EJS_pathtodata="https://cdn.emulatorjs.org/stable/data/";
+								window.EJS_startOnLoaded=true;
+								if(event.data.bios)window.EJS_biosUrl=URL.createObjectURL(new Blob([event.data.bios],{type:"application/octet-stream"}));
+								var loader=document.createElement("script");
+								loader.src=window.EJS_pathtodata+"loader.js";
+								loader.onerror=function(){report("error","Imeshindikana kupakia EmulatorJS kutoka CDN. Hakikisha intaneti ipo na ruhusa ya CDN imeruhusiwa.")};
+								document.body.appendChild(loader);
+							}catch(error){report("error",error&&error.message||error)}
+						});
+						report("ready","Emulator iko tayari kupokea faili la mchezo.");
+					})();
+				<\/script></body></html>`;
+			}
+
+			async function startPs1Game() {
+				const gameFile = ps1GameFile.files && ps1GameFile.files[0];
+				const biosFile = ps1BiosFile.files && ps1BiosFile.files[0];
+				if (!gameFile) {
+					setEmulatorStatus("Chagua faili lako la mchezo wa PS1 kwanza.", "error");
+					ps1GameFile.focus();
+					return;
+				}
+				if (!/\.(bin|iso|chd|pbp)$/i.test(gameFile.name)) {
+					setEmulatorStatus("Aina hiyo ya faili haijaungwa mkono. Chagua BIN, ISO, CHD au PBP ya PS1.", "error");
+					return;
+				}
+				if (!gameFile.size || gameFile.size > 1024 * 1024 * 1024) {
+					setEmulatorStatus("Faili la mchezo lazima liwe na maudhui na lisizidi GB 1 kwa jaribio hili la browser.", "error");
+					return;
+				}
+				if (biosFile && (!/\.bin$/i.test(biosFile.name) || biosFile.size > 16 * 1024 * 1024)) {
+					setEmulatorStatus("BIOS lazima iwe faili BIN lisilozidi MB 16.", "error");
+					return;
+				}
+				if (!emulatorConsent.checked) {
+					setEmulatorStatus("Weka alama ya kukubali kupakia EmulatorJS kutoka CDN kabla ya kuanza.", "error");
+					emulatorConsent.focus();
+					return;
+				}
+				setEmulatorStatus("Inafungua emulator na inasoma faili kwenye kifaa chako...");
+				try {
+					const gameData = await gameFile.arrayBuffer();
+					const biosData = biosFile ? await biosFile.arrayBuffer() : null;
+					stopCurrentGame();
+					stopGamepad();
+					stopCurrentGame = () => {};
+					title.textContent = `PS1 · ${gameFile.name}`;
+					stage.replaceChildren();
+					const status = document.createElement("p");
+					status.className = "gamepad-hint";
+					status.textContent = "EmulatorJS inapakiwa. ROM na BIOS zinasetwa kutoka faili zako za hapa; hazitumwi kwa seva.";
+					const frame = document.createElement("iframe");
+					frame.className = "game-frame";
+					frame.title = `Emulator ya PS1: ${gameFile.name}`;
+					frame.setAttribute("sandbox", "allow-scripts");
+					frame.allow = "fullscreen *; gamepad *; screen-wake-lock *";
+					frame.referrerPolicy = "no-referrer";
+					frame.srcdoc = ps1EmulatorDocument();
+					frame.addEventListener("load", () => {
+						frame.contentWindow.postMessage({
+							type: "d-gamegape-start-ps1",
+							game: gameData,
+							bios: biosData,
+							gameName: gameFile.name
+						}, "*", biosData ? [gameData, biosData] : [gameData]);
+					}, { once: true });
+					const onEmulatorMessage = (event) => {
+						if (event.source !== frame.contentWindow || event.data?.source !== "d-gamegape-emulator") return;
+						if (event.data.type === "error") {
+							status.dataset.error = "true";
+							status.textContent = `Hitilafu ya emulator: ${event.data.message}`;
+							setEmulatorStatus(`Emulator imeripoti hitilafu. ${event.data.message}`, "error");
+						} else if (event.data.type === "ready") {
+							status.textContent = "Emulator imepokea faili. Inaanzisha core ya PS1...";
+						}
+					};
+					window.addEventListener("message", onEmulatorMessage);
+					stage.append(status, frame);
+					stopCurrentGame = () => {
+						window.removeEventListener("message", onEmulatorMessage);
+						frame.remove();
+					};
+					if (!dialog.open) dialog.showModal();
+					setEmulatorStatus("Emulator inaanza kwenye browser. Muda wa kupakia hutegemea mtandao na kifaa.", "success");
+				} catch (error) {
+					console.error("Imeshindikana kuanzisha emulator ya PS1.", error);
+					setEmulatorStatus(`Emulator haikuanza: ${error.message || "Haikuweza kusoma faili ulilochagua."}`, "error");
+				}
+			}
+
+			async function restoreConsoleGame() {
+				const gameId = new URLSearchParams(window.location.search).get("consoleGame");
+				if (!gameId) return;
+				try {
+					const database = await new Promise((resolve, reject) => {
+						const request = indexedDB.open("d-gamegape-console-library", 1);
+						request.onsuccess = () => resolve(request.result);
+						request.onerror = () => reject(request.error || new Error("Maktaba ya console haikuweza kufunguliwa."));
+					});
+					const record = await new Promise((resolve, reject) => {
+						const request = database.transaction("games", "readonly").objectStore("games").get(gameId);
+						request.onsuccess = () => resolve(request.result);
+						request.onerror = () => reject(request.error || new Error("Mchezo haukuweza kusomwa."));
+					});
+					if (!record || record.system !== "ps1" || !record.file) {
+						throw new Error("Mchezo wa PS1 haupo kwenye maktaba hii. Rudi catalog uongeze faili tena.");
+					}
+					const transfer = new DataTransfer();
+					transfer.items.add(new File([record.file], record.fileName, { type: record.file.type || "application/octet-stream" }));
+					ps1GameFile.files = transfer.files;
+					setEmulatorStatus(`Faili "${record.title}" limechaguliwa kutoka maktaba yako. Kubali CDN, kisha bonyeza Anza PS1.`, "success");
+				} catch (error) {
+					setEmulatorStatus(error.message || "Mchezo ulihifadhiwa haukuweza kupakiwa.", "error");
+				}
+			}
+
+			function stopGamepad() {
+				cancelAnimationFrame(gamepadFrame);
+				gamepadHandler = null;
+				previousGamepadButtons.clear();
+				previousGamepadDirections.clear();
+			}
+
+			function setGamepadHandler(handler) {
+				gamepadHandler = handler;
+			}
+
+			function startGamepad() {
+				if (typeof navigator.getGamepads !== "function" || !gamepadHandler) return;
+				const poll = () => {
+					if (!dialog.open || !gamepadHandler) return;
+					const pad = Array.from(navigator.getGamepads()).find(Boolean);
+					const hint = document.getElementById("gamepad-hint");
+					if (pad) {
+						const priorButtons = previousGamepadButtons.get(pad.index) || [];
+						const pressed = (index) => Boolean(pad.buttons[index]?.pressed) && !priorButtons[index];
+						const held = (index) => Boolean(pad.buttons[index]?.pressed);
+						previousGamepadButtons.set(pad.index, pad.buttons.map((button) => Boolean(button.pressed)));
+						const horizontal = pad.axes[0] || 0;
+						const vertical = pad.axes[1] || 0;
+						const direction = held(12) || vertical < -.55 ? "up"
+							: held(13) || vertical > .55 ? "down"
+							: held(14) || horizontal < -.55 ? "left"
+							: held(15) || horizontal > .55 ? "right" : "";
+						const previousDirection = previousGamepadDirections.get(pad.index) || "";
+						const directionPressed = Boolean(direction) && direction !== previousDirection;
+						previousGamepadDirections.set(pad.index, direction);
+						if (hint) {
+							hint.dataset.connected = "true";
+							hint.textContent = `🎮 ${pad.id.replace(/\s*\([^)]*\)\s*/g, "").trim() || "Gamepad"} imeunganishwa · D-pad/analog na vitufe vya kawaida vinatumika.`;
+						}
+						gamepadHandler({ pressed, held, direction, directionPressed, horizontal });
+					} else {
+						if (hint) {
+							hint.dataset.connected = "false";
+							hint.textContent = "🎮 Unganisha gamepad ya USB/Bluetooth; D-pad/analog na vitufe vya kawaida vinafanya kazi kwenye michezo yote.";
+						}
+						previousGamepadButtons.clear();
+						previousGamepadDirections.clear();
+					}
+					gamepadFrame = requestAnimationFrame(poll);
+				};
+				cancelAnimationFrame(gamepadFrame);
+				gamepadFrame = requestAnimationFrame(poll);
+			}
+
+			function startSnake() {
+				stage.innerHTML = `
+					<p class="game-instructions">Tumia mishale, D-pad au analog kuongoza nyoka. Gamepad: A kuanza. Simu: tumia vitufe vya kugusa hapa chini.</p>
+					<div class="game-toolbar"><span>Alama: <strong id="snake-score">0</strong> · Rekodi: <strong id="snake-best">0</strong></span><button class="stage-button primary" id="snake-start" type="button">Anza</button></div>
+					<div class="snake-wrap"><canvas id="snake-canvas" width="360" height="360" aria-label="Uwanja wa Neon Snake"></canvas>
+					<div class="direction-pad" aria-label="Vidhibiti vya nyoka"><button data-dir="up" aria-label="Juu">↑</button><button data-dir="left" aria-label="Kushoto">←</button><button data-dir="down" aria-label="Chini">↓</button><button data-dir="right" aria-label="Kulia">→</button></div></div>
+					<p class="game-message" id="snake-message" aria-live="polite">Tayari?</p>`;
+				const canvas = document.getElementById("snake-canvas");
+				const ctx = canvas.getContext("2d");
+				const scoreOutput = document.getElementById("snake-score");
+				const bestOutput = document.getElementById("snake-best");
+				const message = document.getElementById("snake-message");
+				const cell = 18;
+				const cells = canvas.width / cell;
+				let snake, food, direction, nextDirection, score, timer;
+				let best = Number(localStorage.getItem("d-gamegape-snake-best") || 0);
+				bestOutput.textContent = String(best);
+
+				function draw() {
+					ctx.fillStyle = "#0b1118";
+					ctx.fillRect(0, 0, canvas.width, canvas.height);
+					ctx.strokeStyle = "rgba(255,255,255,.035)";
+					for (let line = 0; line <= cells; line++) {
+						ctx.beginPath(); ctx.moveTo(line * cell, 0); ctx.lineTo(line * cell, canvas.height); ctx.stroke();
+						ctx.beginPath(); ctx.moveTo(0, line * cell); ctx.lineTo(canvas.width, line * cell); ctx.stroke();
+					}
+					if (!snake) return;
+					ctx.fillStyle = "#ff6c86";
+					ctx.beginPath(); ctx.arc(food.x * cell + cell / 2, food.y * cell + cell / 2, cell / 3, 0, Math.PI * 2); ctx.fill();
+					snake.forEach((part, index) => {
+						ctx.fillStyle = index === 0 ? "#d5ff49" : "#55d88a";
+						ctx.beginPath(); ctx.roundRect(part.x * cell + 2, part.y * cell + 2, cell - 4, cell - 4, 5); ctx.fill();
+					});
+				}
+				function placeFood() {
+					do { food = { x: Math.floor(Math.random() * cells), y: Math.floor(Math.random() * cells) }; }
+					while (snake.some((part) => part.x === food.x && part.y === food.y));
+				}
+				function finish() {
+					clearInterval(timer); timer = null;
+					message.textContent = "Mchezo umeisha! Bonyeza Anza kucheza tena.";
+					if (score > best) {
+						best = score;
+						localStorage.setItem("d-gamegape-snake-best", String(best));
+						bestOutput.textContent = String(best);
+					}
+				}
+				function step() {
+					direction = nextDirection;
+					const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+					const eating = head.x === food.x && head.y === food.y;
+					if (head.x < 0 || head.y < 0 || head.x >= cells || head.y >= cells
+						|| snake.slice(0, eating ? undefined : -1).some((part) => part.x === head.x && part.y === head.y)) {
+						finish(); return;
+					}
+					snake.unshift(head);
+					if (eating) { score++; scoreOutput.textContent = String(score); placeFood(); }
+					else snake.pop();
+					draw();
+				}
+				function setDirection(name) {
+					const directions = { up: { x: 0, y: -1 }, down: { x: 0, y: 1 }, left: { x: -1, y: 0 }, right: { x: 1, y: 0 } };
+					const candidate = directions[name];
+					if (candidate && candidate.x !== -direction.x && candidate.y !== -direction.y) nextDirection = candidate;
+				}
+				function keydown(event) {
+					const keys = { ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right" };
+					if (keys[event.key]) { event.preventDefault(); setDirection(keys[event.key]); }
+				}
+				function start() {
+					clearInterval(timer);
+					snake = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
+					direction = { x: 1, y: 0 }; nextDirection = direction; score = 0;
+					scoreOutput.textContent = "0"; message.textContent = "Cheza! Usigonge ukuta.";
+					placeFood(); draw(); timer = setInterval(step, 125);
+				}
+				document.getElementById("snake-start").addEventListener("click", start);
+				stage.querySelector(".direction-pad").addEventListener("click", (event) => {
+					const control = event.target.closest("[data-dir]");
+					if (control) setDirection(control.dataset.dir);
+				});
+				document.addEventListener("keydown", keydown);
+				setGamepadHandler((pad) => {
+					if (!timer && pad.pressed(0)) { start(); return; }
+					if (pad.directionPressed && ["up", "down", "left", "right"].includes(pad.direction)) {
+						if (direction) setDirection(pad.direction);
+					}
+				});
+				draw();
+				stopCurrentGame = () => { clearInterval(timer); document.removeEventListener("keydown", keydown); };
+			}
+
+			function startTicTacToe() {
+				stage.innerHTML = `
+					<p class="game-instructions">Wewe ni X. Panga X tatu mfululizo; kompyuta itacheza O. Gamepad: D-pad/analog kusogeza, A kuchagua.</p>
+					<div class="game-toolbar"><span id="ttt-status" aria-live="polite">Zamu yako (X)</span><button class="stage-button" id="ttt-reset" type="button">Anza upya</button></div>
+					<div class="ttt-board" role="group" aria-label="Uwanja wa Tic-Tac-Toe">${Array.from({ length: 9 }, (_, index) => `<button class="ttt-cell" type="button" data-cell="${index}" aria-label="Nafasi ${index + 1}"></button>`).join("")}</div>`;
+				const board = Array(9).fill("");
+				const status = document.getElementById("ttt-status");
+				const cells = [...stage.querySelectorAll("[data-cell]")];
+				let finished = false;
+				let selectedIndex = 4;
+				const lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+				function winner() { return lines.find((line) => board[line[0]] && line.every((position) => board[position] === board[line[0]])); }
+				function paint() { cells.forEach((button, index) => { button.textContent = board[index]; button.dataset.mark = board[index]; button.disabled = Boolean(board[index]) || finished; button.classList.toggle("is-selected", index === selectedIndex && !finished); }); }
+				function moveSelection(direction) {
+					let row = Math.floor(selectedIndex / 3), column = selectedIndex % 3;
+					if (direction === "up") row = Math.max(0, row - 1);
+					if (direction === "down") row = Math.min(2, row + 1);
+					if (direction === "left") column = Math.max(0, column - 1);
+					if (direction === "right") column = Math.min(2, column + 1);
+					selectedIndex = row * 3 + column;
+					paint();
+				}
+				function checkEnd() {
+					const line = winner();
+					if (line) { finished = true; status.textContent = `${board[line[0]]} ameshinda!`; }
+					else if (board.every(Boolean)) { finished = true; status.textContent = "Ni sare!"; }
+					paint();
+				}
+				function cpuTurn() {
+					const available = board.map((mark, index) => mark ? -1 : index).filter((index) => index >= 0);
+					if (!available.length) return;
+					const move = available[Math.floor(Math.random() * available.length)];
+					board[move] = "O"; checkEnd();
+					if (!finished) status.textContent = "Zamu yako (X)";
+				}
+				cells.forEach((button, index) => button.addEventListener("click", () => {
+					if (finished || board[index]) return;
+					board[index] = "X"; checkEnd();
+					if (!finished) { status.textContent = "Kompyuta inacheza..."; window.setTimeout(cpuTurn, 320); }
+				}));
+				document.getElementById("ttt-reset").addEventListener("click", () => {
+					board.fill(""); finished = false; selectedIndex = 4; status.textContent = "Zamu yako (X)"; paint();
+				});
+				setGamepadHandler((pad) => {
+					if (finished) return;
+					if (pad.directionPressed && ["up", "down", "left", "right"].includes(pad.direction)) moveSelection(pad.direction);
+					if (pad.pressed(0)) cells[selectedIndex].click();
+				});
+			}
+
+			function startMemory() {
+				const symbols = ["🚀", "👾", "💎", "⚡", "🪐", "🎯", "🛸", "🔥"];
+				const deck = [...symbols, ...symbols].sort(() => Math.random() - .5);
+				stage.innerHTML = `
+					<p class="game-instructions">Fungua kadi mbili kwa zamu. Tafuta jozi zote kwa hatua chache. Gamepad: D-pad/analog kusogeza, A kufungua kadi.</p>
+					<div class="game-toolbar"><span>Hatua: <strong id="memory-moves">0</strong> · Jozi: <strong id="memory-pairs">0</strong>/8</span><button class="stage-button" id="memory-reset" type="button">Changanya tena</button></div>
+					<div class="memory-board" role="group" aria-label="Kadi za Memory Match">${deck.map((symbol, index) => `<button class="memory-card" type="button" data-card="${index}" data-symbol="${symbol}" aria-label="Kadi imefungwa">?</button>`).join("")}</div>
+					<p class="game-message" id="memory-message" aria-live="polite">Tafuta jozi zinazofanana.</p>`;
+				const buttons = [...stage.querySelectorAll("[data-card]")];
+				let opened = [];
+				let matched = 0;
+				let moves = 0;
+				let locked = false;
+				let waitTimer;
+				let selectedIndex = 0;
+				const movesOutput = document.getElementById("memory-moves");
+				const pairsOutput = document.getElementById("memory-pairs");
+				const message = document.getElementById("memory-message");
+				function selectCard() {
+					buttons.forEach((button, index) => button.classList.toggle("is-selected", index === selectedIndex));
+				}
+				buttons.forEach((button) => button.addEventListener("click", () => {
+					if (locked || button.classList.contains("is-open") || button.classList.contains("is-matched")) return;
+					button.textContent = button.dataset.symbol;
+					button.classList.add("is-open");
+					button.setAttribute("aria-label", `Kadi ${button.dataset.symbol}`);
+					opened.push(button);
+					if (opened.length < 2) return;
+					moves++; movesOutput.textContent = String(moves);
+					if (opened[0].dataset.symbol === opened[1].dataset.symbol) {
+						opened.forEach((card) => { card.classList.add("is-matched"); card.disabled = true; });
+						opened = []; matched++; pairsOutput.textContent = String(matched);
+						if (matched === symbols.length) message.textContent = `Umeshinda kwa hatua ${moves}!`;
+					} else {
+						locked = true;
+						waitTimer = window.setTimeout(() => {
+							opened.forEach((card) => { card.textContent = "?"; card.classList.remove("is-open"); card.setAttribute("aria-label", "Kadi imefungwa"); });
+							opened = []; locked = false;
+						}, 700);
+					}
+				}));
+				document.getElementById("memory-reset").addEventListener("click", startMemory);
+				selectCard();
+				setGamepadHandler((pad) => {
+					if (pad.directionPressed) {
+						const row = Math.floor(selectedIndex / 4), column = selectedIndex % 4;
+						if (pad.direction === "up") selectedIndex = Math.max(0, row - 1) * 4 + column;
+						if (pad.direction === "down") selectedIndex = Math.min(3, row + 1) * 4 + column;
+						if (pad.direction === "left") selectedIndex = row * 4 + Math.max(0, column - 1);
+						if (pad.direction === "right") selectedIndex = row * 4 + Math.min(3, column + 1);
+						selectCard();
+					}
+					if (pad.pressed(0)) buttons[selectedIndex].click();
+				});
+				stopCurrentGame = () => window.clearTimeout(waitTimer);
+			}
+
+			function startDuel() {
+				stage.innerHTML = `
+					<p class="game-instructions">Chagua jiwe, karatasi au mkasi. Kwanza kufikisha ushindi 3 ndiye bingwa. Gamepad: A jiwe, B karatasi, X mkasi.</p>
+					<div class="game-toolbar"><span>Wewe <strong id="duel-player-score">0</strong> — <strong id="duel-cpu-score">0</strong> CPU</span><button class="stage-button" id="duel-reset" type="button">Anza upya</button></div>
+					<div class="duel-choices" role="group" aria-label="Chagua hatua yako"><button class="duel-choice" data-choice="jiwe" aria-label="Jiwe">✊</button><button class="duel-choice" data-choice="karatasi" aria-label="Karatasi">✋</button><button class="duel-choice" data-choice="mkasi" aria-label="Mkasi">✌️</button></div>
+					<p class="game-message" id="duel-message" aria-live="polite">Chagua hatua yako!</p>`;
+				let playerScore = 0, cpuScore = 0, finished = false;
+				const scorePlayer = document.getElementById("duel-player-score");
+				const scoreCpu = document.getElementById("duel-cpu-score");
+				const message = document.getElementById("duel-message");
+				const choices = ["jiwe", "karatasi", "mkasi"];
+				const names = { jiwe: "Jiwe", karatasi: "Karatasi", mkasi: "Mkasi" };
+				stage.querySelector(".duel-choices").addEventListener("click", (event) => {
+					const button = event.target.closest("[data-choice]");
+					if (!button || finished) return;
+					const player = button.dataset.choice;
+					const cpu = choices[Math.floor(Math.random() * choices.length)];
+					if (player !== cpu) {
+						const wins = (player === "jiwe" && cpu === "mkasi") || (player === "karatasi" && cpu === "jiwe") || (player === "mkasi" && cpu === "karatasi");
+						if (wins) playerScore++; else cpuScore++;
+					}
+					scorePlayer.textContent = String(playerScore);
+					scoreCpu.textContent = String(cpuScore);
+					message.textContent = player === cpu ? `Sare — wote mmechagua ${names[player]}.` : `${names[player]} dhidi ya ${names[cpu]} · ${playerScore > cpuScore ? "Umeshinda raundi!" : "CPU imeshinda raundi."}`;
+					if (playerScore === 3 || cpuScore === 3) {
+						finished = true;
+						message.textContent = playerScore === 3 ? "🏆 Umekuwa bingwa wa mchezo huu!" : "CPU imeshinda. Jaribu tena!";
+					}
+				});
+				setGamepadHandler((pad) => {
+					const choiceButton = [0, 1, 2].find((buttonIndex) => pad.pressed(buttonIndex));
+					if (choiceButton !== undefined) stage.querySelector(`[data-choice="${choices[choiceButton]}"]`).click();
+				});
+				document.getElementById("duel-reset").addEventListener("click", startDuel);
+			}
+
+			function startPlatformer() {
+				stage.innerHTML = `
+					<p class="game-instructions">Tumia ← → au A/D kutembea, na ↑/Space kuruka. Gamepad: D-pad/analog kutembea, A kuruka. Kusanya nyota 5 kufungua lango.</p>
+					<div class="game-toolbar"><span>Nyota: <strong id="platform-score">0</strong>/5</span><button class="stage-button primary" id="platform-start" type="button">Anza upya</button></div>
+					<canvas id="platform-canvas" width="720" height="320" aria-label="Uwanja wa Sky Hopper"></canvas>
+					<div class="platform-controls" aria-label="Vidhibiti vya Sky Hopper">
+						<button type="button" data-platform-control="left" aria-label="Tembea kushoto">←</button>
+						<button type="button" data-platform-control="right" aria-label="Tembea kulia">→</button>
+						<button type="button" data-platform-control="jump" aria-label="Ruka">RUKA ⤴</button>
+					</div>
+					<p class="game-message" id="platform-message" aria-live="polite">Fika langoni na ukusanye nyota!</p>`;
+				const canvas = document.getElementById("platform-canvas");
+				const ctx = canvas.getContext("2d");
+				const scoreOutput = document.getElementById("platform-score");
+				const message = document.getElementById("platform-message");
+				const worldWidth = 2300;
+				const floorY = 276;
+				const platforms = [
+					{ x: 165, y: 228, w: 110 }, { x: 355, y: 184, w: 105 },
+					{ x: 590, y: 225, w: 125 }, { x: 790, y: 180, w: 105 },
+					{ x: 1030, y: 222, w: 120 }, { x: 1260, y: 178, w: 115 },
+					{ x: 1515, y: 220, w: 125 }, { x: 1770, y: 176, w: 110 },
+					{ x: 1985, y: 220, w: 130 }
+				];
+				const starSpots = [
+					{ x: 210, y: 198 }, { x: 401, y: 154 }, { x: 653, y: 195 },
+					{ x: 841, y: 150 }, { x: 1090, y: 192 }, { x: 1317, y: 148 },
+					{ x: 1576, y: 190 }, { x: 1825, y: 146 }, { x: 2045, y: 190 }
+				];
+				const keys = new Set();
+				const player = { x: 38, y: floorY - 34, w: 25, h: 34, vx: 0, vy: 0, grounded: true };
+				let collected = new Set();
+				let cameraX = 0;
+				let frameId = 0;
+				let ended = false;
+				let lastTime = 0;
+				let padLeft = false;
+				let padRight = false;
+				const controlButtons = [...stage.querySelectorAll("[data-platform-control]")];
+				const controlPointers = new Map();
+
+				function draw() {
+					ctx.fillStyle = "#101a2a";
+					ctx.fillRect(0, 0, canvas.width, canvas.height);
+					for (let index = 0; index < 22; index++) {
+						const x = (index * 96 - (cameraX * .35) % 96);
+						ctx.fillStyle = index % 2 ? "rgba(110,160,210,.08)" : "rgba(177,145,255,.07)";
+						ctx.beginPath(); ctx.arc(x, 55 + (index % 4) * 22, 2 + (index % 3), 0, Math.PI * 2); ctx.fill();
+					}
+					ctx.save();
+					ctx.translate(-cameraX, 0);
+					ctx.fillStyle = "#244454";
+					ctx.fillRect(0, floorY, worldWidth, canvas.height - floorY);
+					ctx.fillStyle = "#62d7ad";
+					ctx.fillRect(0, floorY, worldWidth, 7);
+					for (const platform of platforms) {
+						ctx.fillStyle = "#3a5268";
+						ctx.fillRect(platform.x, platform.y, platform.w, 12);
+						ctx.fillStyle = "#b9f47a";
+						ctx.fillRect(platform.x, platform.y, platform.w, 4);
+					}
+					starSpots.forEach((star, index) => {
+						if (collected.has(index)) return;
+						const pulse = 1 + Math.sin(performance.now() / 180 + index) * .1;
+						ctx.save(); ctx.translate(star.x, star.y); ctx.scale(pulse, pulse);
+						ctx.fillStyle = "#ffe16a"; ctx.beginPath();
+						for (let point = 0; point < 10; point++) {
+							const radius = point % 2 ? 5 : 11;
+							const angle = point * Math.PI / 5 - Math.PI / 2;
+							const x = Math.cos(angle) * radius, y = Math.sin(angle) * radius;
+							if (point === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+						}
+						ctx.closePath(); ctx.fill(); ctx.restore();
+					});
+					const gateX = worldWidth - 75;
+					ctx.fillStyle = collected.size >= 5 ? "#d5ff49" : "#526074";
+					ctx.fillRect(gateX, floorY - 67, 16, 67);
+					ctx.strokeStyle = collected.size >= 5 ? "rgba(213,255,73,.5)" : "rgba(255,255,255,.16)";
+					ctx.lineWidth = 5; ctx.beginPath(); ctx.arc(gateX + 8, floorY - 67, 24, Math.PI, 0); ctx.stroke();
+					ctx.fillStyle = "#e9f4ff";
+					ctx.beginPath(); ctx.roundRect(player.x, player.y, player.w, player.h, 7); ctx.fill();
+					ctx.fillStyle = "#182235"; ctx.fillRect(player.x + 15, player.y + 9, 4, 4);
+					ctx.restore();
+				}
+
+				function update(delta) {
+					if (ended) return;
+					const previousBottom = player.y + player.h;
+					const left = keys.has("ArrowLeft") || keys.has("a") || controlPointers.has("left") || padLeft;
+					const right = keys.has("ArrowRight") || keys.has("d") || controlPointers.has("right") || padRight;
+					player.vx = (right ? 3.5 : 0) - (left ? 3.5 : 0);
+					player.x = Math.max(0, Math.min(worldWidth - player.w, player.x + player.vx * delta));
+					player.vy = Math.min(10, player.vy + .55 * delta);
+					player.y += player.vy * delta;
+					player.grounded = false;
+					if (player.y + player.h >= floorY) {
+						player.y = floorY - player.h; player.vy = 0; player.grounded = true;
+					}
+					if (player.vy >= 0) {
+						for (const platform of platforms) {
+							if (player.x + player.w > platform.x && player.x < platform.x + platform.w
+								&& previousBottom <= platform.y && player.y + player.h >= platform.y) {
+								player.y = platform.y - player.h; player.vy = 0; player.grounded = true; break;
+							}
+						}
+					}
+					starSpots.forEach((star, index) => {
+						if (!collected.has(index) && Math.abs(player.x + player.w / 2 - star.x) < 22
+							&& Math.abs(player.y + player.h / 2 - star.y) < 24) {
+							collected.add(index); scoreOutput.textContent = String(collected.size);
+						}
+					});
+					if (player.x >= worldWidth - 100) {
+						if (collected.size >= 5) { ended = true; message.textContent = "🏆 Umeshinda! Nyota zimefungua lango."; }
+						else { player.x = worldWidth - 120; message.textContent = "Kusanya angalau nyota 5 ili kufungua lango."; }
+					}
+					cameraX = Math.max(0, Math.min(worldWidth - canvas.width, player.x - canvas.width * .38));
+				}
+				function loop(time) {
+					const delta = Math.min((time - (lastTime || time)) / 16.67, 2);
+					lastTime = time;
+					update(delta); draw();
+					if (!ended) frameId = requestAnimationFrame(loop);
+				}
+				function jump() {
+					if (player.grounded && !ended) { player.vy = -10.8; player.grounded = false; }
+				}
+				function onKeyDown(event) {
+					const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+					if (["ArrowLeft", "ArrowRight", "ArrowUp", " "].includes(event.key)) event.preventDefault();
+					keys.add(key);
+					if (["ArrowUp", " ", "w"].includes(key) && !event.repeat) jump();
+				}
+				function onKeyUp(event) { keys.delete(event.key.length === 1 ? event.key.toLowerCase() : event.key); }
+				function reset() {
+					cancelAnimationFrame(frameId);
+					player.x = 38; player.y = floorY - player.h; player.vx = 0; player.vy = 0; player.grounded = true;
+					collected = new Set(); cameraX = 0; ended = false; lastTime = 0;
+					scoreOutput.textContent = "0"; message.textContent = "Fika langoni na ukusanye nyota!";
+					frameId = requestAnimationFrame(loop);
+				}
+				document.addEventListener("keydown", onKeyDown);
+				document.addEventListener("keyup", onKeyUp);
+				controlButtons.forEach((button) => {
+					button.addEventListener("pointerdown", (event) => {
+						event.preventDefault();
+						const action = button.dataset.platformControl;
+						if (action === "jump") { jump(); return; }
+						controlPointers.set(action, event.pointerId);
+						button.setPointerCapture(event.pointerId);
+					});
+					const release = (event) => {
+						if (controlPointers.get(button.dataset.platformControl) === event.pointerId) {
+							controlPointers.delete(button.dataset.platformControl);
+						}
+					};
+					button.addEventListener("pointerup", release);
+					button.addEventListener("pointercancel", release);
+					button.addEventListener("lostpointercapture", release);
+				});
+				document.getElementById("platform-start").addEventListener("click", reset);
+				reset();
+				setGamepadHandler((pad) => {
+					padLeft = pad.held(14) || pad.horizontal < -.35;
+					padRight = pad.held(15) || pad.horizontal > .35;
+					if (pad.pressed(0) || pad.pressed(12)) jump();
+				});
+				stopCurrentGame = () => {
+					cancelAnimationFrame(frameId);
+					document.removeEventListener("keydown", onKeyDown);
+					document.removeEventListener("keyup", onKeyUp);
+					keys.clear(); controlPointers.clear();
+				};
+			}
+
+			function startArena() {
+				stage.innerHTML = `
+					<p class="game-instructions">Pambana na CPU kwenye mchezo wa arcade usio na damu. Gamepad: A piga, B linda, X nishati. Kwanza kufikisha raundi 2 ndiye mshindi.</p>
+					<div class="game-toolbar"><span>Raundi: <strong id="arena-round">0 — 0</strong></span><button class="stage-button" id="arena-reset" type="button">Anza upya</button></div>
+					<div class="game-toolbar"><span>Mchezaji</span><span>CPU</span></div>
+					<div class="health-track" aria-label="Nguvu ya mchezaji"><div class="health-fill" id="player-health"></div></div>
+					<div class="health-track" aria-label="Nguvu ya CPU"><div class="health-fill cpu" id="cpu-health"></div></div>
+					<div class="arena-fighters" aria-hidden="true"><span class="arena-fighter" id="player-fighter">🦊</span><span class="arena-vs">DUEL</span><span class="arena-fighter" id="cpu-fighter">🐺</span></div>
+					<div class="arena-actions" role="group" aria-label="Hatua za pambano"><button class="stage-button primary" type="button" data-arena-action="strike">⚡ Piga</button><button class="stage-button" type="button" data-arena-action="guard">🛡 Linda</button><button class="stage-button" type="button" data-arena-action="burst">✨ Nishati</button></div>
+					<p class="game-message" id="arena-message" aria-live="polite">Chagua hatua yako. Nishati hujaa kwa kila raundi.</p>`;
+				const playerHealth = document.getElementById("player-health");
+				const cpuHealth = document.getElementById("cpu-health");
+				const scoreOutput = document.getElementById("arena-round");
+				const message = document.getElementById("arena-message");
+				const playerFighter = document.getElementById("player-fighter");
+				const cpuFighter = document.getElementById("cpu-fighter");
+				let playerRounds = 0, cpuRounds = 0, playerHp = 100, cpuHp = 100, energy = 0, finished = false, cpuTimer;
+
+				function updateBars() {
+					playerHealth.style.width = `${playerHp}%`;
+					cpuHealth.style.width = `${cpuHp}%`;
+					scoreOutput.textContent = `${playerRounds} — ${cpuRounds}`;
+				}
+				function hitAnimation(element, className) {
+					element.classList.add(className);
+					window.setTimeout(() => element.classList.remove(className), 170);
+				}
+				function nextRound() {
+					if (playerHp <= 0) cpuRounds++;
+					else playerRounds++;
+					updateBars();
+					if (playerRounds >= 2 || cpuRounds >= 2) {
+						finished = true;
+						message.textContent = playerRounds >= 2 ? "🏆 Bingwa wa Neon Arena ni wewe!" : "CPU imeshinda pambano. Jaribu tena!";
+						return;
+					}
+					playerHp = 100; cpuHp = 100; energy = Math.min(energy + 1, 2);
+					updateBars();
+					message.textContent = `Raundi mpya! Nishati yako: ${energy}/2.`;
+				}
+				function cpuRespond(action, guarded) {
+					if (finished) return;
+					const cpuAction = Math.random() < .23 ? "guard" : "strike";
+					if (cpuAction === "strike") {
+						const damage = guarded ? 7 : 14;
+						playerHp = Math.max(0, playerHp - damage);
+						hitAnimation(playerFighter, "player-hit");
+						message.textContent = guarded ? "Umezuia sehemu ya shambulizi la CPU." : "CPU imeshambulia. Chagua hatua yako!";
+					} else {
+						message.textContent = "CPU imejilinda. Jaribu shambulizi la Nishati!";
+					}
+					if (action === "guard") message.textContent = "Umejilinda na kupunguza madhara ya raundi hii.";
+					updateBars();
+					if (playerHp === 0 || cpuHp === 0) nextRound();
+				}
+				stage.querySelector(".arena-actions").addEventListener("click", (event) => {
+					const button = event.target.closest("[data-arena-action]");
+					if (!button || finished) return;
+					const action = button.dataset.arenaAction;
+					if (action === "burst" && energy < 2) {
+						message.textContent = "Nishati haijajaa bado. Shinda au cheza raundi zaidi!"; return;
+					}
+					if (action === "guard") {
+						message.textContent = "Umeweka ulinzi wako.";
+						cpuTimer = window.setTimeout(() => cpuRespond(action, true), 450);
+						return;
+					}
+					const damage = action === "burst" ? 38 : 20;
+					if (action === "burst") energy = 0;
+					cpuHp = Math.max(0, cpuHp - damage);
+					hitAnimation(cpuFighter, "cpu-hit");
+					message.textContent = action === "burst" ? "Nishati ya mwanga imefika!" : "Shambulizi limefika! Jihadhari na hatua ya CPU.";
+					updateBars();
+					if (cpuHp === 0) { nextRound(); return; }
+					cpuTimer = window.setTimeout(() => cpuRespond(action, false), 450);
+				});
+				setGamepadHandler((pad) => {
+					const action = [0, 1, 2].find((buttonIndex) => pad.pressed(buttonIndex));
+					if (action !== undefined) stage.querySelector(`[data-arena-action="${["strike", "guard", "burst"][action]}"]`).click();
+				});
+				document.getElementById("arena-reset").addEventListener("click", () => {
+					window.clearTimeout(cpuTimer);
+					startArena();
+				});
+				stopCurrentGame = () => window.clearTimeout(cpuTimer);
+			}
+		})();
+	</script>
+</body>
+</html>

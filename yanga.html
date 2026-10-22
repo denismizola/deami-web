@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Historia ya Young Africans SC ya Tanzania kuanzia mwaka 2000, mataji ya ligi na safari yake katika mashindano ya Afrika.">
+	<title>Young Africans SC | Historia 2000–2026</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--green: #087a45;
+			--green-dark: #06452f;
+			--yellow: #f2c230;
+			--ink: #17231d;
+			--muted: #5e6c63;
+			--paper: #f5f6f0;
+			--line: #dce3db;
+			--white: #fff;
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+
+		body {
+			margin: 0;
+			background: var(--paper);
+			color: var(--ink);
+			font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+			line-height: 1.65;
+		}
+
+		a { color: inherit; }
+
+		.topbar {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 24px;
+			padding: 18px max(6vw, 22px);
+			background: var(--green-dark);
+			color: var(--white);
+		}
+
+		.brand {
+			font-size: 0.9rem;
+			font-weight: 800;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		.topbar nav { display: flex; flex-wrap: wrap; gap: 22px; }
+		.topbar nav a { color: #e9f2eb; font-size: 0.9rem; text-decoration: none; }
+		.topbar nav a:hover { color: var(--yellow); }
+
+		.hero {
+			position: relative;
+			overflow: hidden;
+			padding: clamp(68px, 11vw, 140px) max(8vw, 24px) 76px;
+			background: var(--green);
+			color: var(--white);
+		}
+
+		.hero::after {
+			position: absolute;
+			top: -110px;
+			right: -100px;
+			width: min(47vw, 560px);
+			aspect-ratio: 1;
+			border: 1px solid rgb(255 255 255 / 18%);
+			border-radius: 50%;
+			box-shadow: 0 0 0 48px rgb(255 255 255 / 4%), 0 0 0 100px rgb(255 255 255 / 3%);
+			content: "";
+			pointer-events: none;
+		}
+
+		.eyebrow {
+			margin: 0 0 12px;
+			color: var(--yellow);
+			font-size: 0.8rem;
+			font-weight: 800;
+			letter-spacing: 0.13em;
+			text-transform: uppercase;
+		}
+
+		h1, h2, h3, p { margin-top: 0; }
+		h1 {
+			position: relative;
+			z-index: 1;
+			max-width: 850px;
+			margin-bottom: 18px;
+			font-family: Georgia, "Times New Roman", serif;
+			font-size: clamp(2.8rem, 7vw, 6.6rem);
+			font-weight: 500;
+			letter-spacing: 0;
+			line-height: 0.98;
+		}
+
+		.hero-copy { position: relative; z-index: 1; max-width: 610px; color: #e4f0e7; font-size: 1.08rem; }
+		.hero-date { position: relative; z-index: 1; margin-top: 28px; color: var(--yellow); font-size: 0.86rem; font-weight: 700; }
+
+		main { width: min(1100px, 88vw); margin: 0 auto; }
+		section { padding: 70px 0; border-bottom: 1px solid var(--line); }
+		.section-heading { max-width: 680px; margin-bottom: 30px; }
+		.section-heading h2 { margin-bottom: 8px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 500; line-height: 1.12; }
+		.section-heading p { color: var(--muted); }
+
+		.facts {
+			display: grid;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			border: 1px solid var(--line);
+			background: var(--white);
+		}
+
+		.fact { min-height: 140px; padding: 22px; border-right: 1px solid var(--line); }
+		.fact:last-child { border-right: 0; }
+		.fact strong { display: block; color: var(--green); font-family: Georgia, "Times New Roman", serif; font-size: 2rem; font-weight: 500; }
+		.fact span { display: block; margin-top: 4px; color: var(--muted); font-size: 0.9rem; }
+
+		.timeline { display: grid; grid-template-columns: 130px 1fr; }
+		.period { padding: 22px 18px 22px 0; border-top: 1px solid var(--line); color: var(--green); font-size: 1.1rem; font-weight: 800; }
+		.period-content { padding: 22px 0; border-top: 1px solid var(--line); }
+		.period-content h3 { margin-bottom: 7px; font-size: 1.08rem; }
+		.period-content p { margin-bottom: 8px; color: var(--muted); }
+		.period-content p:last-child { margin-bottom: 0; }
+
+		.season-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 14px;
+			margin: 28px 0;
+			align-items: stretch;
+		}
+
+		.season-card {
+			display: flex;
+			flex-direction: column;
+			padding: 22px;
+			border: 1px solid var(--line);
+			border-top: 4px solid var(--green);
+			background: var(--white);
+			transition: box-shadow 180ms ease, transform 180ms ease;
+		}
+
+		.season-card:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 10px 24px rgb(23 35 29 / 9%);
+		}
+
+		.season-card::before {
+			display: inline-block;
+			margin-bottom: 11px;
+			padding: 4px 8px;
+			background: #e8f2e9;
+			color: var(--green-dark);
+			content: "BINGWA WA MSIMU";
+			font-size: 0.68rem;
+			font-weight: 800;
+			letter-spacing: 0.08em;
+		}
+
+		.season-card h3 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 1.55rem; font-weight: 500; }
+		.season-card .season-label { margin: 3px 0 12px; color: var(--muted); font-size: 0.88rem; }
+		.season-card > p:not(.season-label) { margin-bottom: 16px; color: var(--muted); }
+		.season-stats { width: 100%; margin: 0 0 16px; border-collapse: collapse; font-size: 0.9rem; }
+		.season-stats th, .season-stats td { padding: 10px 12px; border-bottom: 1px solid var(--line); }
+		.season-stats thead th { border-bottom: 2px solid var(--yellow); background: var(--green-dark); color: var(--white); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.06em; text-align: left; text-transform: uppercase; }
+		.season-stats thead th:last-child { text-align: right; }
+		.season-stats thead th:last-child { color: var(--yellow); }
+		.season-stats tbody th { width: 48%; color: var(--muted); font-size: 0.82rem; font-weight: 500; text-align: left; }
+		.season-stats tbody td { font-weight: 800; text-align: right; overflow-wrap: anywhere; }
+		.season-stats tbody tr:nth-child(even):not(:last-child) { background: #f4f7f3; }
+		.season-stats tbody tr:not(:last-child):hover { background: #e7f0e8; }
+		.season-stats tbody tr:last-child th, .season-stats tbody tr:last-child td { border: 0; background: var(--green-dark); }
+		.season-stats tbody tr:last-child th { color: var(--yellow); font-weight: 700; }
+		.season-stats tbody tr:last-child td { color: var(--white); }
+		.season-link { margin-top: auto; padding-top: 4px; color: var(--green-dark); font-size: 0.88rem; font-weight: 800; text-underline-offset: 4px;
+		}
+
+		.note { padding: 18px 20px; border-left: 4px solid var(--yellow); background: #fff9e5; color: #55491f; font-size: 0.92rem; }
+
+		.africa-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+		.africa-item { padding: 24px; border-top: 4px solid var(--green); background: var(--white); }
+		.africa-item .year { color: var(--green); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; }
+		.africa-item h3 { margin: 8px 0; font-family: Georgia, "Times New Roman", serif; font-size: 1.45rem; font-weight: 500; }
+		.africa-item p { margin: 0; color: var(--muted); }
+
+		.current {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			align-items: center;
+			gap: 26px;
+			padding: 28px;
+			background: var(--green-dark);
+			color: var(--white);
+		}
+
+		.current h3 { margin-bottom: 6px; font-family: Georgia, "Times New Roman", serif; font-size: 1.55rem; font-weight: 500; }
+		.current p { max-width: 660px; margin-bottom: 0; color: #d4e6d9; }
+		.current a { display: inline-block; padding: 11px 15px; background: var(--yellow); color: var(--ink); font-size: 0.9rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
+
+		.sources { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+		.sources a { color: var(--green-dark); font-weight: 700; text-underline-offset: 4px; }
+		.source-note { margin-top: 18px; color: var(--muted); font-size: 0.85rem; }
+		footer { padding: 26px 6vw; background: #e9eee7; color: var(--muted); font-size: 0.85rem; text-align: center; }
+
+		@media (max-width: 720px) {
+			.topbar { align-items: flex-start; flex-direction: column; gap: 10px; }
+			.topbar nav { gap: 14px; }
+			.facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.fact:nth-child(2) { border-right: 0; }
+			.fact:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+			.timeline { grid-template-columns: 88px 1fr; }
+			.season-grid { grid-template-columns: 1fr; }
+			.season-card:hover { transform: none; }
+			.africa-grid { grid-template-columns: 1fr; }
+			.current { grid-template-columns: 1fr; }
+			.current a { justify-self: start; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+		}
+
+		@media (max-width: 420px) {
+			main { width: min(100% - 36px, 1100px); }
+			.hero { padding-right: 20px; padding-left: 20px; }
+			.fact { padding: 16px; }
+			.fact strong { font-size: 1.7rem; }
+			.timeline { grid-template-columns: 1fr; }
+			.period { padding-bottom: 0; border-top: 1px solid var(--line); }
+			.period-content { padding-top: 12px; border-top: 0; }
+		}
+	</style>
+	<link rel="stylesheet" href="deami-layout.css">
+</head>
+<body>
+	<header class="topbar">
+		<div class="brand">Yanga SC · Tanzania</div>
+		<nav aria-label="Urambazaji mkuu">
+			<a href="#historia">Historia</a>
+			<a href="#mataji">Mataji</a>
+			<a href="#afrika">Afrika</a>
+			<a href="#sasa">Hadi sasa</a>
+			<a href="simba.html">Simba SC</a>
+			<a href="azam.html">Azam FC</a>
+			<a href="q.html">DEAMi Web</a>
+		</nav>
+	</header>
+
+	<div class="hero">
+		<p class="eyebrow">Dar es Salaam · Tanzania</p>
+		<h1>Young Africans<br>Sports Club</h1>
+		<p class="hero-copy">Safari ya Wananchi kuanzia mwaka 2000: vipindi vya mafanikio ya ligi, ushindani wa nyumbani na hatua kubwa kwenye soka la Afrika.</p>
+		<p class="hero-date">MATAJI YA LIGI HADI MSIMU WA 2025/26 · TAARIFA YA SASA: OKTOBA 2026</p>
+	</div>
+
+	<main>
+		<section id="historia">
+			<div class="section-heading">
+				<p class="eyebrow">Klabu kwa ufupi</p>
+				<h2>Historia yenye mizizi mirefu</h2>
+				<p>Young Africans SC, inayojulikana pia kama Yanga, ni klabu ya soka ya Dar es Salaam iliyoanzishwa mwaka 1935. Mashabiki wake huitwa Wananchi, na rangi zinazotambulisha klabu ni kijani na njano.</p>
+			</div>
+			<div class="facts" aria-label="Taarifa muhimu za klabu">
+				<div class="fact"><strong>1935</strong><span>Mwaka wa kuanzishwa</span></div>
+				<div class="fact"><strong>Dar</strong><span>Mji wa klabu</span></div>
+				<div class="fact"><strong>Kijani</strong><span>Rangi zinazotambulisha klabu</span></div>
+				<div class="fact"><strong>Wananchi</strong><span>Jina maarufu la mashabiki</span></div>
+			</div>
+		</section>
+
+		<section id="mataji">
+			<div class="section-heading">
+				<p class="eyebrow">Ligi kuu</p>
+				<h2>Mataji ya ligi tangu 2000</h2>
+				<p>Hapa kuna muhtasari wa kila taji la ligi la Yanga kuanzia mwaka 2000 hadi 2026, pamoja na takwimu za msimu na kiungo cha jedwali kamili. Miaka inaonyesha msimu ulipokamilika.</p>
+			</div>
+			<div class="season-grid" aria-label="Takwimu za kila msimu ambao Yanga ilitwaa ubingwa">
+				<article class="season-card">
+					<h3>2000</h3><p class="season-label">Ligi ya Muungano · fainali</p>
+					<p>Katika ligi ya timu sita iliyokusanya washindi wa pande za Muungano, Yanga ilimaliza kileleni baada ya mechi 10. Rekodi ya RSSSF inaonyesha mabao 21 ya kufunga na 7 ya kufungwa.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>10</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>5 / 4 / 1</td></tr>
+							<tr><th scope="row">Mabao</th><td>21–7</td></tr>
+							<tr><th scope="row">Pointi</th><td>19 (nafasi ya 1)</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz00.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2000 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2005</h3><p class="season-label">Ligi Kuu Tanzania Bara · 2005</p>
+					<p>Yanga ilitwaa ubingwa kwa pointi 61, mbele ya Moro United kwa pointi 3. Ilifunga mabao 43 na kuruhusu 16 katika mechi 28.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>28</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>18 / 7 / 3</td></tr>
+							<tr><th scope="row">Mabao</th><td>43–16</td></tr>
+							<tr><th scope="row">Pointi</th><td>61 · +3 dhidi ya Moro United</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz05.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2005 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2006</h3><p class="season-label">Ligi Kuu Tanzania Bara · 2006</p>
+					<p>Yanga ilimaliza ligi ikiwa na pointi 70, ikiongoza Simba kwa pointi 8. Rekodi yake ilikuwa ushindi 21, sare 7 na kushindwa mara 2.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>30</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>21 / 7 / 2</td></tr>
+							<tr><th scope="row">Mabao</th><td>53–17</td></tr>
+							<tr><th scope="row">Pointi</th><td>70 · +8 dhidi ya Simba</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz06.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2006 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2008</h3><p class="season-label">Msimu wa 2007/08</p>
+					<p>Yanga ilitwaa ligi kwa pointi 49, nne zaidi ya Prisons SC. Timu ilifunga mabao 33 na kuruhusu 16 katika mechi 26.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>26</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>14 / 7 / 5</td></tr>
+							<tr><th scope="row">Mabao</th><td>33–16</td></tr>
+							<tr><th scope="row">Pointi</th><td>49 · +4 dhidi ya Prisons</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz08.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2007/08 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2009</h3><p class="season-label">Msimu wa 2008/09</p>
+					<p>Yanga ilishinda ligi kwa pointi 51, ikitangulia Simba kwa pointi 11. Boniface Ambani wa Yanga alifunga mabao 18 na kuwa mfungaji bora wa ligi msimu huo.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>22</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>16 / 3 / 3</td></tr>
+							<tr><th scope="row">Mabao</th><td>42–18</td></tr>
+							<tr><th scope="row">Pointi</th><td>51 · +11 dhidi ya Simba</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz09.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2008/09 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2011</h3><p class="season-label">Msimu wa 2010/11</p>
+					<p>Yanga na Simba zilimaliza zikiwa na pointi 49 kila moja. Jedwali la kihistoria linamtaja Yanga bingwa; mabao ya kufungwa yalikuwa 7 kwa Yanga na 17 kwa Simba.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>22</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>14 / 7 / 1</td></tr>
+							<tr><th scope="row">Mabao</th><td>32–7</td></tr>
+							<tr><th scope="row">Pointi</th><td>49 · sare ya pointi na Simba</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz2011.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2010/11 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2013</h3><p class="season-label">Msimu wa 2012/13</p>
+					<p>Yanga iliongoza ligi kwa pointi 60, mbele ya Azam FC kwa pointi 6. Katika mechi 26, ilipata ushindi 18 na kufunga mabao 47.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>26</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>18 / 6 / 2</td></tr>
+							<tr><th scope="row">Mabao</th><td>47–14</td></tr>
+							<tr><th scope="row">Pointi</th><td>60 · +6 dhidi ya Azam</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz2013.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2012/13 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2015</h3><p class="season-label">Msimu wa 2014/15</p>
+					<p>Yanga ilitwaa taji ikiwa na pointi 55, mbele ya Azam FC kwa pointi 6. Iliruhusu mabao 18 katika msimu wa mechi 26.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>26</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>17 / 4 / 5</td></tr>
+							<tr><th scope="row">Mabao</th><td>52–18</td></tr>
+							<tr><th scope="row">Pointi</th><td>55 · +6 dhidi ya Azam</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz2015.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2014/15 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2016</h3><p class="season-label">Msimu wa 2015/16</p>
+					<p>Yanga ilimaliza na pointi 73, tisa mbele ya Azam FC. Ilishinda mechi 22 kati ya 30 na kufunga mabao 70.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>30</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>22 / 7 / 1</td></tr>
+							<tr><th scope="row">Mabao</th><td>70–20</td></tr>
+							<tr><th scope="row">Pointi</th><td>73 · +9 dhidi ya Azam</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz2016.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2015/16 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2017</h3><p class="season-label">Msimu wa 2016/17</p>
+					<p>Yanga na Simba zilikusanya pointi 68 kila moja, lakini jedwali la RSSSF linamtaja Yanga bingwa. Yanga ilifunga mabao 57 na kuruhusu 14 katika mechi 30.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>30</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>21 / 5 / 4</td></tr>
+							<tr><th scope="row">Mabao</th><td>57–14</td></tr>
+							<tr><th scope="row">Pointi</th><td>68 · sawa na Simba</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz2017.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2016/17 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2022</h3><p class="season-label">Msimu wa 2021/22</p>
+					<p>Yanga ilimaliza bila kushindwa mechi yoyote na kupata pointi 74, ikiwa mbele ya Simba kwa pointi 13. Ilifungwa mabao 8 pekee katika ligi.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>30</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>22 / 8 / 0</td></tr>
+							<tr><th scope="row">Mabao</th><td>49–8</td></tr>
+							<tr><th scope="row">Pointi</th><td>74 · bila kushindwa</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz2022.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2021/22 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2023</h3><p class="season-label">Msimu wa 2022/23</p>
+					<p>Yanga ilitwaa ubingwa kwa pointi 78, tano mbele ya Simba. Tofauti ya mabao ilikuwa +43, kutokana na mabao 61 ya kufunga na 18 ya kufungwa.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>30</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>25 / 3 / 2</td></tr>
+							<tr><th scope="row">Mabao</th><td>61–18</td></tr>
+							<tr><th scope="row">Pointi</th><td>78 · +5 dhidi ya Simba</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz2023.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2022/23 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2024</h3><p class="season-label">Msimu wa 2023/24</p>
+					<p>Yanga ilipata pointi 80, ikiwa mbele ya Azam FC kwa pointi 11. Ilishinda mechi 26 kati ya 30 na kufunga mabao 71.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>30</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>26 / 2 / 2</td></tr>
+							<tr><th scope="row">Mabao</th><td>71–14</td></tr>
+							<tr><th scope="row">Pointi</th><td>80 · +11 dhidi ya Azam</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz2024.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2023/24 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2025</h3><p class="season-label">Msimu wa 2024/25</p>
+					<p>Yanga ilifunga mabao 83 na kuruhusu 10, na kumaliza na pointi 82. Iliongoza Simba iliyomaliza ya pili kwa pointi 4.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>30</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>27 / 1 / 2</td></tr>
+							<tr><th scope="row">Mabao</th><td>83–10</td></tr>
+							<tr><th scope="row">Pointi</th><td>82 · +4 dhidi ya Simba</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz2025.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2024/25 (RSSSF)</a>
+				</article>
+				<article class="season-card">
+					<h3>2026</h3><p class="season-label">Msimu wa 2025/26</p>
+					<p>Kwa rekodi ya RSSSF iliyosasishwa Agosti 2026, Yanga ilitwaa taji tena kwa pointi 75, mbele ya Simba kwa pointi 2. Ilifunga mabao 71 na kuruhusu 9.</p>
+					<table class="season-stats">
+						<thead><tr><th scope="col">Takwimu</th><th scope="col">Yanga</th></tr></thead>
+						<tbody>
+							<tr><th scope="row">Mechi</th><td>30</td></tr>
+							<tr><th scope="row">Ushindi / sare / kushindwa</th><td>23 / 6 / 1</td></tr>
+							<tr><th scope="row">Mabao</th><td>71–9</td></tr>
+							<tr><th scope="row">Pointi</th><td>75 · +2 dhidi ya Simba</td></tr>
+						</tbody>
+					</table>
+					<a class="season-link" href="https://www.rsssf.org/tablest/tanz2026.html" target="_blank" rel="noopener noreferrer">Soma jedwali na matokeo ya 2025/26 (RSSSF)</a>
+				</article>
+			</div>
+			<div class="note"><strong>Marekebisho ya orodha ya awali:</strong> miaka 2007 na 2010 ilikuwa imeingizwa kimakosa kama miaka ya ubingwa wa Yanga; rekodi ya RSSSF inaweka Simba bingwa wa 2007 na 2010. Orodha hii ina mataji 15 ya Yanga katika miaka iliyotajwa kuanzia 2000 hadi 2026. Mechi, mabao na pointi ni takwimu za jedwali la ligi; tofauti na mshindani wa pili imeonyeshwa pale ilipoweza kuthibitishwa.</div>
+		</section>
+
+		<section>
+			<div class="section-heading">
+				<p class="eyebrow">Vipindi muhimu</p>
+				<h2>Miaka ilivyojipanga</h2>
+			</div>
+			<div class="timeline">
+				<div class="period">2000–2011</div>
+				<div class="period-content">
+					<h3>Kurejea kileleni</h3>
+					<p>Baada ya taji la mwaka 2000, Yanga ilitwaa ubingwa tena mwaka 2005 na kuendelea na mfululizo wa mataji hadi 2011. Kipindi hiki kiliimarisha nafasi yake kama moja ya klabu kubwa nchini.</p>
+				</div>
+				<div class="period">2012–2020</div>
+				<div class="period-content">
+					<h3>Ushindani wa ligi waendelea</h3>
+					<p>Mataji ya 2013 na 2015–2017 yaliendeleza mafanikio ya klabu. Miaka iliyofuata ilileta ushindani mkali zaidi wa ubingwa wa ndani.</p>
+				</div>
+				<div class="period">2021–2025</div>
+				<div class="period-content">
+					<h3>Mfululizo mpya wa ubingwa</h3>
+					<p>Yanga ilitwaa ligi katika misimu mitano mfululizo kuanzia 2021/22 hadi 2025/26. Katika msimu wa 2021/22, haikupoteza mchezo wowote; mfululizo huo uliendelea hadi taji la 2025/26.</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="afrika">
+			<div class="section-heading">
+				<p class="eyebrow">Mashindano ya CAF</p>
+				<h2>Hatua kubwa barani Afrika</h2>
+				<p>Katika miaka ya karibuni, Yanga imeongeza ushindani wake nje ya Tanzania na kufika hatua za mwisho za mashindano ya klabu za Afrika.</p>
+			</div>
+			<div class="africa-grid">
+				<article class="africa-item">
+					<div class="year">2022/23</div>
+					<h3>Fainali ya Kombe la Shirikisho</h3>
+					<p>Yanga ilifika fainali ya CAF Confederation Cup na kucheza dhidi ya USM Alger ya Algeria. USM Alger ilitwaa taji kwa kanuni ya mabao ya ugenini baada ya sare ya jumla ya 2–2.</p>
+				</article>
+				<article class="africa-item">
+					<div class="year">2023/24</div>
+					<h3>Robo fainali ya Ligi ya Mabingwa</h3>
+					<p>Yanga ilifika robo fainali ya CAF Champions League na kukutana na Mamelodi Sundowns ya Afrika Kusini. Sundowns ilisonga mbele baada ya mikwaju ya penalti kufuatia sare ya jumla.</p>
+				</article>
+			</div>
+		</section>
+
+		<section id="sasa">
+			<div class="current">
+				<div>
+					<p class="eyebrow">Taarifa ya sasa · Oktoba 2026</p>
+					<h3>Msimu wa 2026/27 unaendelea</h3>
+					<p>Rekodi ya mwisho ya ligi iliyoongezwa hapa ni ubingwa wa Yanga wa 2025/26. Msimu wa 2026/27 unaendelea, kwa hiyo nafasi, pointi na matokeo yake bado hubadilika kila mechi.</p>
+				</div>
+				<a href="https://yangasc.co.tz/" target="_blank" rel="noopener noreferrer">Tovuti rasmi ya Yanga</a>
+			</div>
+		</section>
+
+		<section>
+			<div class="section-heading">
+				<p class="eyebrow">Marejeo</p>
+				<h2>Vyanzo vya taarifa</h2>
+				<p>Tumia vyanzo hivi kuthibitisha taarifa za msimu mpya na kupata matangazo rasmi ya klabu na mashindano.</p>
+			</div>
+			<div class="sources">
+				<a href="https://yangasc.co.tz/" target="_blank" rel="noopener noreferrer">Young Africans SC</a>
+				<a href="https://www.cafonline.com/" target="_blank" rel="noopener noreferrer">CAF</a>
+				<a href="https://www.tff.or.tz/" target="_blank" rel="noopener noreferrer">Shirikisho la Mpira wa Miguu Tanzania</a>
+				<a href="https://www.rsssf.org/tablest/tanzchamp.html" target="_blank" rel="noopener noreferrer">RSSSF: Mabingwa wa Tanzania</a>
+			</div>
+			<p class="source-note">Kumbuka: msimu wa ligi unaweza kuanza mwaka mmoja na kumalizika mwingine; ndiyo maana baadhi ya matukio yameandikwa kwa mfumo wa 2023/24. Thibitisha idadi na matokeo ya msimu wa sasa kwenye chanzo rasmi kabla ya kuyasasisha kwenye tovuti yako.</p>
+		</section>
+	</main>
+
+	<footer>Young Africans SC · Historia ya klabu kutoka Tanzania · 2000–2026</footer>
+    <script src="deami-context.js" defer></script>
+</body>
+</html>
