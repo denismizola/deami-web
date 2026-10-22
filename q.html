@@ -15,6 +15,16 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="DEAMi Web | Taarifa, michezo na burudani">
     <meta name="twitter:description" content="Taarifa, michezo, video, picha na nyaraka za elimu na burudani katika DEAMi Web.">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "DEAMi Web",
+        "url": "https://denismizola.github.io/deami-web/",
+        "description": "Taarifa, michezo, video, picha na nyaraka za elimu na burudani kwa Kiswahili.",
+        "inLanguage": "sw-TZ"
+    }
+    </script>
     <title>DEAMi Web | Taarifa, michezo na burudani</title>
     <style>
         :root {
@@ -34,6 +44,8 @@
         html { scroll-behavior: smooth; scroll-padding-top: 80px; }
         body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Trebuchet MS", "Segoe UI", sans-serif; line-height: 1.65; transition: background-color 700ms ease; }
         a { color: inherit; }
+        .skip-link { position: fixed; z-index: 10; top: 10px; left: 10px; padding: 10px 14px; border-radius: 8px; background: var(--lime); color: var(--forest); font-weight: 800; transform: translateY(-160%); }
+        .skip-link:focus { transform: translateY(0); }
 
         body[data-theme="sunset"] {
             --forest: #56313a;
@@ -395,6 +407,7 @@
     <link rel="stylesheet" href="deami-layout.css">
 </head>
 <body>
+    <a class="skip-link" href="#maudhui">Ruka kwenda kwenye maudhui</a>
     <header class="site-header">
         <div class="nav-wrap">
             <a class="brand" href="#mwanzo"><span class="brand-mark" aria-hidden="true">D</span><span>DEAMi Web</span></a>
@@ -446,7 +459,7 @@
         </div>
     </header>
 
-    <main>
+    <main id="maudhui">
         <section id="taarifa" class="section">
             <div class="section-head">
                 <div><p class="section-kicker">01 / Habari na vyanzo</p><h2>Habari, maarifa na vyanzo</h2></div>
@@ -908,7 +921,7 @@
                 document.body.dataset.theme = nextTheme;
             }
             backgroundThemeIndex = (backgroundThemeIndex + 1) % backgroundThemes.length;
-        }, 60_000);
+        }, 20_000);
 
         const informationItems = [
             {
